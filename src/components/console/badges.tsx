@@ -21,7 +21,7 @@ export function Pill({ tone, children, className }: { tone: Tone; children: Reac
   );
 }
 
-export function SourceBadge({ source, hostname }: { source: DataOrigin; hostname?: string }) {
+export function SourceBadge({ source, hostname }: { source: DataOrigin; hostname?: string | undefined }) {
   const { live } = useSourceStatus();
   if (source === "live" && live && hostname === "WIN11-LAB-01")
     return (

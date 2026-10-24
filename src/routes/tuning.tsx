@@ -58,7 +58,7 @@ function LoggingTuning() {
   </div>;
 }
 
-function TuningDetail({ change: c, hostname }: { change: TuningChange; hostname?: string }) {
+function TuningDetail({ change: c, hostname }: { change: TuningChange; hostname?: string | undefined }) {
   const validate = useValidateTuning();
   const apply = useApplyTuning();
   const rollback = useRollbackTuning();

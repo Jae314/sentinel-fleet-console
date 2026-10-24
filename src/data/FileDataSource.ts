@@ -27,7 +27,16 @@ export class FileDataSource implements DataSource {
     this.pending = Promise.all([
       this.read("endpoints.json", endpointSchema), this.read("detections.json", detectionSchema), this.read("actions.json", actionSchema), this.read("tuning_changes.json", tuningSchema), this.read("runs.json", runSchema),
     ]).then(([endpoints, detections, actions, tuning, runs]) => {
-      const result: FileSnapshot = { endpoints, detections, actions, tuning: tuning.map((c) => ({ ...c, status: safeTuningStatus(c) })), runs };
+      const result: FileSnapshot = {
+        endpoints,
+        detections: detections.map(({ actionId, ...d }) => ({ ...d, ...(actionId === undefined ? {} : { actionId }) })),
+        actions: actions.map(({ executedAt, decidedBy, auditLog, ...a }) => ({ ...a,
+          ...(executedAt === undefined ? {} : { executedAt }),
+          ...(decidedBy === undefined ? {} : { decidedBy }),
+          auditLog: auditLog.map(({ detail, ...e }) => ({ ...e, ...(detail === undefined ? {} : { detail }) })),
+        })),
+        tuning: tuning.map((c) => ({ ...c, status: safeTuningStatus(c) })), runs,
+      };
       this.cached = result;
       this.loadedAt = Date.now();
       return result;
