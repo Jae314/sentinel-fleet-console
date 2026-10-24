@@ -29,7 +29,7 @@ export function Panel({ title, right, children, className }: { title?: string; r
   );
 }
 
-export function EmptyState({ icon, title, hint }: { icon: ReactNode; title: string; hint?: string }) {
+export function EmptyState({ icon, title, hint }: { icon: ReactNode; title: string; hint?: string | undefined }) {
   return (
     <div className="flex flex-col items-center justify-center gap-2 px-6 py-14 text-center">
       <div className="text-muted-foreground">{icon}</div>

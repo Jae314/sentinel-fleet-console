@@ -66,7 +66,7 @@ const TEMPLATES: Template[] = [
     rule: "GR-NET-TI-003 Connection to threat-intel listed domain",
     severity: "High",
     action: "BlockDomain",
-    target: (r) => ["cdn-update-sync.top", "telemetry-ms.click", "login-0ffice.net", "files-share.zip"][Math.floor(r() * 4)],
+    target: (r) => ["cdn-update-sync.top", "telemetry-ms.click", "login-0ffice.net", "files-share.zip"][Math.floor(r() * 4)]!,
     risk: "Medium",
     reasoning: "Beacon-like HTTPS requests at ~60s jitter to a domain registered 3 days ago and listed in two TI feeds.",
   },
@@ -124,7 +124,7 @@ export class MockDataSource implements DataSource {
   private seed() {
     const r = mulberry32(1337);
     const now = Date.now();
-    const pick = <T,>(a: T[]) => a[Math.floor(r() * a.length)];
+    const pick = <T,>(a: T[]): T => a[Math.floor(r() * a.length)]!;
 
     this.endpoints.push({
       id: "ep-0000",
@@ -154,7 +154,7 @@ export class MockDataSource implements DataSource {
       });
     }
 
-    const live = this.endpoints[0];
+    const live = this.endpoints[0]!;
     const ev = (n: number) => Array.from({ length: n }, () => `EVT-${Math.floor(r() * 0xffffff).toString(16).toUpperCase().padStart(6, "0")}`);
 
     // Hand-authored scenarios
@@ -162,7 +162,7 @@ export class MockDataSource implements DataSource {
       {
         endpointId: live.id, hostname: live.hostname, source: "live",
         timestamp: new Date(now - 6 * 60_000).toISOString(),
-        technique: TEMPLATES[0].technique, rule: TEMPLATES[0].rule, severity: "High", confidence: 0.94, verdict: "Malicious",
+        technique: TEMPLATES[0]!.technique, rule: TEMPLATES[0]!.rule, severity: "High", confidence: 0.94, verdict: "Malicious",
         evidenceEventIds: ["EVT-4688-7F21A0", "EVT-4104-7F21A3", "EVT-SYS1-7F21B9"], evidenceVerified: true,
         reasoningSummary: "winword.exe spawned powershell.exe -nop -w hidden -enc JABjAD0A… Decoded script fetches hxxp://cdn-update-sync.top/a.ps1 and invokes it in memory. Script-block log 4104 confirms IEX of remote content.",
         proposedAction: { type: "KillProcess", target: "powershell.exe (PID 7724)", riskLevel: "High" },
@@ -170,21 +170,21 @@ export class MockDataSource implements DataSource {
       {
         endpointId: live.id, hostname: live.hostname, source: "live",
         timestamp: new Date(now - 42 * 60_000).toISOString(),
-        technique: TEMPLATES[1].technique, rule: "GR-AV-SIG-001 EICAR test signature", severity: "Medium", confidence: 0.99, verdict: "Malicious",
+        technique: TEMPLATES[1]!.technique, rule: "GR-AV-SIG-001 EICAR test signature", severity: "Medium", confidence: 0.99, verdict: "Malicious",
         evidenceEventIds: ["EVT-FILE-3A1C02", "EVT-HASH-3A1C05"], evidenceVerified: true,
         reasoningSummary: "File C:\\Users\\demo\\Downloads\\eicar.com matches the EICAR standard anti-malware test string (SHA256 275a021b…). Safe test file; quarantine is low-risk and reversible.",
         proposedAction: { type: "QuarantineFile", target: "C:\\Users\\demo\\Downloads\\eicar.com", riskLevel: "Low" },
       },
       {
-        endpointId: "ep-0412", hostname: this.endpoints[412].hostname, source: "simulated",
+        endpointId: "ep-0412", hostname: this.endpoints[412]!.hostname, source: "simulated",
         timestamp: new Date(now - 18 * 60_000).toISOString(),
-        technique: TEMPLATES[2].technique, rule: TEMPLATES[2].rule, severity: "High", confidence: 0.88, verdict: "Malicious",
+        technique: TEMPLATES[2]!.technique, rule: TEMPLATES[2]!.rule, severity: "High", confidence: 0.88, verdict: "Malicious",
         evidenceEventIds: ["EVT-DNS-91F004", "EVT-NET3-91F00A", "EVT-NET3-91F011"], evidenceVerified: true,
         reasoningSummary: "chrome.exe resolved login-0ffice.net (homoglyph of office) and posted form data. Domain is 2 days old and on 3 phishing feeds.",
         proposedAction: { type: "BlockDomain", target: "login-0ffice.net", riskLevel: "Medium" },
       },
       {
-        endpointId: "ep-0087", hostname: this.endpoints[87].hostname, source: "simulated",
+        endpointId: "ep-0087", hostname: this.endpoints[87]!.hostname, source: "simulated",
         timestamp: new Date(now - 33 * 60_000).toISOString(),
         technique: { id: "T1003.001", name: "OS Credential Dumping: LSASS Memory", tactic: "Credential Access" },
         rule: "GR-CRED-LSA-002 Handle open on lsass with VM_READ", severity: "Critical", confidence: 0.91, verdict: "Malicious",
@@ -193,9 +193,9 @@ export class MockDataSource implements DataSource {
         proposedAction: { type: "KillProcess", target: "lsass.exe", riskLevel: "Critical" },
       },
       {
-        endpointId: "ep-0733", hostname: this.endpoints[733].hostname, source: "simulated",
+        endpointId: "ep-0733", hostname: this.endpoints[733]!.hostname, source: "simulated",
         timestamp: new Date(now - 11 * 60_000).toISOString(),
-        technique: TEMPLATES[3].technique, rule: TEMPLATES[3].rule, severity: "Medium", confidence: 0.62, verdict: "Malicious",
+        technique: TEMPLATES[3]!.technique, rule: TEMPLATES[3]!.rule, severity: "Medium", confidence: 0.62, verdict: "Malicious",
         evidenceEventIds: ["EVT-7045-0D33E1", "EVT-7045-0D33E9"], evidenceVerified: false,
         reasoningSummary: "Model inferred an unsigned service install, but the referenced events could not be located in the log store (possible log gap or hallucinated IDs). Do not act until evidence is confirmed.",
         proposedAction: { type: "DisableService", target: "WinUpdateHelperSvc", riskLevel: "Medium" },
@@ -205,8 +205,8 @@ export class MockDataSource implements DataSource {
 
     // Generated fleet noise
     for (let i = 0; i < 300; i++) {
-      const t = TEMPLATES[Math.floor(r() * TEMPLATES.length)];
-      const ep = this.endpoints[1 + Math.floor(r() * 1199)];
+      const t = TEMPLATES[Math.floor(r() * TEMPLATES.length)]!;
+      const ep = this.endpoints[1 + Math.floor(r() * 1199)]!;
       const v: Verdict = r() < 0.72 ? "Malicious" : r() < 0.6 ? "Benign" : "NeedsMoreEvidence";
       const ts = now - Math.pow(r(), 0.8) * 24 * HOUR;
       this.addDetection(

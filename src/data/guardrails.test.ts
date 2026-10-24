@@ -45,7 +45,7 @@ describe("mock data source", () => {
     expect(eps).toHaveLength(1200);
     const live = eps.filter((e) => e.source === "live");
     expect(live).toHaveLength(1);
-    expect(live[0].hostname).toBe("WIN11-LAB-01");
+    expect(live[0]?.hostname).toBe("WIN11-LAB-01");
   });
 
   it("refuses to approve an action with unverified evidence", async () => {

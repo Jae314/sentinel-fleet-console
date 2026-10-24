@@ -10,15 +10,15 @@ import { useActions, useApprove, useDetections, useRequestAction } from "@/data/
 import type { Detection } from "@/data/types";
 import { cn } from "@/lib/utils";
 
-type Search = { id?: string; severity?: string; verdict?: string; source?: string; q?: string };
+type Search = { id?: string | undefined; severity?: string | undefined; verdict?: string | undefined; source?: string | undefined; q?: string | undefined };
 
 export const Route = createFileRoute("/detections")({
   validateSearch: (s: Record<string, unknown>): Search => ({
-    id: typeof s.id === "string" ? s.id : undefined,
-    severity: typeof s.severity === "string" ? s.severity : undefined,
-    verdict: typeof s.verdict === "string" ? s.verdict : undefined,
-    source: typeof s.source === "string" ? s.source : undefined,
-    q: typeof s.q === "string" ? s.q : undefined,
+    id: typeof s["id"] === "string" ? s["id"] : undefined,
+    severity: typeof s["severity"] === "string" ? s["severity"] : undefined,
+    verdict: typeof s["verdict"] === "string" ? s["verdict"] : undefined,
+    source: typeof s["source"] === "string" ? s["source"] : undefined,
+    q: typeof s["q"] === "string" ? s["q"] : undefined,
   }),
   head: () => ({
     meta: [
@@ -31,7 +31,7 @@ export const Route = createFileRoute("/detections")({
   component: Detections,
 });
 
-function FilterSelect({ value, onChange, placeholder, options }: { value?: string; onChange: (v?: string) => void; placeholder: string; options: [string, string][] }) {
+function FilterSelect({ value, onChange, placeholder, options }: { value?: string | undefined; onChange: (v?: string) => void; placeholder: string; options: [string, string][] }) {
   return (
     <Select value={value ?? "all"} onValueChange={(v) => onChange(v === "all" ? undefined : v)}>
       <SelectTrigger className="h-9 w-[150px] bg-card"><SelectValue placeholder={placeholder} /></SelectTrigger>

@@ -41,7 +41,7 @@ function Guardrails() {
                 <span className="font-display text-lg font-semibold text-primary">{THRESHOLD_LABELS[threshold]}</span>
               </div>
               <Slider className="mt-3" min={0} max={MAX_AUTO_THRESHOLD} step={1} value={[threshold]}
-                onValueChange={([v]) => setThreshold(v)} onValueCommit={([v]) => update.mutate({ approvalThreshold: v })} />
+                onValueChange={([v]) => setThreshold(v ?? 0)} onValueCommit={([v]) => update.mutate({ approvalThreshold: v ?? 0 })} />
               <div className="mt-2 flex justify-between text-[10px] text-muted-foreground"><span>None</span><span>Low</span><span>Medium</span><span>High</span></div>
             </div>
           )}

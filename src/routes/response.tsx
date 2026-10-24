@@ -62,10 +62,10 @@ function ResponseCenter() {
       />
       <Tabs value={tab} onValueChange={(v) => setTab(v as Tab)} className="mb-4">
         <TabsList className="bg-card">
-          <TabsTrigger value="pending">Pending ({counts.pending ?? 0})</TabsTrigger>
-          <TabsTrigger value="executed">Executed ({counts.executed ?? 0})</TabsTrigger>
-          <TabsTrigger value="blocked">Blocked ({counts.blocked ?? 0})</TabsTrigger>
-          <TabsTrigger value="closed">Closed ({counts.closed ?? 0})</TabsTrigger>
+          <TabsTrigger value="pending">Pending ({counts["pending"] ?? 0})</TabsTrigger>
+          <TabsTrigger value="executed">Executed ({counts["executed"] ?? 0})</TabsTrigger>
+          <TabsTrigger value="blocked">Blocked ({counts["blocked"] ?? 0})</TabsTrigger>
+          <TabsTrigger value="closed">Closed ({counts["closed"] ?? 0})</TabsTrigger>
         </TabsList>
       </Tabs>
 
