@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 import type { ActionStatus, DataOrigin, ProtectionState, RiskLevel, Severity, Verdict } from "@/data/types";
 import type { ReactNode } from "react";
+import { useSourceStatus } from "./SourceStatus";
 
 type Tone = "critical" | "warning" | "success" | "info" | "muted" | "primary";
 const TONE: Record<Tone, string> = {
@@ -20,8 +21,9 @@ export function Pill({ tone, children, className }: { tone: Tone; children: Reac
   );
 }
 
-export function SourceBadge({ source }: { source: DataOrigin }) {
-  if (source === "live")
+export function SourceBadge({ source, hostname }: { source: DataOrigin; hostname?: string }) {
+  const { live } = useSourceStatus();
+  if (source === "live" && live && hostname === "WIN11-LAB-01")
     return (
       <span className="inline-flex items-center gap-1.5 rounded border border-critical/40 bg-critical/15 px-1.5 py-0.5 text-[10px] font-bold tracking-wider text-critical">
         <span className="relative flex h-1.5 w-1.5">
@@ -31,7 +33,7 @@ export function SourceBadge({ source }: { source: DataOrigin }) {
         LIVE
       </span>
     );
-  return <span className="rounded border border-border px-1.5 py-0.5 text-[10px] text-muted-foreground/80">Simulated</span>;
+  return <span className="rounded border border-border px-1.5 py-0.5 text-[10px] text-muted-foreground/80">{source === "live" ? "Demo host" : "Simulated"}</span>;
 }
 
 const SEV: Record<Severity, Tone> = { Critical: "critical", High: "critical", Medium: "warning", Low: "info" };

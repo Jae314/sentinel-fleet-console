@@ -1,14 +1,16 @@
 import { Link } from "@tanstack/react-router";
-import { Activity, Gauge, Laptop, ShieldAlert, ShieldCheck, Zap } from "lucide-react";
+import { Activity, Gauge, Laptop, ShieldAlert, ShieldCheck, Zap, ListChecks } from "lucide-react";
 import type { ReactNode } from "react";
 import { DATA_SOURCE } from "@/data/config";
 import { useFleetStats } from "@/data/queries";
+import { SourceStatusProvider, useSourceStatus } from "./SourceStatus";
 
 const NAV = [
   { to: "/", label: "Fleet Overview", icon: Gauge },
   { to: "/detections", label: "Detections & Triage", icon: ShieldAlert },
   { to: "/response", label: "Response Center", icon: Zap },
   { to: "/guardrails", label: "Guardrails", icon: ShieldCheck },
+  { to: "/tuning", label: "Logging Tuning", icon: ListChecks },
   { to: "/endpoints", label: "Endpoints", icon: Laptop },
 ] as const;
 
@@ -30,7 +32,12 @@ function Logo() {
 }
 
 export function AppShell({ children }: { children: ReactNode }) {
+  return <SourceStatusProvider><ConsoleShell>{children}</ConsoleShell></SourceStatusProvider>;
+}
+
+function ConsoleShell({ children }: { children: ReactNode }) {
   const { data } = useFleetStats();
+  const source = useSourceStatus();
   return (
     <div className="flex min-h-screen">
       <aside className="sticky top-0 hidden h-screen w-60 shrink-0 flex-col border-r border-sidebar-border bg-sidebar md:flex">
@@ -53,7 +60,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         </nav>
         <div className="m-3 rounded-md border border-sidebar-border p-3 text-[11px] text-muted-foreground">
           <div className="mb-1 flex items-center gap-1.5 text-foreground"><Activity className="h-3 w-3 text-success" /> Agent v2.4.1</div>
-          1 live endpoint · 1,199 simulated
+          {source.live ? "1 live endpoint" : `${source.demo} demo host`} · {source.simulated.toLocaleString()} simulated
         </div>
       </aside>
 
@@ -65,9 +72,10 @@ export function AppShell({ children }: { children: ReactNode }) {
               Tenant <span className="text-foreground">Acme Corp</span> · Region ap-southeast-1
             </div>
             <div className="flex items-center gap-2 text-[11px]">
-              <span className="rounded border border-border px-2 py-1 text-muted-foreground">
-                Data source: <span className="font-mono text-foreground">{DATA_SOURCE}</span>
+              <span className="rounded border border-primary/30 bg-primary/10 px-2 py-1 text-muted-foreground">
+                Data source: <span className="font-mono font-semibold text-primary">{DATA_SOURCE}</span>
               </span>
+              {DATA_SOURCE === "file" && <span className="text-muted-foreground">5s · read-only</span>}
             </div>
           </div>
           <nav className="flex gap-1 overflow-x-auto px-3 pb-2 md:hidden">
