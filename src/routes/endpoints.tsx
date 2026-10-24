@@ -7,11 +7,14 @@ import { Panel, PageHeader, RowsSkeleton, ago, Mono, EmptyState } from "@/compon
 import { SourceBadge, StateBadge } from "@/components/console/badges";
 import { useEndpoints } from "@/data/queries";
 import type { ProtectionState } from "@/data/types";
+import { useSourceStatus } from "@/components/console/SourceStatus";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/endpoints")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Endpoints — Grim Reaper" },
       { name: "description", content: "Inventory of all protected Windows endpoints in the fleet." },
       { property: "og:title", content: "Endpoints — Grim Reaper" },
@@ -25,6 +28,7 @@ const PAGE = 25;
 const STATES: (ProtectionState | "All")[] = ["All", "Protected", "Degraded", "Isolated", "Unmanaged"];
 
 function Endpoints() {
+  const source = useSourceStatus();
   const { data, isLoading } = useEndpoints();
   const [q, setQ] = useState("");
   const [state, setState] = useState<ProtectionState | "All">("All");
@@ -37,7 +41,7 @@ function Endpoints() {
 
   return (
     <div>
-      <PageHeader title="Endpoints" subtitle="1 live lab endpoint plus a simulated 1,199-host corporate fleet." />
+      <PageHeader title="Endpoints" subtitle={`${source.live ? "1 live lab endpoint" : `${source.demo} demo host`} plus ${source.simulated.toLocaleString()} simulated endpoints.`} />
       <div className="mb-4 flex flex-wrap gap-2">
         <div className="relative min-w-[220px] flex-1">
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
@@ -61,7 +65,7 @@ function Endpoints() {
                 <tbody>
                   {rows.slice(page * PAGE, page * PAGE + PAGE).map((e) => (
                     <tr key={e.id} className="border-b border-border/60 last:border-0 hover:bg-accent/40">
-                      <td className="px-4 py-2.5"><div className="flex items-center gap-2"><Mono>{e.hostname}</Mono><SourceBadge source={e.source} /></div></td>
+                      <td className="px-4 py-2.5"><div className="flex items-center gap-2"><Mono>{e.hostname}</Mono><SourceBadge source={e.source} hostname={e.hostname} /></div></td>
                       <td className="px-4 py-2.5"><Mono className="text-muted-foreground">{e.user}</Mono></td>
                       <td className="px-4 py-2.5 text-xs whitespace-nowrap">{e.os}</td>
                       <td className="px-4 py-2.5"><Mono className="text-muted-foreground">{e.ip}</Mono></td>

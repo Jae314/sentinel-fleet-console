@@ -5,12 +5,17 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Panel, PageHeader, RowsSkeleton, ago, Mono, EmptyState } from "@/components/console/common";
 import { SeverityBadge, SourceBadge, VerdictBadge } from "@/components/console/badges";
 import { useDetections, useFleetStats } from "@/data/queries";
+import { DATA_SOURCE } from "@/data/config";
+import { useSourceStatus } from "@/components/console/SourceStatus";
+import type { ReactNode } from "react";
 import type { ProtectionState } from "@/data/types";
 import { ShieldAlert } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Fleet Overview — Grim Reaper" },
       { name: "description", content: "Protection posture, detections and response metrics across 1,200 Windows endpoints." },
       { property: "og:title", content: "Fleet Overview — Grim Reaper" },
@@ -39,7 +44,7 @@ function useTicker(base: number | undefined, rate: number) {
   return v;
 }
 
-function Kpi({ label, value, sub, loading }: { label: string; value: string; sub?: React.ReactNode; loading: boolean }) {
+function Kpi({ label, value, sub, loading }: { label: string; value: string; sub?: ReactNode; loading: boolean }) {
   return (
     <div className="panel p-4">
       <div className="text-[11px] uppercase tracking-wider text-muted-foreground">{label}</div>
@@ -50,10 +55,11 @@ function Kpi({ label, value, sub, loading }: { label: string; value: string; sub
 }
 
 function Overview() {
+  const source = useSourceStatus();
   const stats = useFleetStats();
   const dets = useDetections();
   const s = stats.data;
-  const events = useTicker(s?.eventsProcessed, s?.eventsPerSecond ?? 0);
+  const events = useTicker(s?.eventsProcessed, DATA_SOURCE === "file" ? 0 : s?.eventsPerSecond ?? 0);
   const loading = stats.isLoading;
   const pie = s ? (Object.entries(s.byState) as [ProtectionState, number][]).map(([name, value]) => ({ name, value })) : [];
 
@@ -62,7 +68,7 @@ function Overview() {
       <PageHeader
         title="Fleet Overview"
         subtitle="Scaling from one protected lab laptop to the full corporate fleet."
-        right={<span className="text-[11px] text-muted-foreground">Fleet totals include 1,199 simulated endpoints · 1 live</span>}
+        right={<span className="text-[11px] text-muted-foreground">Fleet totals include {source.simulated.toLocaleString()} simulated endpoints · {source.live ? "1 live" : `${source.demo} demo host`}</span>}
       />
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
         <Kpi loading={loading} label="Endpoints protected" value={s ? `${s.byState.Protected.toLocaleString()} / ${s.total.toLocaleString()}` : ""}
@@ -103,7 +109,7 @@ function Overview() {
           {loading ? <div className="p-4"><Skeleton className="h-52 w-full bg-muted" /></div> : (
             <div className="h-56 p-2 pr-4">
               <ResponsiveContainer>
-                <AreaChart data={s!.trend}>
+                <AreaChart data={s?.trend ?? []}>
                   <CartesianGrid stroke="var(--border)" strokeDasharray="3 3" vertical={false} />
                   <XAxis dataKey="hour" tick={{ fill: "var(--muted-foreground)", fontSize: 10 }} tickLine={false} axisLine={false} interval={3} />
                   <YAxis tick={{ fill: "var(--muted-foreground)", fontSize: 10 }} tickLine={false} axisLine={false} width={28} />
@@ -133,7 +139,7 @@ function Overview() {
                 {dets.data.slice(0, 8).map((d) => (
                   <tr key={d.id} className="border-b border-border/60 last:border-0 hover:bg-accent/40">
                     <td className="px-4 py-2.5 text-xs text-muted-foreground whitespace-nowrap">{ago(d.timestamp)}</td>
-                    <td className="px-4 py-2.5"><div className="flex items-center gap-2"><Mono>{d.hostname}</Mono><SourceBadge source={d.source} /></div></td>
+                    <td className="px-4 py-2.5"><div className="flex items-center gap-2"><Mono>{d.hostname}</Mono><SourceBadge source={d.source} hostname={d.hostname} /></div></td>
                     <td className="px-4 py-2.5"><Link to="/detections" search={{ id: d.id }} className="hover:text-primary"><Mono className="text-primary">{d.technique.id}</Mono> <span className="text-xs">{d.technique.name}</span></Link></td>
                     <td className="px-4 py-2.5"><SeverityBadge s={d.severity} /></td>
                     <td className="px-4 py-2.5"><VerdictBadge v={d.verdict} /></td>
