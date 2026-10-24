@@ -27,3 +27,7 @@ npm run dev
 - TypeScript
 - React
 - Tailwind CSS
+
+## File-fed console data
+
+The typed JSON samples and Python integration notes are in [`public/data/README.md`](public/data/README.md). Set `config.dataSource` to `"file"` for five-second read-only polling. Run `bun scripts/export-data.ts` to regenerate snapshots and the exported types. No endpoint operations are executed by the browser.
