@@ -12,7 +12,7 @@ export class FileDataSource implements DataSource {
   private pending: Promise<FileSnapshot> | undefined;
   private cached: FileSnapshot | undefined;
   private loadedAt = 0;
-  constructor(private base = "/data", private fetcher: typeof fetch = fetch) {}
+  constructor(private base = "/data", private fetcher: typeof fetch = (input, init) => fetch(input, init)) {}
 
   private async read<T>(file: string, schema: z.ZodType<T>): Promise<T[]> {
     const response = await this.fetcher(`${this.base}/${file}`, { cache: "no-store" });
