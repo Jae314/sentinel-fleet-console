@@ -1,13 +1,14 @@
 import type { DataSource } from "./DataSource";
 import { MockDataSource } from "./MockDataSource";
-import { RestDataSource } from "./RestDataSource";
+import { FileDataSource } from "./FileDataSource";
 
-/** Flip to "rest" to use a real backend at API_BASE_URL. */
-export const DATA_SOURCE: "mock" | "rest" = "mock";
-export const API_BASE_URL = "/api/v1";
+/** Set dataSource to "file" to read Python-produced JSON in public/data. */
+export const config: { dataSource: "mock" | "file" } = { dataSource: "mock" };
+export const DATA_SOURCE = config.dataSource;
+export const FILE_POLL_INTERVAL = 5_000;
 
 let instance: DataSource | null = null;
 export function getDataSource(): DataSource {
-  if (!instance) instance = DATA_SOURCE === "rest" ? new RestDataSource(API_BASE_URL) : new MockDataSource();
+  if (!instance) instance = config.dataSource === "file" ? new FileDataSource() : new MockDataSource();
   return instance;
 }
