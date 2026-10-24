@@ -1,5 +1,5 @@
 import type { DataSource } from "./DataSource";
-import type { ActionMode, GuardrailConfig } from "./types";
+import type { ActionMode, GuardrailConfig, Run, TuningChange } from "./types";
 
 /** Placeholder REST implementation — endpoints mirror the DataSource interface. */
 export class RestDataSource implements DataSource {
@@ -18,6 +18,11 @@ export class RestDataSource implements DataSource {
   getEndpoints = () => this.req<any>("/endpoints");
   getDetections = () => this.req<any>("/detections");
   getActions = () => this.req<any>("/actions");
+  getTuningChanges = () => this.req<TuningChange[]>("/tuning-changes");
+  getRuns = () => this.req<Run[]>("/runs");
+  validateTuningChange = (id: string) => this.req<TuningChange>(`/tuning-changes/${id}/validate`, { method: "POST" });
+  applyTuningChange = (id: string) => this.req<TuningChange>(`/tuning-changes/${id}/apply`, { method: "POST" });
+  rollbackTuningChange = (id: string) => this.req<TuningChange>(`/tuning-changes/${id}/rollback`, { method: "POST" });
   getFleetStats = () => this.req<any>("/fleet/stats");
   getGuardrails = () => this.req<any>("/guardrails");
   getBlockedAttempts = () => this.req<any>("/guardrails/blocked");

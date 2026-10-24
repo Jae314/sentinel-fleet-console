@@ -22,6 +22,8 @@ export const Route = createFileRoute("/detections")({
   }),
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Detections & Triage — Grim Reaper" },
       { name: "description", content: "AI-triaged detections with MITRE mapping and verified evidence." },
       { property: "og:title", content: "Detections & Triage — Grim Reaper" },
@@ -91,7 +93,7 @@ function Detections() {
                         <span className="truncate text-sm">{d.technique.name}</span>
                       </div>
                       <div className="mt-1 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-                        <Mono>{d.hostname}</Mono><SourceBadge source={d.source} /><span>· {ago(d.timestamp)}</span>
+                        <Mono>{d.hostname}</Mono><SourceBadge source={d.source} hostname={d.hostname} /><span>· {ago(d.timestamp)}</span>
                         {!d.evidenceVerified && <span className="flex items-center gap-1 text-critical"><AlertTriangle className="h-3 w-3" />unverified</span>}
                       </div>
                     </div>
@@ -130,7 +132,7 @@ function DetailPanel({ d }: { d: Detection }) {
       <div className="border-b border-border p-4">
         <div className="flex items-center justify-between gap-2">
           <Mono className="text-muted-foreground">{d.id}</Mono>
-          <div className="flex items-center gap-2"><Mono>{d.hostname}</Mono><SourceBadge source={d.source} /></div>
+          <div className="flex items-center gap-2"><Mono>{d.hostname}</Mono><SourceBadge source={d.source} hostname={d.hostname} /></div>
         </div>
         <h2 className="mt-2 text-lg font-semibold leading-snug">{d.technique.name}</h2>
         <div className="mt-1 text-xs text-muted-foreground">

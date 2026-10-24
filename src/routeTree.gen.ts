@@ -14,6 +14,7 @@ import { Route as DetectionsRouteImport } from './routes/detections'
 import { Route as EndpointsRouteImport } from './routes/endpoints'
 import { Route as GuardrailsRouteImport } from './routes/guardrails'
 import { Route as ResponseRouteImport } from './routes/response'
+import { Route as TuningRouteImport } from './routes/tuning'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -40,6 +41,11 @@ const ResponseRoute = ResponseRouteImport.update({
   path: '/response',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TuningRoute = TuningRouteImport.update({
+  id: '/tuning',
+  path: '/tuning',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -47,6 +53,7 @@ export interface FileRoutesByFullPath {
   '/endpoints': typeof EndpointsRoute
   '/guardrails': typeof GuardrailsRoute
   '/response': typeof ResponseRoute
+  '/tuning': typeof TuningRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +61,7 @@ export interface FileRoutesByTo {
   '/endpoints': typeof EndpointsRoute
   '/guardrails': typeof GuardrailsRoute
   '/response': typeof ResponseRoute
+  '/tuning': typeof TuningRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,12 +70,15 @@ export interface FileRoutesById {
   '/endpoints': typeof EndpointsRoute
   '/guardrails': typeof GuardrailsRoute
   '/response': typeof ResponseRoute
+  '/tuning': typeof TuningRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/detections' | '/endpoints' | '/guardrails' | '/response'
+  fullPaths:
+    '/' | '/detections' | '/endpoints' | '/guardrails' | '/response' | '/tuning'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/detections' | '/endpoints' | '/guardrails' | '/response'
+  to:
+    '/' | '/detections' | '/endpoints' | '/guardrails' | '/response' | '/tuning'
   id:
     | '__root__'
     | '/'
@@ -75,6 +86,7 @@ export interface FileRouteTypes {
     | '/endpoints'
     | '/guardrails'
     | '/response'
+    | '/tuning'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -83,6 +95,7 @@ export interface RootRouteChildren {
   EndpointsRoute: typeof EndpointsRoute
   GuardrailsRoute: typeof GuardrailsRoute
   ResponseRoute: typeof ResponseRoute
+  TuningRoute: typeof TuningRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -122,6 +135,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ResponseRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tuning': {
+      id: '/tuning'
+      path: '/tuning'
+      fullPath: '/tuning'
+      preLoaderRoute: typeof TuningRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -131,6 +151,7 @@ const rootRouteChildren: RootRouteChildren = {
   EndpointsRoute: EndpointsRoute,
   GuardrailsRoute: GuardrailsRoute,
   ResponseRoute: ResponseRoute,
+  TuningRoute: TuningRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

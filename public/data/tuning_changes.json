@@ -1,0 +1,179 @@
+[
+  {
+    "id": "TUNE-001",
+    "timestamp": "2026-10-24T06:19:01.169Z",
+    "hostId": "ep-0000",
+    "source": "simulated",
+    "visibilityGap": "Sysmon network connection events (ID 3) not logged",
+    "evidence": {
+      "observation": "Process creation (Sysmon ID 1) and firewall event 5156 show an outbound connection, but no matching Sysmon ID 3 exists.",
+      "eventIds": [
+        "EVT-SYS1-7F21B9",
+        "EVT-5156-001"
+      ]
+    },
+    "proposedChange": {
+      "system": "Sysmon",
+      "before": {
+        "networkConnections": false,
+        "dnsQueries": false,
+        "registryChanges": false,
+        "powerShellScriptBlock": false,
+        "managementChannel": true,
+        "agentService": true
+      },
+      "after": {
+        "networkConnections": true,
+        "dnsQueries": false,
+        "registryChanges": false,
+        "powerShellScriptBlock": false,
+        "managementChannel": true,
+        "agentService": true
+      }
+    },
+    "justification": "Enable missing telemetry to detect the tested behavior while retaining management-channel and agent-service logging. Measure event volume before fleet rollout.",
+    "riskLevel": "Low",
+    "status": "Applied",
+    "validationResult": {
+      "configAccepted": true,
+      "serviceRunning": true,
+      "detail": "Demo validation: Sysmon accepted configuration; service remains running; expected test event collected."
+    },
+    "rollbackSnapshotId": "SNAP-001",
+    "techniquesNowVisible": [
+      "T1071.001",
+      "T1041"
+    ]
+  },
+  {
+    "id": "TUNE-002",
+    "timestamp": "2026-10-24T06:34:01.169Z",
+    "hostId": "ep-0000",
+    "source": "simulated",
+    "visibilityGap": "Sysmon DNS query events (ID 22) not logged",
+    "evidence": {
+      "observation": "Sysmon ID 3 shows a connection to an IP; DNS Client event 3008 records the lookup, but Sysmon ID 22 is absent.",
+      "eventIds": [
+        "EVT-SYS3-002",
+        "EVT-DNS3008-002"
+      ]
+    },
+    "proposedChange": {
+      "system": "Sysmon",
+      "before": {
+        "networkConnections": true,
+        "dnsQueries": false,
+        "registryChanges": false,
+        "powerShellScriptBlock": false,
+        "managementChannel": true,
+        "agentService": true
+      },
+      "after": {
+        "networkConnections": true,
+        "dnsQueries": true,
+        "registryChanges": false,
+        "powerShellScriptBlock": false,
+        "managementChannel": true,
+        "agentService": true
+      }
+    },
+    "justification": "Enable missing telemetry to detect the tested behavior while retaining management-channel and agent-service logging. Measure event volume before fleet rollout.",
+    "riskLevel": "Low",
+    "status": "Applied",
+    "validationResult": {
+      "configAccepted": true,
+      "serviceRunning": true,
+      "detail": "Demo validation: Sysmon accepted configuration; service remains running; expected test event collected."
+    },
+    "rollbackSnapshotId": "SNAP-002",
+    "techniquesNowVisible": [
+      "T1071.004"
+    ]
+  },
+  {
+    "id": "TUNE-003",
+    "timestamp": "2026-10-24T06:49:01.169Z",
+    "hostId": "ep-0000",
+    "source": "simulated",
+    "visibilityGap": "Sysmon registry changes (IDs 12–14) not logged",
+    "evidence": {
+      "observation": "Security event 4657 reports a Run key write by a process recorded in Sysmon ID 1; no Sysmon ID 13 was collected.",
+      "eventIds": [
+        "EVT-4657-003",
+        "EVT-SYS1-003"
+      ]
+    },
+    "proposedChange": {
+      "system": "Sysmon",
+      "before": {
+        "networkConnections": true,
+        "dnsQueries": true,
+        "registryChanges": false,
+        "powerShellScriptBlock": false,
+        "managementChannel": true,
+        "agentService": true
+      },
+      "after": {
+        "networkConnections": true,
+        "dnsQueries": true,
+        "registryChanges": true,
+        "powerShellScriptBlock": false,
+        "managementChannel": true,
+        "agentService": true
+      }
+    },
+    "justification": "Enable missing telemetry to detect the tested behavior while retaining management-channel and agent-service logging. Measure event volume before fleet rollout.",
+    "riskLevel": "Medium",
+    "status": "Applied",
+    "validationResult": {
+      "configAccepted": true,
+      "serviceRunning": true,
+      "detail": "Demo validation: Sysmon accepted configuration; service remains running; expected test event collected."
+    },
+    "rollbackSnapshotId": "SNAP-003",
+    "techniquesNowVisible": [
+      "T1547.001"
+    ]
+  },
+  {
+    "id": "TUNE-004",
+    "timestamp": "2026-10-24T07:04:01.169Z",
+    "hostId": "ep-0000",
+    "source": "simulated",
+    "visibilityGap": "PowerShell script block logging (ID 4104) not enabled",
+    "evidence": {
+      "observation": "Security event 4688 and Sysmon ID 1 show an encoded PowerShell invocation, with no corresponding script block event 4104.",
+      "eventIds": [
+        "EVT-4688-004",
+        "EVT-SYS1-004"
+      ]
+    },
+    "proposedChange": {
+      "system": "AuditPolicy",
+      "before": {
+        "networkConnections": true,
+        "dnsQueries": true,
+        "registryChanges": true,
+        "powerShellScriptBlock": false,
+        "managementChannel": true,
+        "agentService": true
+      },
+      "after": {
+        "networkConnections": true,
+        "dnsQueries": true,
+        "registryChanges": true,
+        "powerShellScriptBlock": true,
+        "managementChannel": true,
+        "agentService": true
+      }
+    },
+    "justification": "Enable missing telemetry to detect the tested behavior while retaining management-channel and agent-service logging. Measure event volume before fleet rollout.",
+    "riskLevel": "Low",
+    "status": "Proposed",
+    "validationResult": null,
+    "rollbackSnapshotId": "SNAP-004",
+    "techniquesNowVisible": [
+      "T1059.001"
+    ]
+  }
+]

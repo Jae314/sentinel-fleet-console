@@ -134,3 +134,38 @@ export interface FleetStats {
   pendingApprovals: number;
   trend: TrendPoint[];
 }
+
+export type TuningStatus = "Proposed" | "Validated" | "Applied" | "RolledBack";
+export interface LoggingConfig {
+  networkConnections: boolean;
+  dnsQueries: boolean;
+  registryChanges: boolean;
+  powerShellScriptBlock: boolean;
+  managementChannel: boolean;
+  agentService: boolean;
+}
+export interface TuningChange {
+  id: string;
+  timestamp: string;
+  hostId: string;
+  source: DataOrigin;
+  visibilityGap: string;
+  evidence: { observation: string; eventIds: string[] };
+  proposedChange: { system: "Sysmon" | "AuditPolicy"; before: LoggingConfig; after: LoggingConfig };
+  justification: string;
+  riskLevel: RiskLevel;
+  status: TuningStatus;
+  validationResult: { configAccepted: boolean; serviceRunning: boolean; detail: string } | null;
+  rollbackSnapshotId: string;
+  techniquesNowVisible: string[];
+}
+
+export interface Run {
+  id: string;
+  timestamp: string;
+  hostId: string;
+  source: DataOrigin;
+  testedTechniques: string[];
+  eventsProcessed: number;
+  eventsPerSecond: number;
+}

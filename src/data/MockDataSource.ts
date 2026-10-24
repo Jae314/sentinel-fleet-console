@@ -1,5 +1,6 @@
 import type { DataSource } from "./DataSource";
-import { DEFAULT_PROTECTED, canExecute, decideInitialStatus, isProtectedTarget } from "./guardrails";
+import { DEFAULT_PROTECTED, canExecute, decideInitialStatus, isProtectedTarget, safeTuningStatus, tuningProtectionViolation } from "./guardrails";
+import { seedTuning } from "./tuningSeed";
 import type {
   Action,
   ActionMode,
@@ -15,6 +16,8 @@ import type {
   Technique,
   TrendPoint,
   Verdict,
+  TuningChange,
+  Run,
 } from "./types";
 
 function mulberry32(seed: number) {
@@ -110,6 +113,7 @@ export class MockDataSource implements DataSource {
   private cfg: GuardrailConfig = { approvalThreshold: 1, globalDryRun: false, protectedList: DEFAULT_PROTECTED };
   private startedAt = Date.now();
   private seq = 1000;
+  private tuning = seedTuning(Date.now());
 
   constructor(private latency = 280) {
     this.seed();
@@ -286,6 +290,35 @@ export class MockDataSource implements DataSource {
   async getActions() { return this.wait(this.actions); }
   async getGuardrails() { return this.wait(this.cfg); }
   async getBlockedAttempts() { return this.wait(this.blocked); }
+  async getTuningChanges(): Promise<TuningChange[]> { return this.wait(this.tuning.changes); }
+  async getRuns(): Promise<Run[]> { return this.wait(this.tuning.runs); }
+
+  private findTuning(id: string) {
+    const change = this.tuning.changes.find((c) => c.id === id);
+    if (!change) throw new Error("Tuning change not found");
+    return change;
+  }
+  async validateTuningChange(id: string) {
+    const change = this.findTuning(id);
+    if (change.status !== "Proposed") throw new Error("Only proposed changes can be validated");
+    const protectedTarget = tuningProtectionViolation(change);
+    change.validationResult = { configAccepted: !protectedTarget, serviceRunning: true, detail: protectedTarget ? "Protected logging reduction refused; snapshot restored (demo)." : "Demo validation: configuration accepted and service still running; no real endpoint modified." };
+    change.status = "Validated";
+    change.status = safeTuningStatus(change);
+    return this.wait(change);
+  }
+  async applyTuningChange(id: string) {
+    const change = this.findTuning(id);
+    if (change.status !== "Validated" || safeTuningStatus(change) !== "Validated") throw new Error("Change must pass validation before application");
+    change.status = "Applied";
+    return this.wait(change);
+  }
+  async rollbackTuningChange(id: string) {
+    const change = this.findTuning(id);
+    if (change.status !== "Applied") throw new Error("Only applied changes can be rolled back");
+    change.status = "RolledBack";
+    return this.wait(change);
+  }
 
   async getFleetStats(): Promise<FleetStats> {
     const now = Date.now();

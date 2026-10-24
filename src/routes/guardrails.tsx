@@ -12,6 +12,8 @@ import { MAX_AUTO_THRESHOLD, THRESHOLD_LABELS } from "@/data/guardrails";
 export const Route = createFileRoute("/guardrails")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Guardrails — Grim Reaper" },
       { name: "description", content: "Protected allowlist, approval thresholds and dry-run controls for the AI agent." },
       { property: "og:title", content: "Guardrails — Grim Reaper" },
@@ -86,7 +88,7 @@ function Guardrails() {
                 <div className="min-w-0 flex-1">
                   <div className="text-sm"><span className="font-medium">{b.actionType}</span> → <Mono className="text-critical">{b.target}</Mono></div>
                   <div className="mt-0.5 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-                    <Mono>{b.hostname}</Mono><SourceBadge source={b.source} />· requested by <Mono>{b.requestedBy}</Mono> · {ago(b.at)}
+                    <Mono>{b.hostname}</Mono><SourceBadge source={b.source} hostname={b.hostname} />· requested by <Mono>{b.requestedBy}</Mono> · {ago(b.at)}
                   </div>
                 </div>
                 <span className="text-xs text-muted-foreground">{b.reason}</span>

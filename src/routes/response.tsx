@@ -14,6 +14,8 @@ import { THRESHOLD_LABELS } from "@/data/guardrails";
 export const Route = createFileRoute("/response")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Response Center — Grim Reaper" },
       { name: "description", content: "Human-in-the-loop approval queue for guardrailed response actions." },
       { property: "og:title", content: "Response Center — Grim Reaper" },
@@ -121,7 +123,7 @@ function ActionRow({ a, globalDryRun, onAudit }: { a: Action; globalDryRun: bool
           </div>
           <Mono className="mt-1 block break-all text-foreground/85">{a.target}</Mono>
           <div className="mt-1 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-            <Mono>{a.id}</Mono>·<Mono>{a.hostname}</Mono><SourceBadge source={a.source} />· from <Mono>{a.detectionId}</Mono> · {ago(a.createdAt)}
+            <Mono>{a.id}</Mono>·<Mono>{a.hostname}</Mono><SourceBadge source={a.source} hostname={a.hostname} />· from <Mono>{a.detectionId}</Mono> · {ago(a.createdAt)}
           </div>
           {pending && !a.evidenceVerified && (
             <div className="mt-1.5 flex items-center gap-1 text-xs text-critical"><AlertTriangle className="h-3 w-3" />Evidence unverified — cannot execute</div>

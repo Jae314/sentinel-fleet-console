@@ -1,0 +1,4 @@
+- [x] Add typed file data source, five-second polling, and exported JSON samples.
+- [x] Gate live badges on fresh file-fed endpoint timestamps without redesigning pages.
+- [x] Add Logging Tuning, mock sequence, tested-technique counts, and safety tests.
+- [x] Verify file polling, tuning flow, and existing routes.

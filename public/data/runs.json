@@ -1,0 +1,18 @@
+[
+  {
+    "id": "RUN-001",
+    "timestamp": "2026-10-24T07:19:01.169Z",
+    "hostId": "ep-0000",
+    "source": "simulated",
+    "testedTechniques": [
+      "T1071.001",
+      "T1041",
+      "T1071.004",
+      "T1547.001",
+      "T1059.001",
+      "T1003.001"
+    ],
+    "eventsProcessed": 48210000,
+    "eventsPerSecond": 1840
+  }
+]
