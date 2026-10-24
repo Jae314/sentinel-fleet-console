@@ -88,9 +88,9 @@ function Overview() {
                   </PieChart>
                 </ResponsiveContainer>
               </div>
-              <ul className="flex-1 space-y-2 text-sm">
+              <ul className="min-w-0 flex-1 space-y-2 text-sm">
                 {pie.map((p) => (
-                  <li key={p.name} className="flex items-center justify-between">
+                  <li key={p.name} className="flex items-center justify-between gap-3">
                     <span className="flex items-center gap-2"><span className="h-2 w-2 rounded-sm" style={{ background: STATE_COLOR[p.name as ProtectionState] }} />{p.name}</span>
                     <span className="tabular-nums text-muted-foreground">{p.value.toLocaleString()}</span>
                   </li>
@@ -109,7 +109,7 @@ function Overview() {
                   <YAxis tick={{ fill: "var(--muted-foreground)", fontSize: 10 }} tickLine={false} axisLine={false} width={28} />
                   <Tooltip contentStyle={{ background: "var(--popover)", border: "1px solid var(--border)", borderRadius: 6, fontSize: 12 }} />
                   {(["Low", "Medium", "High", "Critical"] as const).map((k, i) => (
-                    <Area key={k} type="monotone" dataKey={k} stackId="1" stroke={`var(--chart-${4 - i})`} fill={`var(--chart-${4 - i})`} fillOpacity={0.25} />
+                    <Area key={k} type="monotone" dataKey={k} stackId="1" stroke={`var(--chart-${4 - i})`} fill={`var(--chart-${4 - i})`} fillOpacity={0.25} isAnimationActive={false} />
                   ))}
                 </AreaChart>
               </ResponsiveContainer>
