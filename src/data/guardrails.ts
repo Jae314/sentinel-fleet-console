@@ -1,4 +1,4 @@
-import type { ActionStatus, GuardrailConfig, ProposedAction, ProtectedEntry, RiskLevel } from "./types";
+import type { ActionStatus, GuardrailConfig, ProposedAction, ProtectedEntry, RiskLevel, TuningChange, TuningStatus } from "./types";
 
 export const RISK_RANK: Record<RiskLevel, number> = { Low: 1, Medium: 2, High: 3, Critical: 4 };
 export const MAX_AUTO_THRESHOLD = 3; // Critical can never auto-execute
@@ -50,3 +50,22 @@ export function canExecute(evidenceVerified: boolean): boolean {
 }
 
 export const THRESHOLD_LABELS = ["Nothing (all require approval)", "Low", "Medium", "High"];
+
+export function tuningProtectionViolation(change: TuningChange): boolean {
+  const { before, after } = change.proposedChange;
+  return (before.managementChannel && !after.managementChannel) || (before.agentService && !after.agentService);
+}
+
+export function safeTuningStatus(change: TuningChange): TuningStatus {
+  if (tuningProtectionViolation(change)) return "RolledBack";
+  if (change.validationResult && (!change.validationResult.configAccepted || !change.validationResult.serviceRunning)) return "RolledBack";
+  if (change.status === "Applied" && !change.validationResult) return "Proposed";
+  if (change.status === "Validated" && !change.validationResult) return "Proposed";
+  return change.status;
+}
+
+export function visibleTestedTechniques(changes: TuningChange[], tested: string[], hostId: string) {
+  const visible = new Set(changes.filter((c) => c.hostId === hostId && safeTuningStatus(c) === "Applied").flatMap((c) => c.techniquesNowVisible));
+  const uniqueTested = [...new Set(tested)];
+  return { visible: uniqueTested.filter((id) => visible.has(id)).length, tested: uniqueTested.length };
+}
