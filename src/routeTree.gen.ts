@@ -10,33 +10,79 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DetectionsRouteImport } from './routes/detections'
+import { Route as EndpointsRouteImport } from './routes/endpoints'
+import { Route as GuardrailsRouteImport } from './routes/guardrails'
+import { Route as ResponseRouteImport } from './routes/response'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DetectionsRoute = DetectionsRouteImport.update({
+  id: '/detections',
+  path: '/detections',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EndpointsRoute = EndpointsRouteImport.update({
+  id: '/endpoints',
+  path: '/endpoints',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuardrailsRoute = GuardrailsRouteImport.update({
+  id: '/guardrails',
+  path: '/guardrails',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResponseRoute = ResponseRouteImport.update({
+  id: '/response',
+  path: '/response',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/detections': typeof DetectionsRoute
+  '/endpoints': typeof EndpointsRoute
+  '/guardrails': typeof GuardrailsRoute
+  '/response': typeof ResponseRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/detections': typeof DetectionsRoute
+  '/endpoints': typeof EndpointsRoute
+  '/guardrails': typeof GuardrailsRoute
+  '/response': typeof ResponseRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/detections': typeof DetectionsRoute
+  '/endpoints': typeof EndpointsRoute
+  '/guardrails': typeof GuardrailsRoute
+  '/response': typeof ResponseRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/detections' | '/endpoints' | '/guardrails' | '/response'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/detections' | '/endpoints' | '/guardrails' | '/response'
+  id:
+    | '__root__'
+    | '/'
+    | '/detections'
+    | '/endpoints'
+    | '/guardrails'
+    | '/response'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DetectionsRoute: typeof DetectionsRoute
+  EndpointsRoute: typeof EndpointsRoute
+  GuardrailsRoute: typeof GuardrailsRoute
+  ResponseRoute: typeof ResponseRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +94,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/detections': {
+      id: '/detections'
+      path: '/detections'
+      fullPath: '/detections'
+      preLoaderRoute: typeof DetectionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/endpoints': {
+      id: '/endpoints'
+      path: '/endpoints'
+      fullPath: '/endpoints'
+      preLoaderRoute: typeof EndpointsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guardrails': {
+      id: '/guardrails'
+      path: '/guardrails'
+      fullPath: '/guardrails'
+      preLoaderRoute: typeof GuardrailsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/response': {
+      id: '/response'
+      path: '/response'
+      fullPath: '/response'
+      preLoaderRoute: typeof ResponseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DetectionsRoute: DetectionsRoute,
+  EndpointsRoute: EndpointsRoute,
+  GuardrailsRoute: GuardrailsRoute,
+  ResponseRoute: ResponseRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
