@@ -49,4 +49,8 @@ temporary.write_text(json.dumps(records, indent=2))
 os.replace(temporary, path)
 ```
 
-Use atomic replacement for each file to avoid reading a partial write. Keep IDs consistent across all six snapshots.
+Use atomic replacement for each file to avoid reading a partial write. Keep IDs consistent across all seven snapshots.
+
+## Baselines
+
+`baselines.json` holds one `Baseline` per endpoint/user. `logonHours` is exactly 24 counts (index = hour of day). `deviations` are review-only signals (`score` 0–1) and never trigger response actions; keep `evidenceVerified: false` when the referenced event IDs cannot be confirmed in the log store. While `status` is `Learning`, deviations should be empty — the console does not flag them.
