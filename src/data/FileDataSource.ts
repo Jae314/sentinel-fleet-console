@@ -1,10 +1,10 @@
 import { z } from "zod";
 import type { DataSource } from "./DataSource";
-import type { Action, ActionMode, Baseline, BlockedAttempt, Detection, Endpoint, FileStats, FleetStats, GuardrailConfig, Run, TuningChange } from "./types";
-import { actionSchema, baselineSchema, detectionSchema, endpointSchema, runSchema, statsSchema, tuningSchema } from "./fileSchemas";
+import type { Action, ActionMode, Baseline, BlockedAttempt, Detection, Endpoint, ExperimentData, ExperimentSnapshot, FileStats, FleetStats, GuardrailConfig, Run, TuningChange } from "./types";
+import { actionSchema, baselineSchema, detectionSchema, endpointSchema, experimentSnapshotSchema, statsSchema, tuningSchema } from "./fileSchemas";
 import { canApproveAction, DEFAULT_PROTECTED, safeTuningStatus } from "./guardrails";
 
-interface FileSnapshot { endpoints: Endpoint[]; detections: Detection[]; actions: Action[]; tuning: TuningChange[]; runs: Run[]; baselines: Baseline[]; stats: FileStats }
+interface FileSnapshot { endpoints: Endpoint[]; detections: Detection[]; actions: Action[]; tuning: TuningChange[]; experiments: ExperimentSnapshot; baselines: Baseline[]; stats: FileStats }
 
 /** Python-produced snapshots; decisions are commands to the console's same-origin service. */
 export class FileDataSource implements DataSource {
@@ -28,9 +28,9 @@ export class FileDataSource implements DataSource {
     if (this.pending) return this.pending;
     if (this.cached && Date.now() - this.loadedAt < 1000) return Promise.resolve(this.cached);
     this.pending = Promise.all([
-      this.read("endpoints.json", endpointSchema), this.read("detections.json", detectionSchema), this.read("actions.json", actionSchema), this.read("tuning_changes.json", tuningSchema), this.read("runs.json", runSchema), this.read("baselines.json", baselineSchema),
+      this.read("endpoints.json", endpointSchema), this.read("detections.json", detectionSchema), this.read("actions.json", actionSchema), this.read("tuning_changes.json", tuningSchema), this.readValue("runs.json", experimentSnapshotSchema), this.read("baselines.json", baselineSchema),
       this.readValue("stats.json", statsSchema),
-    ]).then(([endpoints, detections, actions, tuning, runs, baselines, stats]) => {
+    ]).then(([endpoints, detections, actions, tuning, experiments, baselines, stats]) => {
       const result: FileSnapshot = {
         endpoints,
         detections: detections.map(({ actionId, ...d }) => ({ ...d, ...(actionId === undefined ? {} : { actionId }) })),
@@ -40,7 +40,7 @@ export class FileDataSource implements DataSource {
           ...(blockedReason === undefined ? {} : { blockedReason }),
           auditLog: auditLog.map(({ detail, ...e }) => ({ ...e, ...(detail === undefined ? {} : { detail }) })),
         })),
-        tuning: tuning.map((c) => ({ ...c, status: safeTuningStatus(c) })), runs, baselines, stats,
+        tuning: tuning.map((c) => ({ ...c, status: safeTuningStatus(c) })), experiments, baselines, stats,
       };
       this.cached = result;
       this.loadedAt = Date.now();
@@ -52,7 +52,15 @@ export class FileDataSource implements DataSource {
   async getDetections() { return structuredClone((await this.snapshot()).detections); }
   async getActions() { return structuredClone((await this.snapshot()).actions); }
   async getTuningChanges() { return structuredClone((await this.snapshot()).tuning); }
-  async getRuns() { return structuredClone((await this.snapshot()).runs); }
+  async getExperiments(): Promise<ExperimentData> { return { source: "live", snapshot: structuredClone((await this.snapshot()).experiments) }; }
+  /** Preserve the existing host-specific tuning visibility contract without adding JSON fields. */
+  async getRuns(): Promise<Run[]> {
+    const { experiments, tuning, stats } = await this.snapshot();
+    if (!experiments.runs.length) return [];
+    const linked = tuning.filter((c) => experiments.tuningLink.changeIds.includes(c.id));
+    const techniques = experiments.scenarios.flatMap((s) => s.kind === "Attack" && s.technique ? [s.technique] : []);
+    return [...new Set(linked.map((c) => c.hostId))].map((hostId) => ({ id: experiments.runs[0]?.id ?? "", timestamp: experiments.runs[0]?.startedAt ?? "", hostId, source: "live", testedTechniques: [...new Set(techniques)], eventsProcessed: stats.eventsProcessed, eventsPerSecond: stats.eventsPerSecond }));
+  }
   async getBaselines() { return structuredClone((await this.snapshot()).baselines); }
   async getGuardrails(): Promise<GuardrailConfig> { return { approvalThreshold: 1, globalDryRun: false, protectedList: structuredClone(DEFAULT_PROTECTED) }; }
   async getBlockedAttempts(): Promise<BlockedAttempt[]> {

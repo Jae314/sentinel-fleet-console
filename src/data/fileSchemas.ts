@@ -21,4 +21,30 @@ export const baselineSchema = z.object({
   usualDestinations: z.array(z.object({ value: z.string(), type: z.enum(["domain", "ip"]), count }).strict()),
   deviations: z.array(z.object({ id: z.string(), timestamp, kind: z.enum(["LogonTime", "NewProcess", "NewDestination"]), subject: z.string(), score: z.number().min(0).max(1), reason: z.string(), evidenceEventIds: z.array(z.string()), evidenceVerified: z.boolean() }).strict()),
 }).strict();
-export const runSchema =  z.object({ id: z.string(), timestamp, hostId: z.string(), source: origin, testedTechniques: z.array(z.string()), eventsProcessed: z.number().nonnegative(), eventsPerSecond: z.number().nonnegative() }).strict();
+export const experimentSnapshotSchema = z.object({
+  scenarios: z.array(z.object({ id: z.string().min(1), name: z.string(), kind: z.enum(["Attack", "Benign"]), technique: z.string().regex(/^T\d{4}(\.\d{3})?$/).nullable(), description: z.string() }).strict()),
+  runs: z.array(z.object({ id: z.string().min(1), label: z.string(), startedAt: timestamp, configLabel: z.enum(["Weak baseline", "Tuned"]), results: z.array(z.object({ scenarioId: z.string(), outcome: z.enum(["TruePositive", "FalsePositive", "FalseNegative", "TrueNegative", "VisibilityGap"]), detectionId: z.string().nullable(), verdict: z.string().nullable(), actionStatus: z.string().nullable(), notes: z.string() }).strict()) }).strict()),
+  comparisons: z.array(z.object({ id: z.string().min(1), runAId: z.string(), runBId: z.string(), purpose: z.enum(["Repeatability", "BeforeAfterTuning"]), explanations: z.array(z.object({ scenarioId: z.string(), text: z.string() }).strict()) }).strict()),
+  tuningLink: z.object({ beforeRunId: z.string(), afterRunId: z.string(), changeIds: z.array(z.string()) }).strict(),
+}).strict().superRefine((data, ctx) => {
+  const issue = (message: string) => ctx.addIssue({ code: z.ZodIssueCode.custom, message });
+  for (const [label, ids] of [["scenario", data.scenarios.map((s) => s.id)], ["run", data.runs.map((r) => r.id)], ["comparison", data.comparisons.map((c) => c.id)]] as const) {
+    if (new Set(ids).size !== ids.length) issue(`Duplicate ${label} IDs`);
+  }
+  const scenarios = new Map(data.scenarios.map((s) => [s.id, s]));
+  const runs = new Set(data.runs.map((r) => r.id));
+  data.runs.forEach((run) => {
+    if (new Set(run.results.map((r) => r.scenarioId)).size !== run.results.length) issue(`Duplicate scenario results in ${run.id}`);
+    run.results.forEach((r) => {
+      const s = scenarios.get(r.scenarioId);
+      if (!s) issue(`Unknown scenario ${r.scenarioId}`);
+      else if (s.kind === "Attack" ? ["FalsePositive", "TrueNegative"].includes(r.outcome) : ["TruePositive", "FalseNegative", "VisibilityGap"].includes(r.outcome)) issue(`Outcome inconsistent with scenario kind: ${r.scenarioId}`);
+    });
+  });
+  data.comparisons.forEach((c) => {
+    if (!runs.has(c.runAId) || !runs.has(c.runBId)) issue(`Unknown comparison run in ${c.id}`);
+    c.explanations.forEach((e) => { if (!scenarios.has(e.scenarioId)) issue(`Unknown explanation scenario ${e.scenarioId}`); });
+  });
+  if (data.tuningLink.beforeRunId && !runs.has(data.tuningLink.beforeRunId)) issue("Unknown beforeRunId");
+  if (data.tuningLink.afterRunId && !runs.has(data.tuningLink.afterRunId)) issue("Unknown afterRunId");
+});
