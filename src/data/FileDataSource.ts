@@ -1,10 +1,10 @@
 import { z } from "zod";
 import type { DataSource } from "./DataSource";
-import type { Action, ActionMode, BlockedAttempt, Detection, Endpoint, FileStats, FleetStats, GuardrailConfig, Run, TuningChange } from "./types";
-import { actionSchema, detectionSchema, endpointSchema, runSchema, statsSchema, tuningSchema } from "./fileSchemas";
+import type { Action, ActionMode, Baseline, BlockedAttempt, Detection, Endpoint, FileStats, FleetStats, GuardrailConfig, Run, TuningChange } from "./types";
+import { actionSchema, baselineSchema, detectionSchema, endpointSchema, runSchema, statsSchema, tuningSchema } from "./fileSchemas";
 import { canApproveAction, DEFAULT_PROTECTED, safeTuningStatus } from "./guardrails";
 
-interface FileSnapshot { endpoints: Endpoint[]; detections: Detection[]; actions: Action[]; tuning: TuningChange[]; runs: Run[]; stats: FileStats }
+interface FileSnapshot { endpoints: Endpoint[]; detections: Detection[]; actions: Action[]; tuning: TuningChange[]; runs: Run[]; baselines: Baseline[]; stats: FileStats }
 
 /** Python-produced snapshots; decisions are commands to the console's same-origin service. */
 export class FileDataSource implements DataSource {
@@ -28,9 +28,9 @@ export class FileDataSource implements DataSource {
     if (this.pending) return this.pending;
     if (this.cached && Date.now() - this.loadedAt < 1000) return Promise.resolve(this.cached);
     this.pending = Promise.all([
-      this.read("endpoints.json", endpointSchema), this.read("detections.json", detectionSchema), this.read("actions.json", actionSchema), this.read("tuning_changes.json", tuningSchema), this.read("runs.json", runSchema),
+      this.read("endpoints.json", endpointSchema), this.read("detections.json", detectionSchema), this.read("actions.json", actionSchema), this.read("tuning_changes.json", tuningSchema), this.read("runs.json", runSchema), this.read("baselines.json", baselineSchema),
       this.readValue("stats.json", statsSchema),
-    ]).then(([endpoints, detections, actions, tuning, runs, stats]) => {
+    ]).then(([endpoints, detections, actions, tuning, runs, baselines, stats]) => {
       const result: FileSnapshot = {
         endpoints,
         detections: detections.map(({ actionId, ...d }) => ({ ...d, ...(actionId === undefined ? {} : { actionId }) })),
@@ -40,7 +40,7 @@ export class FileDataSource implements DataSource {
           ...(blockedReason === undefined ? {} : { blockedReason }),
           auditLog: auditLog.map(({ detail, ...e }) => ({ ...e, ...(detail === undefined ? {} : { detail }) })),
         })),
-        tuning: tuning.map((c) => ({ ...c, status: safeTuningStatus(c) })), runs, stats,
+        tuning: tuning.map((c) => ({ ...c, status: safeTuningStatus(c) })), runs, baselines, stats,
       };
       this.cached = result;
       this.loadedAt = Date.now();
@@ -53,6 +53,7 @@ export class FileDataSource implements DataSource {
   async getActions() { return structuredClone((await this.snapshot()).actions); }
   async getTuningChanges() { return structuredClone((await this.snapshot()).tuning); }
   async getRuns() { return structuredClone((await this.snapshot()).runs); }
+  async getBaselines() { return structuredClone((await this.snapshot()).baselines); }
   async getGuardrails(): Promise<GuardrailConfig> { return { approvalThreshold: 1, globalDryRun: false, protectedList: structuredClone(DEFAULT_PROTECTED) }; }
   async getBlockedAttempts(): Promise<BlockedAttempt[]> {
     return (await this.getActions()).filter((a) => a.status === "BlockedByGuardrail").map((a) => ({ id: a.id, at: a.createdAt, actionType: a.type, target: a.target, hostname: a.hostname, source: a.source, requestedBy: a.auditLog[0]?.actor ?? "agent", reason: a.blockedReason ?? a.auditLog.find((e) => e.event === "Blocked by guardrail")?.detail ?? "Blocked by guardrail" }));
