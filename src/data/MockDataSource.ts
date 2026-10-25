@@ -3,6 +3,7 @@ import { DEFAULT_PROTECTED, canExecute, decideInitialStatus, isProtectedTarget, 
 import { seedTuning } from "./tuningSeed";
 import type {
   Action,
+  Baseline,
   ActionMode,
   ActionType,
   BlockedAttempt,
@@ -114,6 +115,7 @@ export class MockDataSource implements DataSource {
   private startedAt = Date.now();
   private seq = 1000;
   private tuning = seedTuning(Date.now());
+  private baselines: Baseline[] = [];
 
   constructor(private latency = 280) {
     this.seed();
