@@ -27,15 +27,8 @@ def main():
     # 2. Read raw JSONL, parse its XML and normalize each record.
     for line_number, record in enumerate(read_jsonl(raw_path), start=1):
         try:
-            item = normalize_event(record)
-
-            if item.get("event_id") is None:
-                raise ValueError("Missing event ID")
-            if not item.get("timestamp"):
-                raise ValueError("Missing event timestamp")
-            if not item.get("raw_xml"):
-                raise ValueError("Missing original XML evidence")
-
+            # Raises on anything that does not meet docs/event_schema.md.
+            item = normalize_event(record, source="live")
             normalized.append(item)
 
         except Exception as exc:
