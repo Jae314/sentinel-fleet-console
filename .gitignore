@@ -30,3 +30,24 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Grim Reaper backend: never commit event data, logs, generated JSON or secrets.
+# Anchored so src/data/ and public/data/ (code and mock fixtures) stay tracked.
+/data/
+/backend/data/
+/backend/reports/
+/reports/
+approvals.json
+*.jsonl
+*.evtx
+*.pcap
+*.pcapng
+*.vmdk
+*.vdi
+*.vmx
+.env
+.env.*
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
