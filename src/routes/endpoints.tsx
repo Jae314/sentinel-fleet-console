@@ -11,6 +11,7 @@ import { useSourceStatus } from "@/components/console/SourceStatus";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/endpoints")({
+  validateSearch: (s: Record<string, unknown>): { q?: string | undefined } => ({ q: typeof s["q"] === "string" ? s["q"] : undefined }),
   head: () => ({
     meta: [
       { property: "og:type", content: "website" },
@@ -30,7 +31,8 @@ const STATES: (ProtectionState | "All")[] = ["All", "Protected", "Degraded", "Is
 function Endpoints() {
   const source = useSourceStatus();
   const { data, isLoading } = useEndpoints();
-  const [q, setQ] = useState("");
+  const search = Route.useSearch();
+  const [q, setQ] = useState(search.q ?? "");
   const [state, setState] = useState<ProtectionState | "All">("All");
   const [page, setPage] = useState(0);
   const rows = useMemo(() => {
