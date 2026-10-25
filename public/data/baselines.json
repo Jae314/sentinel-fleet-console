@@ -1,0 +1,182 @@
+[
+  {
+    "endpointId": "ep-0000",
+    "user": "lab\\demo.analyst",
+    "status": "Active",
+    "learningWindow": {
+      "start": "2026-10-11T05:50:28.948Z",
+      "end": "2026-10-24T05:50:28.948Z",
+      "eventCount": 182440
+    },
+    "logonHours": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      3,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "usualProcesses": [
+      {
+        "name": "explorer.exe",
+        "count": 412,
+        "firstSeen": "2026-10-11T05:50:28.948Z"
+      },
+      {
+        "name": "chrome.exe",
+        "count": 388,
+        "firstSeen": "2026-10-11T05:50:28.948Z"
+      },
+      {
+        "name": "outlook.exe",
+        "count": 96,
+        "firstSeen": "2026-10-12T05:50:28.948Z"
+      },
+      {
+        "name": "teams.exe",
+        "count": 84,
+        "firstSeen": "2026-10-12T05:50:28.948Z"
+      },
+      {
+        "name": "powershell.exe",
+        "count": 12,
+        "firstSeen": "2026-10-16T05:50:28.948Z"
+      }
+    ],
+    "usualDestinations": [
+      {
+        "value": "login.microsoftonline.com",
+        "type": "domain",
+        "count": 1204
+      },
+      {
+        "value": "graph.microsoft.com",
+        "type": "domain",
+        "count": 986
+      },
+      {
+        "value": "mgmt.grimreaper.io",
+        "type": "domain",
+        "count": 720
+      },
+      {
+        "value": "52.109.8.14",
+        "type": "ip",
+        "count": 311
+      }
+    ],
+    "deviations": [
+      {
+        "id": "DEV-0001",
+        "timestamp": "2026-10-25T02:50:28.948Z",
+        "kind": "LogonTime",
+        "subject": "Interactive logon at 03:12",
+        "score": 0.87,
+        "reason": "First logon between 00:00–05:00 in 14 days of observation; all 41 prior logons fell between 08:00 and 19:00.",
+        "evidenceEventIds": [
+          "EVT-4624-9C04A1",
+          "EVT-4634-9C051E"
+        ],
+        "evidenceVerified": true
+      },
+      {
+        "id": "DEV-0002",
+        "timestamp": "2026-10-25T03:50:28.948Z",
+        "kind": "NewProcess",
+        "subject": "certutil.exe",
+        "score": 0.78,
+        "reason": "certutil.exe has never run on this host during the learning window; launched with -urlcache -split -f, a common payload-download pattern.",
+        "evidenceEventIds": [
+          "EVT-4688-9C1102"
+        ],
+        "evidenceVerified": true
+      },
+      {
+        "id": "DEV-0003",
+        "timestamp": "2026-10-25T04:20:28.948Z",
+        "kind": "NewDestination",
+        "subject": "185.220.101.47:8443",
+        "score": 0.64,
+        "reason": "Outbound connection to an IP never contacted by this user before; no domain in the usual-destination list resolves to it.",
+        "evidenceEventIds": [
+          "EVT-NET3-9C1A77"
+        ],
+        "evidenceVerified": false
+      }
+    ]
+  },
+  {
+    "endpointId": "ep-0042",
+    "user": "corp\\kenji.lim",
+    "status": "Learning",
+    "learningWindow": {
+      "start": "2026-10-22T05:50:28.948Z",
+      "end": "2026-11-05T05:50:28.948Z",
+      "eventCount": 24910
+    },
+    "logonHours": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      3,
+      3,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      3,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "usualProcesses": [
+      {
+        "name": "explorer.exe",
+        "count": 64,
+        "firstSeen": "2026-10-22T05:50:28.948Z"
+      },
+      {
+        "name": "chrome.exe",
+        "count": 51,
+        "firstSeen": "2026-10-22T05:50:28.948Z"
+      }
+    ],
+    "usualDestinations": [
+      {
+        "value": "login.microsoftonline.com",
+        "type": "domain",
+        "count": 120
+      }
+    ],
+    "deviations": []
+  }
+]

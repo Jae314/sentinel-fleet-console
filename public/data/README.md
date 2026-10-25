@@ -2,7 +2,7 @@
 
 Set `config.dataSource` to `"file"` in `src/data/config.ts`. The default remains `"mock"`.
 
-Set `VITE_DATA_BASE_URL` to the feed base URL (for example `https://your-feed.example/data`); the default is `/data`. Set it before starting or deploying the console. External feed hosts must allow the console origin through CORS. The console fetches `endpoints.json`, `detections.json`, `actions.json`, `tuning_changes.json`, `runs.json`, and `stats.json` every five seconds while open, with caching disabled. All six files must be present and valid. The first five are JSON arrays; `stats.json` is a single object. Invalid fields, missing required fields, or invalid enum values produce an error instead of silently falling back to mock data.
+Set `VITE_DATA_BASE_URL` to the feed base URL (for example `https://your-feed.example/data`); the default is `/data`. Set it before starting or deploying the console. External feed hosts must allow the console origin through CORS. The console fetches `endpoints.json`, `detections.json`, `actions.json`, `tuning_changes.json`, `runs.json`, `baselines.json`, and `stats.json` every five seconds while open, with caching disabled. All seven files must be present and valid. The first six are JSON arrays; `stats.json` is a single object. Invalid fields, missing required fields, or invalid enum values produce an error instead of silently falling back to mock data.
 
 ## Types
 
@@ -15,6 +15,7 @@ Set `VITE_DATA_BASE_URL` to the feed base URL (for example `https://your-feed.ex
 | actions.json | Action |
 | tuning_changes.json | TuningChange |
 | runs.json | Run |
+| baselines.json | Baseline |
 | stats.json | FileStats (single object) |
 
 All timestamps are ISO 8601 UTC strings (e.g. `2026-10-24T07:14:00.000Z`). Optional fields may be omitted, not set to null. `validationResult` is explicitly nullable while validation is pending. References use endpoint IDs (`hostId` or `endpointId`), not hostnames. Preserve `source: "simulated"` on synthetic records. Samples are generated from MockDataSource, not collected from a real endpoint. The sample lab endpoint retains its existing `source: "live"` contract but is not shown as LIVE unless file mode and fresh.

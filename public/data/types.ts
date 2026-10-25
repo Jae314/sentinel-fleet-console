@@ -171,6 +171,31 @@ export interface TuningChange {
   techniquesNowVisible: string[];
 }
 
+export type BaselineStatus = "Learning" | "Active";
+export type DeviationKind = "LogonTime" | "NewProcess" | "NewDestination";
+export interface Deviation {
+  id: string;
+  timestamp: string;
+  kind: DeviationKind;
+  subject: string;
+  /** 0–1 anomaly score; review-only, never triggers actions. */
+  score: number;
+  reason: string;
+  evidenceEventIds: string[];
+  evidenceVerified: boolean;
+}
+export interface Baseline {
+  endpointId: string;
+  user: string;
+  status: BaselineStatus;
+  learningWindow: { start: string; end: string; eventCount: number };
+  /** Logons observed per hour of day, index 0–23. */
+  logonHours: number[];
+  usualProcesses: { name: string; count: number; firstSeen: string }[];
+  usualDestinations: { value: string; type: "domain" | "ip"; count: number }[];
+  deviations: Deviation[];
+}
+
 export interface Run {
   id: string;
   timestamp: string;

@@ -1,7 +1,7 @@
 [
   {
     "id": "TUNE-001",
-    "timestamp": "2026-10-25T01:30:18.817Z",
+    "timestamp": "2026-10-25T04:50:28.947Z",
     "hostId": "ep-0000",
     "source": "simulated",
     "visibilityGap": "Sysmon network connection events (ID 3) not logged",
@@ -47,7 +47,7 @@
   },
   {
     "id": "TUNE-002",
-    "timestamp": "2026-10-25T01:45:18.817Z",
+    "timestamp": "2026-10-25T05:05:28.947Z",
     "hostId": "ep-0000",
     "source": "simulated",
     "visibilityGap": "Sysmon DNS query events (ID 22) not logged",
@@ -92,7 +92,7 @@
   },
   {
     "id": "TUNE-003",
-    "timestamp": "2026-10-25T02:00:18.817Z",
+    "timestamp": "2026-10-25T05:20:28.947Z",
     "hostId": "ep-0000",
     "source": "simulated",
     "visibilityGap": "Sysmon registry changes (IDs 12–14) not logged",
@@ -137,7 +137,7 @@
   },
   {
     "id": "TUNE-004",
-    "timestamp": "2026-10-25T02:15:18.817Z",
+    "timestamp": "2026-10-25T05:35:28.947Z",
     "hostId": "ep-0000",
     "source": "simulated",
     "visibilityGap": "PowerShell script block logging (ID 4104) not enabled",
