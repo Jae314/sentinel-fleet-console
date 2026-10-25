@@ -18,8 +18,8 @@ Data flow: Windows logs → collector JSONL → `pipeline.py` → `data/*.json` 
 - `public/data/*.json` are mock-generated fixtures (`scripts/export-data.ts`), not observed data.
 - Q2 requirements live in `docs/requirements.md` as a checklist. The full brief text is not committed.
 
-### Known contract gap (pending Lovable)
-`Detection.proposedAction` must be nullable: detections with no action, or with a non-Malicious verdict, are kept, and their `proposedAction` is `null`. The console change (`types.ts`, `fileSchemas.ts`, null-guards) is being made **in Lovable**. Until it syncs, the contract validator reports this one mismatch as "known, pending Lovable" and does not fail on it. Remove that exception once the synced schema accepts `null`.
+### proposedAction is nullable
+`Detection.proposedAction` is `ProposedAction | null` (synced from Lovable, with a test in `src/data/nullable-proposal.test.ts`). Detections that have no action, or whose verdict is not Malicious, are kept with `proposedAction: null`.
 
 ## Commands
 
