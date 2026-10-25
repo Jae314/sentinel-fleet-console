@@ -5,3 +5,6 @@
 - [x] Configure file base URL and consume validated stats snapshots.
 - [x] Send file response decisions, preserve safety rules, and expose block reasons.
 - [x] Verify decision refresh and failures with an intercepted service, and run regression tests; real decision service is host-supplied.
+- [x] Add strict experiment snapshots and isolated example data, preserving tuning visibility.
+- [x] Add Experiments session, repeatability, tuning comparison and links.
+- [x] Test calculations, file refresh, empty states and navigation; 40 tests passed and browser checks covered example/recorded sessions, status differences, chart, tuning links and empty polling.

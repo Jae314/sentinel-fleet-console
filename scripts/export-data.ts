@@ -9,7 +9,7 @@ const samples = {
   "detections.json": await mock.getDetections(),
   "actions.json": actions.map((a) => a.status === "BlockedByGuardrail" ? { ...a, blockedReason: a.auditLog.find((e) => e.event === "Blocked by guardrail")?.detail ?? "Protected target" } : a),
   "tuning_changes.json": await mock.getTuningChanges(),
-  "runs.json": await mock.getRuns(),
+  "runs.json": (await mock.getExperiments()).snapshot,
   "baselines.json": await mock.getBaselines(),
   "stats.json": { eventsProcessed: fleet.eventsProcessed, eventsPerSecond: fleet.eventsPerSecond, detections: fleet.detections24h, actions: fleet.actionsAuto + fleet.actionsHuman, actionsByStatus: Object.fromEntries(["PendingApproval", "AutoExecuted", "Approved", "Rejected", "BlockedByGuardrail", "RolledBack"].map((status) => [status, actions.filter((a) => a.status === status).length])) },
 };

@@ -1,6 +1,8 @@
 import type { DataSource } from "./DataSource";
 import { DEFAULT_PROTECTED, canExecute, decideInitialStatus, isProtectedTarget, safeTuningStatus, tuningProtectionViolation } from "./guardrails";
 import { seedTuning } from "./tuningSeed";
+import { seedExperiments } from "./experimentSeed";
+import type { ExperimentData } from "./types";
 import type {
   Action,
   Baseline,
@@ -347,6 +349,7 @@ export class MockDataSource implements DataSource {
   async getBlockedAttempts() { return this.wait(this.blocked); }
   async getTuningChanges(): Promise<TuningChange[]> { return this.wait(this.tuning.changes); }
   async getRuns(): Promise<Run[]> { return this.wait(this.tuning.runs); }
+  async getExperiments(): Promise<ExperimentData> { return this.wait({ source: "simulated", snapshot: seedExperiments() }); }
   async getBaselines(): Promise<Baseline[]> { return this.wait(this.baselines); }
 
   private findTuning(id: string) {

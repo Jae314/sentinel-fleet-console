@@ -205,3 +205,42 @@ export interface Run {
   eventsProcessed: number;
   eventsPerSecond: number;
 }
+
+export type ExperimentOutcome = "TruePositive" | "FalsePositive" | "FalseNegative" | "TrueNegative" | "VisibilityGap";
+export interface Scenario {
+  id: string;
+  name: string;
+  kind: "Attack" | "Benign";
+  technique: string | null;
+  description: string;
+}
+export interface ExperimentResult {
+  scenarioId: string;
+  outcome: ExperimentOutcome;
+  detectionId: string | null;
+  verdict: string | null;
+  actionStatus: string | null;
+  notes: string;
+}
+export interface ExperimentRun {
+  id: string;
+  label: string;
+  startedAt: string;
+  configLabel: "Weak baseline" | "Tuned";
+  results: ExperimentResult[];
+}
+export interface ExperimentComparison {
+  id: string;
+  runAId: string;
+  runBId: string;
+  purpose: "Repeatability" | "BeforeAfterTuning";
+  explanations: { scenarioId: string; text: string }[];
+}
+export interface ExperimentSnapshot {
+  scenarios: Scenario[];
+  runs: ExperimentRun[];
+  comparisons: ExperimentComparison[];
+  tuningLink: { beforeRunId: string; afterRunId: string; changeIds: string[] };
+}
+/** Provenance is supplied by the data source, outside the exact JSON contract. */
+export interface ExperimentData { source: DataOrigin; snapshot: ExperimentSnapshot }

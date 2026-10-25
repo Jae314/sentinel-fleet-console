@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as BaselinesRouteImport } from './routes/baselines'
 import { Route as DetectionsRouteImport } from './routes/detections'
 import { Route as EndpointsRouteImport } from './routes/endpoints'
+import { Route as ExperimentsRouteImport } from './routes/experiments'
 import { Route as GuardrailsRouteImport } from './routes/guardrails'
 import { Route as ResponseRouteImport } from './routes/response'
 import { Route as TuningRouteImport } from './routes/tuning'
@@ -37,6 +38,11 @@ const EndpointsRoute = EndpointsRouteImport.update({
   path: '/endpoints',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ExperimentsRoute = ExperimentsRouteImport.update({
+  id: '/experiments',
+  path: '/experiments',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GuardrailsRoute = GuardrailsRouteImport.update({
   id: '/guardrails',
   path: '/guardrails',
@@ -58,6 +64,7 @@ export interface FileRoutesByFullPath {
   '/baselines': typeof BaselinesRoute
   '/detections': typeof DetectionsRoute
   '/endpoints': typeof EndpointsRoute
+  '/experiments': typeof ExperimentsRoute
   '/guardrails': typeof GuardrailsRoute
   '/response': typeof ResponseRoute
   '/tuning': typeof TuningRoute
@@ -67,6 +74,7 @@ export interface FileRoutesByTo {
   '/baselines': typeof BaselinesRoute
   '/detections': typeof DetectionsRoute
   '/endpoints': typeof EndpointsRoute
+  '/experiments': typeof ExperimentsRoute
   '/guardrails': typeof GuardrailsRoute
   '/response': typeof ResponseRoute
   '/tuning': typeof TuningRoute
@@ -77,6 +85,7 @@ export interface FileRoutesById {
   '/baselines': typeof BaselinesRoute
   '/detections': typeof DetectionsRoute
   '/endpoints': typeof EndpointsRoute
+  '/experiments': typeof ExperimentsRoute
   '/guardrails': typeof GuardrailsRoute
   '/response': typeof ResponseRoute
   '/tuning': typeof TuningRoute
@@ -88,6 +97,7 @@ export interface FileRouteTypes {
     | '/baselines'
     | '/detections'
     | '/endpoints'
+    | '/experiments'
     | '/guardrails'
     | '/response'
     | '/tuning'
@@ -97,6 +107,7 @@ export interface FileRouteTypes {
     | '/baselines'
     | '/detections'
     | '/endpoints'
+    | '/experiments'
     | '/guardrails'
     | '/response'
     | '/tuning'
@@ -106,6 +117,7 @@ export interface FileRouteTypes {
     | '/baselines'
     | '/detections'
     | '/endpoints'
+    | '/experiments'
     | '/guardrails'
     | '/response'
     | '/tuning'
@@ -116,6 +128,7 @@ export interface RootRouteChildren {
   BaselinesRoute: typeof BaselinesRoute
   DetectionsRoute: typeof DetectionsRoute
   EndpointsRoute: typeof EndpointsRoute
+  ExperimentsRoute: typeof ExperimentsRoute
   GuardrailsRoute: typeof GuardrailsRoute
   ResponseRoute: typeof ResponseRoute
   TuningRoute: typeof TuningRoute
@@ -151,6 +164,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EndpointsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/experiments': {
+      id: '/experiments'
+      path: '/experiments'
+      fullPath: '/experiments'
+      preLoaderRoute: typeof ExperimentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/guardrails': {
       id: '/guardrails'
       path: '/guardrails'
@@ -180,6 +200,7 @@ const rootRouteChildren: RootRouteChildren = {
   BaselinesRoute: BaselinesRoute,
   DetectionsRoute: DetectionsRoute,
   EndpointsRoute: EndpointsRoute,
+  ExperimentsRoute: ExperimentsRoute,
   GuardrailsRoute: GuardrailsRoute,
   ResponseRoute: ResponseRoute,
   TuningRoute: TuningRoute,

@@ -1,18 +1,320 @@
-[
-  {
-    "id": "RUN-001",
-    "timestamp": "2026-10-25T05:50:28.947Z",
-    "hostId": "ep-0000",
-    "source": "simulated",
-    "testedTechniques": [
-      "T1071.001",
-      "T1041",
-      "T1071.004",
-      "T1547.001",
-      "T1059.001",
-      "T1003.001"
-    ],
-    "eventsProcessed": 48210000,
-    "eventsPerSecond": 1840
+{
+  "scenarios": [
+    {
+      "id": "S01",
+      "name": "HTTPS beacon",
+      "kind": "Attack",
+      "technique": "T1071.001",
+      "description": "Controlled beacon to a test destination."
+    },
+    {
+      "id": "S02",
+      "name": "Outbound transfer",
+      "kind": "Attack",
+      "technique": "T1041",
+      "description": "Synthetic outbound transfer over the test C2 channel."
+    },
+    {
+      "id": "S03",
+      "name": "DNS beacon",
+      "kind": "Attack",
+      "technique": "T1071.004",
+      "description": "Repeated test-domain lookups emulating DNS command and control."
+    },
+    {
+      "id": "S04",
+      "name": "Run-key persistence",
+      "kind": "Attack",
+      "technique": "T1547.001",
+      "description": "Disposable Run-key entry created and removed in the lab."
+    },
+    {
+      "id": "S05",
+      "name": "Encoded PowerShell",
+      "kind": "Attack",
+      "technique": "T1059.001",
+      "description": "Harmless encoded script emulating a suspicious invocation."
+    },
+    {
+      "id": "S06",
+      "name": "LSASS access test",
+      "kind": "Attack",
+      "technique": "T1003.001",
+      "description": "Controlled credential-access simulation against a protected target."
+    },
+    {
+      "id": "S07",
+      "name": "Signed software updater",
+      "kind": "Benign",
+      "technique": null,
+      "description": "Approved signed updater contacts its normal distribution host."
+    },
+    {
+      "id": "S08",
+      "name": "Microsoft 365 sign-in",
+      "kind": "Benign",
+      "technique": null,
+      "description": "Normal browser sign-in and productivity traffic."
+    }
+  ],
+  "runs": [
+    {
+      "id": "EXAMPLE-RUN-1",
+      "label": "Run 1",
+      "startedAt": "2026-10-25T05:00:00.000Z",
+      "configLabel": "Weak baseline",
+      "results": [
+        {
+          "scenarioId": "S01",
+          "outcome": "VisibilityGap",
+          "detectionId": null,
+          "verdict": null,
+          "actionStatus": null,
+          "notes": "Example: no relevant network or DNS telemetry was collected."
+        },
+        {
+          "scenarioId": "S02",
+          "outcome": "VisibilityGap",
+          "detectionId": null,
+          "verdict": null,
+          "actionStatus": null,
+          "notes": "Example: no relevant network or DNS telemetry was collected."
+        },
+        {
+          "scenarioId": "S03",
+          "outcome": "VisibilityGap",
+          "detectionId": null,
+          "verdict": null,
+          "actionStatus": null,
+          "notes": "Example: no relevant network or DNS telemetry was collected."
+        },
+        {
+          "scenarioId": "S04",
+          "outcome": "FalseNegative",
+          "detectionId": null,
+          "verdict": null,
+          "actionStatus": null,
+          "notes": "Example: registry telemetry existed, but no rule raised a detection."
+        },
+        {
+          "scenarioId": "S05",
+          "outcome": "TruePositive",
+          "detectionId": "EXAMPLE-DET-S05",
+          "verdict": "Malicious",
+          "actionStatus": "PendingApproval",
+          "notes": "Example: the attack simulation raised a detection; no real endpoint action occurred."
+        },
+        {
+          "scenarioId": "S06",
+          "outcome": "TruePositive",
+          "detectionId": "EXAMPLE-DET-S06",
+          "verdict": "Malicious",
+          "actionStatus": "BlockedByGuardrail",
+          "notes": "Example: the attack simulation raised a detection; no real endpoint action occurred."
+        },
+        {
+          "scenarioId": "S07",
+          "outcome": "FalsePositive",
+          "detectionId": "EXAMPLE-DET-S07",
+          "verdict": "NeedsMoreEvidence",
+          "actionStatus": "Rejected",
+          "notes": "Example: the signed updater was flagged and rejected by the analyst; logging tuning did not fix this false positive."
+        },
+        {
+          "scenarioId": "S08",
+          "outcome": "TrueNegative",
+          "detectionId": null,
+          "verdict": null,
+          "actionStatus": null,
+          "notes": "Example: normal activity was not flagged."
+        }
+      ]
+    },
+    {
+      "id": "EXAMPLE-RUN-2",
+      "label": "Run 2",
+      "startedAt": "2026-10-25T05:15:00.000Z",
+      "configLabel": "Weak baseline",
+      "results": [
+        {
+          "scenarioId": "S01",
+          "outcome": "VisibilityGap",
+          "detectionId": null,
+          "verdict": null,
+          "actionStatus": null,
+          "notes": "Example: no relevant network or DNS telemetry was collected."
+        },
+        {
+          "scenarioId": "S02",
+          "outcome": "VisibilityGap",
+          "detectionId": null,
+          "verdict": null,
+          "actionStatus": null,
+          "notes": "Example: no relevant network or DNS telemetry was collected."
+        },
+        {
+          "scenarioId": "S03",
+          "outcome": "VisibilityGap",
+          "detectionId": null,
+          "verdict": null,
+          "actionStatus": null,
+          "notes": "Example: no relevant network or DNS telemetry was collected."
+        },
+        {
+          "scenarioId": "S04",
+          "outcome": "FalseNegative",
+          "detectionId": null,
+          "verdict": null,
+          "actionStatus": null,
+          "notes": "Example: registry telemetry existed, but no rule raised a detection."
+        },
+        {
+          "scenarioId": "S05",
+          "outcome": "TruePositive",
+          "detectionId": "EXAMPLE-DET-S05",
+          "verdict": "Malicious",
+          "actionStatus": "PendingApproval",
+          "notes": "Example: the attack simulation raised a detection; no real endpoint action occurred."
+        },
+        {
+          "scenarioId": "S06",
+          "outcome": "TruePositive",
+          "detectionId": "EXAMPLE-DET-S06",
+          "verdict": "Malicious",
+          "actionStatus": "BlockedByGuardrail",
+          "notes": "Example: the attack simulation raised a detection; no real endpoint action occurred."
+        },
+        {
+          "scenarioId": "S07",
+          "outcome": "FalsePositive",
+          "detectionId": "EXAMPLE-DET-S07",
+          "verdict": "NeedsMoreEvidence",
+          "actionStatus": "Rejected",
+          "notes": "Example: the signed updater was flagged and rejected by the analyst; logging tuning did not fix this false positive."
+        },
+        {
+          "scenarioId": "S08",
+          "outcome": "TrueNegative",
+          "detectionId": null,
+          "verdict": null,
+          "actionStatus": null,
+          "notes": "Example: normal activity was not flagged."
+        }
+      ]
+    },
+    {
+      "id": "EXAMPLE-RUN-3",
+      "label": "Run 3",
+      "startedAt": "2026-10-25T05:45:00.000Z",
+      "configLabel": "Tuned",
+      "results": [
+        {
+          "scenarioId": "S01",
+          "outcome": "TruePositive",
+          "detectionId": "EXAMPLE-DET-S01",
+          "verdict": "Malicious",
+          "actionStatus": "PendingApproval",
+          "notes": "Example: the attack simulation raised a detection; no real endpoint action occurred."
+        },
+        {
+          "scenarioId": "S02",
+          "outcome": "TruePositive",
+          "detectionId": "EXAMPLE-DET-S02",
+          "verdict": "Malicious",
+          "actionStatus": "PendingApproval",
+          "notes": "Example: the attack simulation raised a detection; no real endpoint action occurred."
+        },
+        {
+          "scenarioId": "S03",
+          "outcome": "TruePositive",
+          "detectionId": "EXAMPLE-DET-S03",
+          "verdict": "Malicious",
+          "actionStatus": "PendingApproval",
+          "notes": "Example: the attack simulation raised a detection; no real endpoint action occurred."
+        },
+        {
+          "scenarioId": "S04",
+          "outcome": "TruePositive",
+          "detectionId": "EXAMPLE-DET-S04",
+          "verdict": "Malicious",
+          "actionStatus": "PendingApproval",
+          "notes": "Example: the attack simulation raised a detection; no real endpoint action occurred."
+        },
+        {
+          "scenarioId": "S05",
+          "outcome": "TruePositive",
+          "detectionId": "EXAMPLE-DET-S05",
+          "verdict": "Malicious",
+          "actionStatus": "PendingApproval",
+          "notes": "Example: the attack simulation raised a detection; no real endpoint action occurred."
+        },
+        {
+          "scenarioId": "S06",
+          "outcome": "TruePositive",
+          "detectionId": "EXAMPLE-DET-S06",
+          "verdict": "Malicious",
+          "actionStatus": "BlockedByGuardrail",
+          "notes": "Example: the attack simulation raised a detection; no real endpoint action occurred."
+        },
+        {
+          "scenarioId": "S07",
+          "outcome": "FalsePositive",
+          "detectionId": "EXAMPLE-DET-S07",
+          "verdict": "NeedsMoreEvidence",
+          "actionStatus": "Rejected",
+          "notes": "Example: the signed updater was flagged and rejected by the analyst; logging tuning did not fix this false positive."
+        },
+        {
+          "scenarioId": "S08",
+          "outcome": "TrueNegative",
+          "detectionId": null,
+          "verdict": null,
+          "actionStatus": null,
+          "notes": "Example: normal activity was not flagged."
+        }
+      ]
+    }
+  ],
+  "comparisons": [
+    {
+      "id": "EXAMPLE-REPEAT",
+      "runAId": "EXAMPLE-RUN-1",
+      "runBId": "EXAMPLE-RUN-2",
+      "purpose": "Repeatability",
+      "explanations": []
+    },
+    {
+      "id": "EXAMPLE-TUNING",
+      "runAId": "EXAMPLE-RUN-1",
+      "runBId": "EXAMPLE-RUN-3",
+      "purpose": "BeforeAfterTuning",
+      "explanations": [
+        {
+          "scenarioId": "S01",
+          "text": "Enabling the missing network or DNS feed made the attack detectable."
+        },
+        {
+          "scenarioId": "S02",
+          "text": "Enabling the missing network or DNS feed made the attack detectable."
+        },
+        {
+          "scenarioId": "S03",
+          "text": "Enabling the missing network or DNS feed made the attack detectable."
+        },
+        {
+          "scenarioId": "S04",
+          "text": "Registry events became available to the detection pipeline after tuning."
+        }
+      ]
+    }
+  ],
+  "tuningLink": {
+    "beforeRunId": "EXAMPLE-RUN-1",
+    "afterRunId": "EXAMPLE-RUN-3",
+    "changeIds": [
+      "TUNE-001",
+      "TUNE-002",
+      "TUNE-003"
+    ]
   }
-]
+}

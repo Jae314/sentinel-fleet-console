@@ -2,7 +2,7 @@
 
 Set `config.dataSource` to `"file"` in `src/data/config.ts`. The default remains `"mock"`.
 
-Set `VITE_DATA_BASE_URL` to the feed base URL (for example `https://your-feed.example/data`); the default is `/data`. Set it before starting or deploying the console. External feed hosts must allow the console origin through CORS. The console fetches `endpoints.json`, `detections.json`, `actions.json`, `tuning_changes.json`, `runs.json`, `baselines.json`, and `stats.json` every five seconds while open, with caching disabled. All seven files must be present and valid. The first six are JSON arrays; `stats.json` is a single object. Invalid fields, missing required fields, or invalid enum values produce an error instead of silently falling back to mock data.
+Set `VITE_DATA_BASE_URL` to the feed base URL (for example `https://your-feed.example/data`); the default is `/data`. Set it before starting or deploying the console. External feed hosts must allow the console origin through CORS. The console fetches `endpoints.json`, `detections.json`, `actions.json`, `tuning_changes.json`, `runs.json`, `baselines.json`, and `stats.json` every five seconds while open, with caching disabled. All seven files must be present and valid. `runs.json` and `stats.json` are single objects; the other files are arrays. Invalid fields, missing required fields, or invalid enum values produce an error instead of silently falling back to mock data.
 
 ## Types
 
@@ -14,13 +14,13 @@ Set `VITE_DATA_BASE_URL` to the feed base URL (for example `https://your-feed.ex
 | detections.json | Detection |
 | actions.json | Action |
 | tuning_changes.json | TuningChange |
-| runs.json | Run |
+| runs.json | ExperimentSnapshot (single object) |
 | baselines.json | Baseline |
 | stats.json | FileStats (single object) |
 
 All timestamps are ISO 8601 UTC strings (e.g. `2026-10-24T07:14:00.000Z`). Optional fields may be omitted, not set to null. `validationResult` is explicitly nullable while validation is pending. References use endpoint IDs (`hostId` or `endpointId`), not hostnames. Preserve `source: "simulated"` on synthetic records. Samples are generated from MockDataSource, not collected from a real endpoint. The sample lab endpoint retains its existing `source: "live"` contract but is not shown as LIVE unless file mode and fresh.
 
-`Run` adds an explicit host-specific `testedTechniques` list and observed event totals/rates. Fleet event, detection and action KPIs use `stats.json`, not detail-row counts; file-fed event counts are not artificially ticked. `detections` is the producer's last-24-hour detection count; `actions` is its total actions-taken count. `actionsByStatus` supplies all six status counts: `PendingApproval`, `AutoExecuted`, `Approved`, `Rejected`, `BlockedByGuardrail`, and `RolledBack`. Auto and human-approved subtotals use `AutoExecuted` and `Approved`. Endpoint protection and response duration metrics still use detail feeds. Logging visibility counts the distinct tested technique IDs present in Applied changes for the selected host. Proposed, Validated, RolledBack, failed, and protected-reduction changes do not count.
+The legacy `Run` type is an internal tuning-visibility adapter, not the runs.json contract. File-mode tested techniques come from attack scenarios in the experiment session, associated with hosts through tuningLink.changeIds and tuning_changes.json. Fleet event, detection and action KPIs use `stats.json`, not detail-row counts; file-fed event counts are not artificially ticked. `detections` is the producer's last-24-hour detection count; `actions` is its total actions-taken count. `actionsByStatus` supplies all six status counts: `PendingApproval`, `AutoExecuted`, `Approved`, `Rejected`, `BlockedByGuardrail`, and `RolledBack`. Auto and human-approved subtotals use `AutoExecuted` and `Approved`. Endpoint protection and response duration metrics still use detail feeds. Logging visibility counts the distinct tested technique IDs present in Applied changes for the selected host. Proposed, Validated, RolledBack, failed, and protected-reduction changes do not count.
 
 ## Logging configuration
 
@@ -54,3 +54,13 @@ Use atomic replacement for each file to avoid reading a partial write. Keep IDs 
 ## Baselines
 
 `baselines.json` holds one `Baseline` per endpoint/user. `logonHours` is exactly 24 counts (index = hour of day). `deviations` are review-only signals (`score` 0–1) and never trigger response actions; keep `evidenceVerified: false` when the referenced event IDs cannot be confirmed in the log store. While `status` is `Learning`, deviations should be empty — the console does not flag them.
+
+## Experiments
+
+`runs.json` now uses exactly `ExperimentSnapshot`: `{scenarios, runs, comparisons, tuningLink}`. This replaces the previous Run array. Scenarios retain file order. Each run contains a label, ISO startedAt, configLabel (`Weak baseline` or `Tuned`) and results with scenarioId, outcome, nullable detectionId/verdict/actionStatus, and notes. Comparisons reference run IDs and provide scenario-specific explanations; tuningLink names the before/after runs and tuning change IDs. Unknown references, duplicate IDs/results, extra fields and outcomes incompatible with scenario kind are rejected. A missing result displays `Not recorded` and is not counted as an identical outcome.
+
+The reserved ID prefix `EXAMPLE-` identifies bundled example runs (and example scenarios/detections when needed). Production run IDs must not use this prefix. Mock records are marked `source: simulated` in the DataSource envelope, outside the exact JSON shape. File examples are labelled `Example data`; as soon as a non-example run exists, all example runs and their comparisons are excluded. No examples are inserted for an empty or failed file feed. Replace exported sample runs with observed records before a real session.
+
+Empty snapshot: `{"scenarios":[],"runs":[],"comparisons":[],"tuningLink":{"beforeRunId":"","afterRunId":"","changeIds":[]}}` displays `No runs recorded yet`.
+
+Repeatability is identical outcome pairs divided by scripted scenarios; action-status differences are highlighted separately. Detection rate is `TP / (TP + FN + VisibilityGap)`; precision is `TP / (TP + FP)`. Zero denominators display `N/A`, and changes are percentage-point differences. VisibilityGap means no relevant telemetry existed; FalseNegative means telemetry existed but no detection was raised. Logging changes are linked records, not an invented coverage score.
