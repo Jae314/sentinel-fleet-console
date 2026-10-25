@@ -23,7 +23,7 @@ describe("file data and live honesty", () => {
     try {
       const mock = new MockDataSource(0);
       const endpoints = await mock.getEndpoints();
-      const payloads: Record<string, unknown> = { "endpoints.json": endpoints, "detections.json": await mock.getDetections(), "actions.json": await mock.getActions(), "tuning_changes.json": await mock.getTuningChanges(), "runs.json": await mock.getRuns(), "stats.json": statsFixture };
+      const payloads: Record<string, unknown> = { "endpoints.json": endpoints, "detections.json": await mock.getDetections(), "actions.json": await mock.getActions(), "tuning_changes.json": await mock.getTuningChanges(), "runs.json": await mock.getRuns(), "baselines.json": await mock.getBaselines(), "stats.json": statsFixture };
       const requests: string[] = [];
       const file = new FileDataSource("/data", async (input, init) => {
         const filename = String(input).split("/").at(-1) ?? "";
@@ -32,11 +32,11 @@ describe("file data and live honesty", () => {
         return new Response(JSON.stringify(payloads[filename]));
       });
       expect(await file.getEndpoints()).toHaveLength(1200);
-      expect(requests).toEqual(["endpoints.json", "detections.json", "actions.json", "tuning_changes.json", "runs.json", "stats.json"]);
+      expect(requests).toEqual(["endpoints.json", "detections.json", "actions.json", "tuning_changes.json", "runs.json", "baselines.json", "stats.json"]);
       payloads["endpoints.json"] = endpoints.slice(0, 1);
       await vi.advanceTimersByTimeAsync(5000);
       expect(await file.getEndpoints()).toHaveLength(1);
-      expect(requests).toHaveLength(12);
+      expect(requests).toHaveLength(14);
       payloads["endpoints.json"] = [{ ...endpoints[0], inventedField: 1 }];
       await vi.advanceTimersByTimeAsync(5000);
       await expect(file.getEndpoints()).rejects.toThrow("endpoints.json");
@@ -50,7 +50,7 @@ const statsFixture = { eventsProcessed: 87654321, eventsPerSecond: 4321, detecti
 async function fileFixture() {
   const mock = new MockDataSource(0);
   const actions = await mock.getActions();
-  const payloads: Record<string, unknown> = { "endpoints.json": await mock.getEndpoints(), "detections.json": await mock.getDetections(), "actions.json": actions, "tuning_changes.json": await mock.getTuningChanges(), "runs.json": await mock.getRuns(), "stats.json": statsFixture };
+  const payloads: Record<string, unknown> = { "endpoints.json": await mock.getEndpoints(), "detections.json": await mock.getDetections(), "actions.json": actions, "tuning_changes.json": await mock.getTuningChanges(), "runs.json": await mock.getRuns(), "baselines.json": await mock.getBaselines(), "stats.json": statsFixture };
   const fetcher = vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
     if (input === "/api/decision") return new Response(null, { status: 204 });
     expect(init?.cache).toBe("no-store");
