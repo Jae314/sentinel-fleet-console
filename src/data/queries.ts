@@ -12,6 +12,7 @@ export const useDetections = () => useQuery({ ...polling, queryKey: [ROOT, "dete
 export const useActions = () => useQuery({ ...polling, queryKey: [ROOT, "actions"], queryFn: () => ds().getActions() });
 export const useTuningChanges = () => useQuery({ ...polling, queryKey: [ROOT, "tuning"], queryFn: () => ds().getTuningChanges() });
 export const useRuns = () => useQuery({ ...polling, queryKey: [ROOT, "runs"], queryFn: () => ds().getRuns() });
+export const useBaselines = () => useQuery({ ...polling, queryKey: [ROOT, "baselines"], queryFn: () => ds().getBaselines() });
 export const useFleetStats = () =>
   useQuery({ queryKey: [ROOT, "stats"], queryFn: () => ds().getFleetStats(), refetchInterval: DATA_SOURCE === "file" ? FILE_POLL_INTERVAL : 15_000, refetchIntervalInBackground: true });
 export const useGuardrails = () => useQuery({ queryKey: [ROOT, "guardrails"], queryFn: () => ds().getGuardrails() });

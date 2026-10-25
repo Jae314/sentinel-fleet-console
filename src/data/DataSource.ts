@@ -1,7 +1,8 @@
-import type { Action, ActionMode, BlockedAttempt, Detection, Endpoint, FleetStats, GuardrailConfig, Run, TuningChange } from "./types";
+import type { Action, ActionMode, Baseline, BlockedAttempt, Detection, Endpoint, FleetStats, GuardrailConfig, Run, TuningChange } from "./types";
 
 export interface DataSource {
   readonly kind: "mock" | "file" | "rest";
+  getBaselines(): Promise<Baseline[]>;
   getTuningChanges(): Promise<TuningChange[]>;
   getRuns(): Promise<Run[]>;
   validateTuningChange(id: string): Promise<TuningChange>;

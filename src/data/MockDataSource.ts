@@ -3,6 +3,7 @@ import { DEFAULT_PROTECTED, canExecute, decideInitialStatus, isProtectedTarget, 
 import { seedTuning } from "./tuningSeed";
 import type {
   Action,
+  Baseline,
   ActionMode,
   ActionType,
   BlockedAttempt,
@@ -114,6 +115,7 @@ export class MockDataSource implements DataSource {
   private startedAt = Date.now();
   private seq = 1000;
   private tuning = seedTuning(Date.now());
+  private baselines: Baseline[] = [];
 
   constructor(private latency = 280) {
     this.seed();
@@ -230,6 +232,59 @@ export class MockDataSource implements DataSource {
     this.detections.sort((a, b) => b.timestamp.localeCompare(a.timestamp));
     this.actions.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
     this.blocked.sort((a, b) => b.at.localeCompare(a.at));
+
+    // User baselines: one Active (lab host) with three seeded deviations, one still Learning.
+    const hourCounts = (peak: number[]) => Array.from({ length: 24 }, (_, h) => peak.includes(h) ? 1 + Math.floor(r() * 3) : 0);
+    this.baselines.push({
+      endpointId: live.id, user: live.user, status: "Active",
+      learningWindow: { start: new Date(now - 14 * 24 * HOUR).toISOString(), end: new Date(now - 1 * 24 * HOUR).toISOString(), eventCount: 182_440 },
+      logonHours: hourCounts([8, 9, 10, 17, 18]),
+      usualProcesses: [
+        { name: "explorer.exe", count: 412, firstSeen: new Date(now - 14 * 24 * HOUR).toISOString() },
+        { name: "chrome.exe", count: 388, firstSeen: new Date(now - 14 * 24 * HOUR).toISOString() },
+        { name: "outlook.exe", count: 96, firstSeen: new Date(now - 13 * 24 * HOUR).toISOString() },
+        { name: "teams.exe", count: 84, firstSeen: new Date(now - 13 * 24 * HOUR).toISOString() },
+        { name: "powershell.exe", count: 12, firstSeen: new Date(now - 9 * 24 * HOUR).toISOString() },
+      ],
+      usualDestinations: [
+        { value: "login.microsoftonline.com", type: "domain", count: 1_204 },
+        { value: "graph.microsoft.com", type: "domain", count: 986 },
+        { value: "mgmt.grimreaper.io", type: "domain", count: 720 },
+        { value: "52.109.8.14", type: "ip", count: 311 },
+      ],
+      deviations: [
+        {
+          id: "DEV-0001", timestamp: new Date(now - 3 * HOUR).toISOString(), kind: "LogonTime",
+          subject: "Interactive logon at 03:12", score: 0.87,
+          reason: "First logon between 00:00–05:00 in 14 days of observation; all 41 prior logons fell between 08:00 and 19:00.",
+          evidenceEventIds: ["EVT-4624-9C04A1", "EVT-4634-9C051E"], evidenceVerified: true,
+        },
+        {
+          id: "DEV-0002", timestamp: new Date(now - 2 * HOUR).toISOString(), kind: "NewProcess",
+          subject: "certutil.exe", score: 0.78,
+          reason: "certutil.exe has never run on this host during the learning window; launched with -urlcache -split -f, a common payload-download pattern.",
+          evidenceEventIds: ["EVT-4688-9C1102"], evidenceVerified: true,
+        },
+        {
+          id: "DEV-0003", timestamp: new Date(now - 90 * 60_000).toISOString(), kind: "NewDestination",
+          subject: "185.220.101.47:8443", score: 0.64,
+          reason: "Outbound connection to an IP never contacted by this user before; no domain in the usual-destination list resolves to it.",
+          evidenceEventIds: ["EVT-NET3-9C1A77"], evidenceVerified: false,
+        },
+      ],
+    });
+    const learner = this.endpoints[42]!;
+    this.baselines.push({
+      endpointId: learner.id, user: learner.user, status: "Learning",
+      learningWindow: { start: new Date(now - 3 * 24 * HOUR).toISOString(), end: new Date(now + 11 * 24 * HOUR).toISOString(), eventCount: 24_910 },
+      logonHours: hourCounts([9, 10, 18]),
+      usualProcesses: [
+        { name: "explorer.exe", count: 64, firstSeen: new Date(now - 3 * 24 * HOUR).toISOString() },
+        { name: "chrome.exe", count: 51, firstSeen: new Date(now - 3 * 24 * HOUR).toISOString() },
+      ],
+      usualDestinations: [{ value: "login.microsoftonline.com", type: "domain", count: 120 }],
+      deviations: [],
+    });
   }
 
   private addDetection(d: Omit<Detection, "id">, now: number, r?: () => number) {
@@ -292,6 +347,7 @@ export class MockDataSource implements DataSource {
   async getBlockedAttempts() { return this.wait(this.blocked); }
   async getTuningChanges(): Promise<TuningChange[]> { return this.wait(this.tuning.changes); }
   async getRuns(): Promise<Run[]> { return this.wait(this.tuning.runs); }
+  async getBaselines(): Promise<Baseline[]> { return this.wait(this.baselines); }
 
   private findTuning(id: string) {
     const change = this.tuning.changes.find((c) => c.id === id);

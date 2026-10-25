@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BaselinesRouteImport } from './routes/baselines'
 import { Route as DetectionsRouteImport } from './routes/detections'
 import { Route as EndpointsRouteImport } from './routes/endpoints'
 import { Route as GuardrailsRouteImport } from './routes/guardrails'
@@ -19,6 +20,11 @@ import { Route as TuningRouteImport } from './routes/tuning'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BaselinesRoute = BaselinesRouteImport.update({
+  id: '/baselines',
+  path: '/baselines',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DetectionsRoute = DetectionsRouteImport.update({
@@ -49,6 +55,7 @@ const TuningRoute = TuningRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/baselines': typeof BaselinesRoute
   '/detections': typeof DetectionsRoute
   '/endpoints': typeof EndpointsRoute
   '/guardrails': typeof GuardrailsRoute
@@ -57,6 +64,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/baselines': typeof BaselinesRoute
   '/detections': typeof DetectionsRoute
   '/endpoints': typeof EndpointsRoute
   '/guardrails': typeof GuardrailsRoute
@@ -66,6 +74,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/baselines': typeof BaselinesRoute
   '/detections': typeof DetectionsRoute
   '/endpoints': typeof EndpointsRoute
   '/guardrails': typeof GuardrailsRoute
@@ -75,13 +84,26 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/detections' | '/endpoints' | '/guardrails' | '/response' | '/tuning'
+    | '/'
+    | '/baselines'
+    | '/detections'
+    | '/endpoints'
+    | '/guardrails'
+    | '/response'
+    | '/tuning'
   fileRoutesByTo: FileRoutesByTo
   to:
-    '/' | '/detections' | '/endpoints' | '/guardrails' | '/response' | '/tuning'
+    | '/'
+    | '/baselines'
+    | '/detections'
+    | '/endpoints'
+    | '/guardrails'
+    | '/response'
+    | '/tuning'
   id:
     | '__root__'
     | '/'
+    | '/baselines'
     | '/detections'
     | '/endpoints'
     | '/guardrails'
@@ -91,6 +113,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BaselinesRoute: typeof BaselinesRoute
   DetectionsRoute: typeof DetectionsRoute
   EndpointsRoute: typeof EndpointsRoute
   GuardrailsRoute: typeof GuardrailsRoute
@@ -105,6 +128,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/baselines': {
+      id: '/baselines'
+      path: '/baselines'
+      fullPath: '/baselines'
+      preLoaderRoute: typeof BaselinesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/detections': {
@@ -147,6 +177,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BaselinesRoute: BaselinesRoute,
   DetectionsRoute: DetectionsRoute,
   EndpointsRoute: EndpointsRoute,
   GuardrailsRoute: GuardrailsRoute,
