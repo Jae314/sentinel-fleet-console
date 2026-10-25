@@ -76,7 +76,7 @@ function Overview() {
         <Kpi loading={loading} label="Events processed" value={events.toLocaleString()}
           sub={s && <span className="flex items-center gap-1.5"><span className="h-1.5 w-1.5 rounded-full bg-success animate-pulse" />{s.eventsPerSecond.toLocaleString()} ev/s</span>} />
         <Kpi loading={loading} label="Detections (24h)" value={s ? String(s.detections24h) : ""} sub={s && `${s.pendingApprovals} awaiting approval`} />
-        <Kpi loading={loading} label="Actions taken" value={s ? String(s.actionsAuto + s.actionsHuman) : ""}
+        <Kpi loading={loading} label="Actions taken" value={s ? String(s.actions ?? s.actionsAuto + s.actionsHuman) : ""}
           sub={s && <><span className="text-primary">{s.actionsAuto} auto</span> · <span className="text-success">{s.actionsHuman} human-approved</span></>} />
         <Kpi loading={loading} label="Mean time to respond" value={s ? `${Math.floor(s.mttrSeconds / 60)}m ${s.mttrSeconds % 60}s` : ""} sub="detection → execution" />
       </div>

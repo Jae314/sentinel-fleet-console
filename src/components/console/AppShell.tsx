@@ -75,7 +75,7 @@ function ConsoleShell({ children }: { children: ReactNode }) {
               <span className="rounded border border-primary/30 bg-primary/10 px-2 py-1 text-muted-foreground">
                 Data source: <span className="font-mono font-semibold text-primary">{DATA_SOURCE}</span>
               </span>
-              {DATA_SOURCE === "file" && <span className="text-muted-foreground">5s · read-only</span>}
+              {DATA_SOURCE === "file" && <span className="text-muted-foreground">5s · file feeds</span>}
             </div>
           </div>
           <nav className="flex gap-1 overflow-x-auto px-3 pb-2 md:hidden">
