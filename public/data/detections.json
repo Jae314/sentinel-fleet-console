@@ -3,7 +3,7 @@
     "endpointId": "ep-0000",
     "hostname": "WIN11-LAB-01",
     "source": "live",
-    "timestamp": "2026-10-25T05:44:28.948Z",
+    "timestamp": "2026-10-25T06:16:01.546Z",
     "technique": {
       "id": "T1059.001",
       "name": "Command and Scripting Interpreter: PowerShell",
@@ -33,7 +33,7 @@
     "endpointId": "ep-0733",
     "hostname": "CORP-IT-0733",
     "source": "simulated",
-    "timestamp": "2026-10-25T05:39:28.948Z",
+    "timestamp": "2026-10-25T06:11:01.546Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
@@ -62,7 +62,7 @@
     "endpointId": "ep-0412",
     "hostname": "CORP-IT-0412",
     "source": "simulated",
-    "timestamp": "2026-10-25T05:32:28.948Z",
+    "timestamp": "2026-10-25T06:04:01.546Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -92,7 +92,7 @@
     "endpointId": "ep-0087",
     "hostname": "CORP-FIN-0087",
     "source": "simulated",
-    "timestamp": "2026-10-25T05:17:28.948Z",
+    "timestamp": "2026-10-25T05:49:01.546Z",
     "technique": {
       "id": "T1003.001",
       "name": "OS Credential Dumping: LSASS Memory",
@@ -121,7 +121,7 @@
     "endpointId": "ep-0000",
     "hostname": "WIN11-LAB-01",
     "source": "live",
-    "timestamp": "2026-10-25T05:08:28.948Z",
+    "timestamp": "2026-10-25T05:40:01.546Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -150,7 +150,7 @@
     "endpointId": "ep-0944",
     "hostname": "CORP-SALES-0944",
     "source": "simulated",
-    "timestamp": "2026-10-25T04:58:13.954Z",
+    "timestamp": "2026-10-25T05:29:46.552Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -179,7 +179,7 @@
     "endpointId": "ep-0738",
     "hostname": "CORP-ENG-0738",
     "source": "simulated",
-    "timestamp": "2026-10-25T04:35:35.590Z",
+    "timestamp": "2026-10-25T05:07:08.188Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -209,7 +209,7 @@
     "endpointId": "ep-0232",
     "hostname": "CORP-OPS-0232",
     "source": "simulated",
-    "timestamp": "2026-10-25T04:28:23.181Z",
+    "timestamp": "2026-10-25T04:59:55.779Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -236,7 +236,7 @@
     "endpointId": "ep-0301",
     "hostname": "CORP-OPS-0301",
     "source": "simulated",
-    "timestamp": "2026-10-25T04:24:24.736Z",
+    "timestamp": "2026-10-25T04:55:57.334Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
@@ -264,7 +264,7 @@
     "endpointId": "ep-0811",
     "hostname": "CORP-MKT-0811",
     "source": "simulated",
-    "timestamp": "2026-10-25T04:14:16.943Z",
+    "timestamp": "2026-10-25T04:45:49.541Z",
     "technique": {
       "id": "T1059.001",
       "name": "Command and Scripting Interpreter: PowerShell",
@@ -293,7 +293,7 @@
     "endpointId": "ep-1176",
     "hostname": "CORP-MKT-1176",
     "source": "simulated",
-    "timestamp": "2026-10-25T04:08:40.232Z",
+    "timestamp": "2026-10-25T04:40:12.830Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -323,7 +323,7 @@
     "endpointId": "ep-0336",
     "hostname": "CORP-ENG-0336",
     "source": "simulated",
-    "timestamp": "2026-10-25T03:37:25.024Z",
+    "timestamp": "2026-10-25T04:08:57.622Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -351,7 +351,7 @@
     "endpointId": "ep-0757",
     "hostname": "CORP-OPS-0757",
     "source": "simulated",
-    "timestamp": "2026-10-25T03:29:36.877Z",
+    "timestamp": "2026-10-25T04:01:09.475Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -379,7 +379,7 @@
     "endpointId": "ep-0836",
     "hostname": "CORP-OPS-0836",
     "source": "simulated",
-    "timestamp": "2026-10-25T03:26:12.759Z",
+    "timestamp": "2026-10-25T03:57:45.357Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -407,7 +407,7 @@
     "endpointId": "ep-0519",
     "hostname": "CORP-FIN-0519",
     "source": "simulated",
-    "timestamp": "2026-10-25T03:11:54.683Z",
+    "timestamp": "2026-10-25T03:43:27.281Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -437,7 +437,7 @@
     "endpointId": "ep-0680",
     "hostname": "CORP-SALES-0680",
     "source": "simulated",
-    "timestamp": "2026-10-25T03:09:51.319Z",
+    "timestamp": "2026-10-25T03:41:23.917Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -467,7 +467,7 @@
     "endpointId": "ep-0093",
     "hostname": "CORP-IT-0093",
     "source": "simulated",
-    "timestamp": "2026-10-25T03:06:52.314Z",
+    "timestamp": "2026-10-25T03:38:24.912Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
@@ -495,7 +495,7 @@
     "endpointId": "ep-0099",
     "hostname": "CORP-HR-0099",
     "source": "simulated",
-    "timestamp": "2026-10-25T03:03:13.713Z",
+    "timestamp": "2026-10-25T03:34:46.311Z",
     "technique": {
       "id": "T1059.001",
       "name": "Command and Scripting Interpreter: PowerShell",
@@ -523,7 +523,7 @@
     "endpointId": "ep-1041",
     "hostname": "CORP-MKT-1041",
     "source": "simulated",
-    "timestamp": "2026-10-25T02:58:11.529Z",
+    "timestamp": "2026-10-25T03:29:44.127Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -553,7 +553,7 @@
     "endpointId": "ep-0488",
     "hostname": "CORP-EXEC-0488",
     "source": "simulated",
-    "timestamp": "2026-10-25T02:38:30.085Z",
+    "timestamp": "2026-10-25T03:10:02.683Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
@@ -581,7 +581,7 @@
     "endpointId": "ep-0395",
     "hostname": "CORP-SALES-0395",
     "source": "simulated",
-    "timestamp": "2026-10-25T02:38:25.487Z",
+    "timestamp": "2026-10-25T03:09:58.085Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
@@ -611,7 +611,7 @@
     "endpointId": "ep-0149",
     "hostname": "CORP-ENG-0149",
     "source": "simulated",
-    "timestamp": "2026-10-25T02:35:50.491Z",
+    "timestamp": "2026-10-25T03:07:23.089Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -640,7 +640,7 @@
     "endpointId": "ep-0345",
     "hostname": "CORP-EXEC-0345",
     "source": "simulated",
-    "timestamp": "2026-10-25T02:35:39.644Z",
+    "timestamp": "2026-10-25T03:07:12.242Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -669,7 +669,7 @@
     "endpointId": "ep-1043",
     "hostname": "CORP-IT-1043",
     "source": "simulated",
-    "timestamp": "2026-10-25T02:27:53.434Z",
+    "timestamp": "2026-10-25T02:59:26.032Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
@@ -699,7 +699,7 @@
     "endpointId": "ep-0528",
     "hostname": "CORP-ENG-0528",
     "source": "simulated",
-    "timestamp": "2026-10-25T02:25:04.306Z",
+    "timestamp": "2026-10-25T02:56:36.904Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -728,7 +728,7 @@
     "endpointId": "ep-0950",
     "hostname": "CORP-EXEC-0950",
     "source": "simulated",
-    "timestamp": "2026-10-25T02:19:48.981Z",
+    "timestamp": "2026-10-25T02:51:21.579Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -758,7 +758,7 @@
     "endpointId": "ep-0273",
     "hostname": "CORP-ENG-0273",
     "source": "simulated",
-    "timestamp": "2026-10-25T02:19:34.307Z",
+    "timestamp": "2026-10-25T02:51:06.905Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -787,7 +787,7 @@
     "endpointId": "ep-0555",
     "hostname": "CORP-OPS-0555",
     "source": "simulated",
-    "timestamp": "2026-10-25T02:19:16.072Z",
+    "timestamp": "2026-10-25T02:50:48.670Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -815,7 +815,7 @@
     "endpointId": "ep-1067",
     "hostname": "CORP-LEGAL-1067",
     "source": "simulated",
-    "timestamp": "2026-10-25T02:18:51.065Z",
+    "timestamp": "2026-10-25T02:50:23.663Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -846,7 +846,7 @@
     "endpointId": "ep-0196",
     "hostname": "CORP-ENG-0196",
     "source": "simulated",
-    "timestamp": "2026-10-25T02:18:05.184Z",
+    "timestamp": "2026-10-25T02:49:37.782Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
@@ -874,7 +874,7 @@
     "endpointId": "ep-1024",
     "hostname": "CORP-FIN-1024",
     "source": "simulated",
-    "timestamp": "2026-10-25T02:17:47.479Z",
+    "timestamp": "2026-10-25T02:49:20.077Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -905,7 +905,7 @@
     "endpointId": "ep-1185",
     "hostname": "CORP-ENG-1185",
     "source": "simulated",
-    "timestamp": "2026-10-25T02:15:55.034Z",
+    "timestamp": "2026-10-25T02:47:27.632Z",
     "technique": {
       "id": "T1059.001",
       "name": "Command and Scripting Interpreter: PowerShell",
@@ -932,7 +932,7 @@
     "endpointId": "ep-0893",
     "hostname": "CORP-IT-0893",
     "source": "simulated",
-    "timestamp": "2026-10-25T02:14:40.782Z",
+    "timestamp": "2026-10-25T02:46:13.380Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -963,7 +963,7 @@
     "endpointId": "ep-0720",
     "hostname": "CORP-IT-0720",
     "source": "simulated",
-    "timestamp": "2026-10-25T02:13:13.324Z",
+    "timestamp": "2026-10-25T02:44:45.922Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -992,7 +992,7 @@
     "endpointId": "ep-0860",
     "hostname": "CORP-ENG-0860",
     "source": "simulated",
-    "timestamp": "2026-10-25T02:11:21.447Z",
+    "timestamp": "2026-10-25T02:42:54.045Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -1022,7 +1022,7 @@
     "endpointId": "ep-0391",
     "hostname": "CORP-LEGAL-0391",
     "source": "simulated",
-    "timestamp": "2026-10-25T02:01:45.901Z",
+    "timestamp": "2026-10-25T02:33:18.499Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -1051,7 +1051,7 @@
     "endpointId": "ep-0453",
     "hostname": "CORP-SUP-0453",
     "source": "simulated",
-    "timestamp": "2026-10-25T01:47:28.111Z",
+    "timestamp": "2026-10-25T02:19:00.709Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -1080,7 +1080,7 @@
     "endpointId": "ep-1193",
     "hostname": "CORP-LEGAL-1193",
     "source": "simulated",
-    "timestamp": "2026-10-25T01:27:14.334Z",
+    "timestamp": "2026-10-25T01:58:46.932Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -1107,7 +1107,7 @@
     "endpointId": "ep-0800",
     "hostname": "CORP-LEGAL-0800",
     "source": "simulated",
-    "timestamp": "2026-10-25T01:19:52.613Z",
+    "timestamp": "2026-10-25T01:51:25.211Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -1134,7 +1134,7 @@
     "endpointId": "ep-0507",
     "hostname": "CORP-SALES-0507",
     "source": "simulated",
-    "timestamp": "2026-10-25T01:16:08.340Z",
+    "timestamp": "2026-10-25T01:47:40.938Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
@@ -1165,7 +1165,7 @@
     "endpointId": "ep-0802",
     "hostname": "CORP-LEGAL-0802",
     "source": "simulated",
-    "timestamp": "2026-10-25T00:59:28.534Z",
+    "timestamp": "2026-10-25T01:31:01.132Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -1196,7 +1196,7 @@
     "endpointId": "ep-0328",
     "hostname": "CORP-MKT-0328",
     "source": "simulated",
-    "timestamp": "2026-10-25T00:52:53.227Z",
+    "timestamp": "2026-10-25T01:24:25.825Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
@@ -1226,7 +1226,7 @@
     "endpointId": "ep-0223",
     "hostname": "CORP-SALES-0223",
     "source": "simulated",
-    "timestamp": "2026-10-25T00:47:39.765Z",
+    "timestamp": "2026-10-25T01:19:12.363Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -1254,7 +1254,7 @@
     "endpointId": "ep-1109",
     "hostname": "CORP-OPS-1109",
     "source": "simulated",
-    "timestamp": "2026-10-25T00:39:31.614Z",
+    "timestamp": "2026-10-25T01:11:04.212Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -1281,7 +1281,7 @@
     "endpointId": "ep-0559",
     "hostname": "CORP-SUP-0559",
     "source": "simulated",
-    "timestamp": "2026-10-25T00:35:15.551Z",
+    "timestamp": "2026-10-25T01:06:48.149Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -1312,7 +1312,7 @@
     "endpointId": "ep-0988",
     "hostname": "CORP-HR-0988",
     "source": "simulated",
-    "timestamp": "2026-10-25T00:29:09.987Z",
+    "timestamp": "2026-10-25T01:00:42.585Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -1342,7 +1342,7 @@
     "endpointId": "ep-0061",
     "hostname": "CORP-EXEC-0061",
     "source": "simulated",
-    "timestamp": "2026-10-25T00:27:01.477Z",
+    "timestamp": "2026-10-25T00:58:34.075Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
@@ -1371,7 +1371,7 @@
     "endpointId": "ep-1165",
     "hostname": "CORP-EXEC-1165",
     "source": "simulated",
-    "timestamp": "2026-10-25T00:17:19.631Z",
+    "timestamp": "2026-10-25T00:48:52.229Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
@@ -1399,7 +1399,7 @@
     "endpointId": "ep-0023",
     "hostname": "CORP-HR-0023",
     "source": "simulated",
-    "timestamp": "2026-10-25T00:05:04.400Z",
+    "timestamp": "2026-10-25T00:36:36.998Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -1428,7 +1428,7 @@
     "endpointId": "ep-0036",
     "hostname": "CORP-EXEC-0036",
     "source": "simulated",
-    "timestamp": "2026-10-25T00:03:42.356Z",
+    "timestamp": "2026-10-25T00:35:14.954Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -1458,7 +1458,7 @@
     "endpointId": "ep-0024",
     "hostname": "CORP-LEGAL-0024",
     "source": "simulated",
-    "timestamp": "2026-10-25T00:02:50.872Z",
+    "timestamp": "2026-10-25T00:34:23.470Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -1487,7 +1487,7 @@
     "endpointId": "ep-1100",
     "hostname": "CORP-MKT-1100",
     "source": "simulated",
-    "timestamp": "2026-10-24T23:59:32.004Z",
+    "timestamp": "2026-10-25T00:31:04.602Z",
     "technique": {
       "id": "T1059.001",
       "name": "Command and Scripting Interpreter: PowerShell",
@@ -1518,7 +1518,7 @@
     "endpointId": "ep-0119",
     "hostname": "CORP-SUP-0119",
     "source": "simulated",
-    "timestamp": "2026-10-24T23:58:25.391Z",
+    "timestamp": "2026-10-25T00:29:57.989Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -1548,7 +1548,7 @@
     "endpointId": "ep-0151",
     "hostname": "CORP-SALES-0151",
     "source": "simulated",
-    "timestamp": "2026-10-24T23:55:54.378Z",
+    "timestamp": "2026-10-25T00:27:26.976Z",
     "technique": {
       "id": "T1059.001",
       "name": "Command and Scripting Interpreter: PowerShell",
@@ -1577,7 +1577,7 @@
     "endpointId": "ep-0233",
     "hostname": "CORP-OPS-0233",
     "source": "simulated",
-    "timestamp": "2026-10-24T23:53:26.769Z",
+    "timestamp": "2026-10-25T00:24:59.367Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -1604,7 +1604,7 @@
     "endpointId": "ep-1150",
     "hostname": "CORP-SALES-1150",
     "source": "simulated",
-    "timestamp": "2026-10-24T23:50:42.822Z",
+    "timestamp": "2026-10-25T00:22:15.420Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
@@ -1632,7 +1632,7 @@
     "endpointId": "ep-0276",
     "hostname": "CORP-ENG-0276",
     "source": "simulated",
-    "timestamp": "2026-10-24T23:45:27.343Z",
+    "timestamp": "2026-10-25T00:16:59.941Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -1662,7 +1662,7 @@
     "endpointId": "ep-0396",
     "hostname": "CORP-EXEC-0396",
     "source": "simulated",
-    "timestamp": "2026-10-24T23:38:13.861Z",
+    "timestamp": "2026-10-25T00:09:46.459Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -1692,7 +1692,7 @@
     "endpointId": "ep-1161",
     "hostname": "CORP-IT-1161",
     "source": "simulated",
-    "timestamp": "2026-10-24T23:35:40.316Z",
+    "timestamp": "2026-10-25T00:07:12.914Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
@@ -1723,7 +1723,7 @@
     "endpointId": "ep-0540",
     "hostname": "CORP-LEGAL-0540",
     "source": "simulated",
-    "timestamp": "2026-10-24T23:34:08.188Z",
+    "timestamp": "2026-10-25T00:05:40.786Z",
     "technique": {
       "id": "T1059.001",
       "name": "Command and Scripting Interpreter: PowerShell",
@@ -1752,7 +1752,7 @@
     "endpointId": "ep-0324",
     "hostname": "CORP-ENG-0324",
     "source": "simulated",
-    "timestamp": "2026-10-24T23:32:48.934Z",
+    "timestamp": "2026-10-25T00:04:21.532Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -1780,7 +1780,7 @@
     "endpointId": "ep-0793",
     "hostname": "CORP-MKT-0793",
     "source": "simulated",
-    "timestamp": "2026-10-24T23:27:22.747Z",
+    "timestamp": "2026-10-24T23:58:55.345Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
@@ -1809,7 +1809,7 @@
     "endpointId": "ep-0103",
     "hostname": "CORP-SALES-0103",
     "source": "simulated",
-    "timestamp": "2026-10-24T23:16:15.931Z",
+    "timestamp": "2026-10-24T23:47:48.529Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -1838,7 +1838,7 @@
     "endpointId": "ep-0056",
     "hostname": "CORP-LEGAL-0056",
     "source": "simulated",
-    "timestamp": "2026-10-24T23:15:50.819Z",
+    "timestamp": "2026-10-24T23:47:23.417Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
@@ -1867,7 +1867,7 @@
     "endpointId": "ep-1070",
     "hostname": "CORP-SALES-1070",
     "source": "simulated",
-    "timestamp": "2026-10-24T23:08:40.685Z",
+    "timestamp": "2026-10-24T23:40:13.283Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
@@ -1896,7 +1896,7 @@
     "endpointId": "ep-0999",
     "hostname": "CORP-MKT-0999",
     "source": "simulated",
-    "timestamp": "2026-10-24T23:05:19.837Z",
+    "timestamp": "2026-10-24T23:36:52.435Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -1924,7 +1924,7 @@
     "endpointId": "ep-0295",
     "hostname": "CORP-FIN-0295",
     "source": "simulated",
-    "timestamp": "2026-10-24T23:05:14.700Z",
+    "timestamp": "2026-10-24T23:36:47.298Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -1954,7 +1954,7 @@
     "endpointId": "ep-1001",
     "hostname": "CORP-SUP-1001",
     "source": "simulated",
-    "timestamp": "2026-10-24T23:01:37.277Z",
+    "timestamp": "2026-10-24T23:33:09.875Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -1983,7 +1983,7 @@
     "endpointId": "ep-0884",
     "hostname": "CORP-HR-0884",
     "source": "simulated",
-    "timestamp": "2026-10-24T22:56:25.745Z",
+    "timestamp": "2026-10-24T23:27:58.343Z",
     "technique": {
       "id": "T1059.001",
       "name": "Command and Scripting Interpreter: PowerShell",
@@ -2013,7 +2013,7 @@
     "endpointId": "ep-0375",
     "hostname": "CORP-LEGAL-0375",
     "source": "simulated",
-    "timestamp": "2026-10-24T22:40:03.784Z",
+    "timestamp": "2026-10-24T23:11:36.382Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -2043,7 +2043,7 @@
     "endpointId": "ep-0464",
     "hostname": "CORP-EXEC-0464",
     "source": "simulated",
-    "timestamp": "2026-10-24T22:38:54.940Z",
+    "timestamp": "2026-10-24T23:10:27.538Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -2073,7 +2073,7 @@
     "endpointId": "ep-0943",
     "hostname": "CORP-SALES-0943",
     "source": "simulated",
-    "timestamp": "2026-10-24T22:35:54.760Z",
+    "timestamp": "2026-10-24T23:07:27.358Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -2103,7 +2103,7 @@
     "endpointId": "ep-0193",
     "hostname": "CORP-SUP-0193",
     "source": "simulated",
-    "timestamp": "2026-10-24T22:03:45.578Z",
+    "timestamp": "2026-10-24T22:35:18.176Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
@@ -2134,7 +2134,7 @@
     "endpointId": "ep-0208",
     "hostname": "CORP-FIN-0208",
     "source": "simulated",
-    "timestamp": "2026-10-24T21:57:38.639Z",
+    "timestamp": "2026-10-24T22:29:11.237Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -2165,7 +2165,7 @@
     "endpointId": "ep-0404",
     "hostname": "CORP-SALES-0404",
     "source": "simulated",
-    "timestamp": "2026-10-24T21:48:27.506Z",
+    "timestamp": "2026-10-24T22:20:00.104Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -2194,7 +2194,7 @@
     "endpointId": "ep-0078",
     "hostname": "CORP-IT-0078",
     "source": "simulated",
-    "timestamp": "2026-10-24T21:46:08.553Z",
+    "timestamp": "2026-10-24T22:17:41.151Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -2224,7 +2224,7 @@
     "endpointId": "ep-0014",
     "hostname": "CORP-MKT-0014",
     "source": "simulated",
-    "timestamp": "2026-10-24T21:44:03.846Z",
+    "timestamp": "2026-10-24T22:15:36.444Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -2254,7 +2254,7 @@
     "endpointId": "ep-0947",
     "hostname": "CORP-ENG-0947",
     "source": "simulated",
-    "timestamp": "2026-10-24T21:38:49.395Z",
+    "timestamp": "2026-10-24T22:10:21.993Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -2282,7 +2282,7 @@
     "endpointId": "ep-0980",
     "hostname": "CORP-MKT-0980",
     "source": "simulated",
-    "timestamp": "2026-10-24T21:27:39.770Z",
+    "timestamp": "2026-10-24T21:59:12.368Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -2312,7 +2312,7 @@
     "endpointId": "ep-0865",
     "hostname": "CORP-EXEC-0865",
     "source": "simulated",
-    "timestamp": "2026-10-24T21:26:20.436Z",
+    "timestamp": "2026-10-24T21:57:53.034Z",
     "technique": {
       "id": "T1059.001",
       "name": "Command and Scripting Interpreter: PowerShell",
@@ -2343,7 +2343,7 @@
     "endpointId": "ep-0580",
     "hostname": "CORP-SUP-0580",
     "source": "simulated",
-    "timestamp": "2026-10-24T21:20:52.272Z",
+    "timestamp": "2026-10-24T21:52:24.870Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -2371,7 +2371,7 @@
     "endpointId": "ep-0365",
     "hostname": "CORP-ENG-0365",
     "source": "simulated",
-    "timestamp": "2026-10-24T21:12:05.690Z",
+    "timestamp": "2026-10-24T21:43:38.288Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -2399,7 +2399,7 @@
     "endpointId": "ep-0708",
     "hostname": "CORP-SALES-0708",
     "source": "simulated",
-    "timestamp": "2026-10-24T21:11:34.249Z",
+    "timestamp": "2026-10-24T21:43:06.847Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
@@ -2429,7 +2429,7 @@
     "endpointId": "ep-0295",
     "hostname": "CORP-FIN-0295",
     "source": "simulated",
-    "timestamp": "2026-10-24T21:06:14.921Z",
+    "timestamp": "2026-10-24T21:37:47.519Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -2456,7 +2456,7 @@
     "endpointId": "ep-0142",
     "hostname": "CORP-FIN-0142",
     "source": "simulated",
-    "timestamp": "2026-10-24T20:58:09.142Z",
+    "timestamp": "2026-10-24T21:29:41.740Z",
     "technique": {
       "id": "T1059.001",
       "name": "Command and Scripting Interpreter: PowerShell",
@@ -2486,7 +2486,7 @@
     "endpointId": "ep-0631",
     "hostname": "CORP-SUP-0631",
     "source": "simulated",
-    "timestamp": "2026-10-24T20:39:01.241Z",
+    "timestamp": "2026-10-24T21:10:33.839Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -2515,7 +2515,7 @@
     "endpointId": "ep-0545",
     "hostname": "CORP-IT-0545",
     "source": "simulated",
-    "timestamp": "2026-10-24T20:37:58.537Z",
+    "timestamp": "2026-10-24T21:09:31.135Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -2546,7 +2546,7 @@
     "endpointId": "ep-0895",
     "hostname": "CORP-HR-0895",
     "source": "simulated",
-    "timestamp": "2026-10-24T20:35:58.286Z",
+    "timestamp": "2026-10-24T21:07:30.884Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
@@ -2575,7 +2575,7 @@
     "endpointId": "ep-0457",
     "hostname": "CORP-FIN-0457",
     "source": "simulated",
-    "timestamp": "2026-10-24T20:35:39.282Z",
+    "timestamp": "2026-10-24T21:07:11.880Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -2606,7 +2606,7 @@
     "endpointId": "ep-0631",
     "hostname": "CORP-SUP-0631",
     "source": "simulated",
-    "timestamp": "2026-10-24T20:22:10.643Z",
+    "timestamp": "2026-10-24T20:53:43.241Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -2635,7 +2635,7 @@
     "endpointId": "ep-1121",
     "hostname": "CORP-FIN-1121",
     "source": "simulated",
-    "timestamp": "2026-10-24T20:20:40.641Z",
+    "timestamp": "2026-10-24T20:52:13.239Z",
     "technique": {
       "id": "T1059.001",
       "name": "Command and Scripting Interpreter: PowerShell",
@@ -2664,7 +2664,7 @@
     "endpointId": "ep-1098",
     "hostname": "CORP-ENG-1098",
     "source": "simulated",
-    "timestamp": "2026-10-24T20:15:49.965Z",
+    "timestamp": "2026-10-24T20:47:22.563Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -2695,7 +2695,7 @@
     "endpointId": "ep-0767",
     "hostname": "CORP-ENG-0767",
     "source": "simulated",
-    "timestamp": "2026-10-24T20:10:24.304Z",
+    "timestamp": "2026-10-24T20:41:56.902Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -2724,7 +2724,7 @@
     "endpointId": "ep-0302",
     "hostname": "CORP-HR-0302",
     "source": "simulated",
-    "timestamp": "2026-10-24T20:05:46.329Z",
+    "timestamp": "2026-10-24T20:37:18.927Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -2753,7 +2753,7 @@
     "endpointId": "ep-0530",
     "hostname": "CORP-ENG-0530",
     "source": "simulated",
-    "timestamp": "2026-10-24T20:03:05.119Z",
+    "timestamp": "2026-10-24T20:34:37.717Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -2784,7 +2784,7 @@
     "endpointId": "ep-0141",
     "hostname": "CORP-ENG-0141",
     "source": "simulated",
-    "timestamp": "2026-10-24T20:01:35.586Z",
+    "timestamp": "2026-10-24T20:33:08.184Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -2814,7 +2814,7 @@
     "endpointId": "ep-0269",
     "hostname": "CORP-SUP-0269",
     "source": "simulated",
-    "timestamp": "2026-10-24T19:57:58.921Z",
+    "timestamp": "2026-10-24T20:29:31.519Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -2843,7 +2843,7 @@
     "endpointId": "ep-1138",
     "hostname": "CORP-SALES-1138",
     "source": "simulated",
-    "timestamp": "2026-10-24T19:57:41.428Z",
+    "timestamp": "2026-10-24T20:29:14.026Z",
     "technique": {
       "id": "T1059.001",
       "name": "Command and Scripting Interpreter: PowerShell",
@@ -2871,7 +2871,7 @@
     "endpointId": "ep-1181",
     "hostname": "CORP-SUP-1181",
     "source": "simulated",
-    "timestamp": "2026-10-24T19:53:51.922Z",
+    "timestamp": "2026-10-24T20:25:24.520Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -2900,7 +2900,7 @@
     "endpointId": "ep-0811",
     "hostname": "CORP-MKT-0811",
     "source": "simulated",
-    "timestamp": "2026-10-24T19:50:40.885Z",
+    "timestamp": "2026-10-24T20:22:13.483Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -2931,7 +2931,7 @@
     "endpointId": "ep-0637",
     "hostname": "CORP-HR-0637",
     "source": "simulated",
-    "timestamp": "2026-10-24T19:49:06.143Z",
+    "timestamp": "2026-10-24T20:20:38.741Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -2959,7 +2959,7 @@
     "endpointId": "ep-0245",
     "hostname": "CORP-MKT-0245",
     "source": "simulated",
-    "timestamp": "2026-10-24T19:45:45.180Z",
+    "timestamp": "2026-10-24T20:17:17.778Z",
     "technique": {
       "id": "T1059.001",
       "name": "Command and Scripting Interpreter: PowerShell",
@@ -2987,7 +2987,7 @@
     "endpointId": "ep-0560",
     "hostname": "CORP-SALES-0560",
     "source": "simulated",
-    "timestamp": "2026-10-24T19:32:11.300Z",
+    "timestamp": "2026-10-24T20:03:43.898Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -3016,7 +3016,7 @@
     "endpointId": "ep-0890",
     "hostname": "CORP-ENG-0890",
     "source": "simulated",
-    "timestamp": "2026-10-24T19:32:03.534Z",
+    "timestamp": "2026-10-24T20:03:36.132Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -3045,7 +3045,7 @@
     "endpointId": "ep-1024",
     "hostname": "CORP-FIN-1024",
     "source": "simulated",
-    "timestamp": "2026-10-24T19:30:49.589Z",
+    "timestamp": "2026-10-24T20:02:22.187Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -3073,7 +3073,7 @@
     "endpointId": "ep-0649",
     "hostname": "CORP-SUP-0649",
     "source": "simulated",
-    "timestamp": "2026-10-24T19:26:23.836Z",
+    "timestamp": "2026-10-24T19:57:56.434Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -3101,7 +3101,7 @@
     "endpointId": "ep-0567",
     "hostname": "CORP-OPS-0567",
     "source": "simulated",
-    "timestamp": "2026-10-24T19:18:26.165Z",
+    "timestamp": "2026-10-24T19:49:58.763Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -3129,7 +3129,7 @@
     "endpointId": "ep-0607",
     "hostname": "CORP-SALES-0607",
     "source": "simulated",
-    "timestamp": "2026-10-24T19:18:06.705Z",
+    "timestamp": "2026-10-24T19:49:39.303Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -3159,7 +3159,7 @@
     "endpointId": "ep-0130",
     "hostname": "CORP-FIN-0130",
     "source": "simulated",
-    "timestamp": "2026-10-24T19:13:49.470Z",
+    "timestamp": "2026-10-24T19:45:22.068Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -3187,7 +3187,7 @@
     "endpointId": "ep-0336",
     "hostname": "CORP-ENG-0336",
     "source": "simulated",
-    "timestamp": "2026-10-24T18:59:46.581Z",
+    "timestamp": "2026-10-24T19:31:19.179Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -3218,7 +3218,7 @@
     "endpointId": "ep-0654",
     "hostname": "CORP-HR-0654",
     "source": "simulated",
-    "timestamp": "2026-10-24T18:42:54.026Z",
+    "timestamp": "2026-10-24T19:14:26.624Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -3247,7 +3247,7 @@
     "endpointId": "ep-1179",
     "hostname": "CORP-ENG-1179",
     "source": "simulated",
-    "timestamp": "2026-10-24T18:39:40.131Z",
+    "timestamp": "2026-10-24T19:11:12.729Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -3275,7 +3275,7 @@
     "endpointId": "ep-0118",
     "hostname": "CORP-MKT-0118",
     "source": "simulated",
-    "timestamp": "2026-10-24T18:32:16.193Z",
+    "timestamp": "2026-10-24T19:03:48.791Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -3303,7 +3303,7 @@
     "endpointId": "ep-0060",
     "hostname": "CORP-ENG-0060",
     "source": "simulated",
-    "timestamp": "2026-10-24T18:26:23.108Z",
+    "timestamp": "2026-10-24T18:57:55.706Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -3334,7 +3334,7 @@
     "endpointId": "ep-0269",
     "hostname": "CORP-SUP-0269",
     "source": "simulated",
-    "timestamp": "2026-10-24T18:16:13.674Z",
+    "timestamp": "2026-10-24T18:47:46.272Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -3364,7 +3364,7 @@
     "endpointId": "ep-0431",
     "hostname": "CORP-EXEC-0431",
     "source": "simulated",
-    "timestamp": "2026-10-24T18:16:10.599Z",
+    "timestamp": "2026-10-24T18:47:43.197Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -3394,7 +3394,7 @@
     "endpointId": "ep-1191",
     "hostname": "CORP-SALES-1191",
     "source": "simulated",
-    "timestamp": "2026-10-24T18:00:57.237Z",
+    "timestamp": "2026-10-24T18:32:29.835Z",
     "technique": {
       "id": "T1059.001",
       "name": "Command and Scripting Interpreter: PowerShell",
@@ -3423,7 +3423,7 @@
     "endpointId": "ep-0188",
     "hostname": "CORP-MKT-0188",
     "source": "simulated",
-    "timestamp": "2026-10-24T17:57:06.092Z",
+    "timestamp": "2026-10-24T18:28:38.690Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
@@ -3451,7 +3451,7 @@
     "endpointId": "ep-0776",
     "hostname": "CORP-IT-0776",
     "source": "simulated",
-    "timestamp": "2026-10-24T17:52:56.595Z",
+    "timestamp": "2026-10-24T18:24:29.193Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -3481,7 +3481,7 @@
     "endpointId": "ep-0540",
     "hostname": "CORP-LEGAL-0540",
     "source": "simulated",
-    "timestamp": "2026-10-24T17:52:01.741Z",
+    "timestamp": "2026-10-24T18:23:34.339Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -3510,7 +3510,7 @@
     "endpointId": "ep-0292",
     "hostname": "CORP-SUP-0292",
     "source": "simulated",
-    "timestamp": "2026-10-24T17:51:24.921Z",
+    "timestamp": "2026-10-24T18:22:57.519Z",
     "technique": {
       "id": "T1059.001",
       "name": "Command and Scripting Interpreter: PowerShell",
@@ -3541,7 +3541,7 @@
     "endpointId": "ep-0405",
     "hostname": "CORP-FIN-0405",
     "source": "simulated",
-    "timestamp": "2026-10-24T17:49:29.668Z",
+    "timestamp": "2026-10-24T18:21:02.266Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -3572,7 +3572,7 @@
     "endpointId": "ep-0698",
     "hostname": "CORP-LEGAL-0698",
     "source": "simulated",
-    "timestamp": "2026-10-24T17:47:09.605Z",
+    "timestamp": "2026-10-24T18:18:42.203Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -3601,7 +3601,7 @@
     "endpointId": "ep-0913",
     "hostname": "CORP-EXEC-0913",
     "source": "simulated",
-    "timestamp": "2026-10-24T17:46:25.965Z",
+    "timestamp": "2026-10-24T18:17:58.563Z",
     "technique": {
       "id": "T1059.001",
       "name": "Command and Scripting Interpreter: PowerShell",
@@ -3632,7 +3632,7 @@
     "endpointId": "ep-0511",
     "hostname": "CORP-IT-0511",
     "source": "simulated",
-    "timestamp": "2026-10-24T17:44:07.737Z",
+    "timestamp": "2026-10-24T18:15:40.335Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -3660,7 +3660,7 @@
     "endpointId": "ep-0493",
     "hostname": "CORP-SALES-0493",
     "source": "simulated",
-    "timestamp": "2026-10-24T17:40:43.693Z",
+    "timestamp": "2026-10-24T18:12:16.291Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -3691,7 +3691,7 @@
     "endpointId": "ep-0586",
     "hostname": "CORP-OPS-0586",
     "source": "simulated",
-    "timestamp": "2026-10-24T17:32:48.256Z",
+    "timestamp": "2026-10-24T18:04:20.854Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
@@ -3720,7 +3720,7 @@
     "endpointId": "ep-0372",
     "hostname": "CORP-ENG-0372",
     "source": "simulated",
-    "timestamp": "2026-10-24T17:30:41.663Z",
+    "timestamp": "2026-10-24T18:02:14.261Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -3750,7 +3750,7 @@
     "endpointId": "ep-0732",
     "hostname": "CORP-SUP-0732",
     "source": "simulated",
-    "timestamp": "2026-10-24T17:30:37.093Z",
+    "timestamp": "2026-10-24T18:02:09.691Z",
     "technique": {
       "id": "T1059.001",
       "name": "Command and Scripting Interpreter: PowerShell",
@@ -3780,7 +3780,7 @@
     "endpointId": "ep-1088",
     "hostname": "CORP-IT-1088",
     "source": "simulated",
-    "timestamp": "2026-10-24T17:30:30.990Z",
+    "timestamp": "2026-10-24T18:02:03.588Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -3811,7 +3811,7 @@
     "endpointId": "ep-0601",
     "hostname": "CORP-MKT-0601",
     "source": "simulated",
-    "timestamp": "2026-10-24T17:28:30.969Z",
+    "timestamp": "2026-10-24T18:00:03.567Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -3840,7 +3840,7 @@
     "endpointId": "ep-0382",
     "hostname": "CORP-HR-0382",
     "source": "simulated",
-    "timestamp": "2026-10-24T17:27:52.963Z",
+    "timestamp": "2026-10-24T17:59:25.561Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -3868,7 +3868,7 @@
     "endpointId": "ep-0991",
     "hostname": "CORP-OPS-0991",
     "source": "simulated",
-    "timestamp": "2026-10-24T17:23:14.442Z",
+    "timestamp": "2026-10-24T17:54:47.040Z",
     "technique": {
       "id": "T1059.001",
       "name": "Command and Scripting Interpreter: PowerShell",
@@ -3895,7 +3895,7 @@
     "endpointId": "ep-0793",
     "hostname": "CORP-MKT-0793",
     "source": "simulated",
-    "timestamp": "2026-10-24T17:18:15.214Z",
+    "timestamp": "2026-10-24T17:49:47.812Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -3925,7 +3925,7 @@
     "endpointId": "ep-0093",
     "hostname": "CORP-IT-0093",
     "source": "simulated",
-    "timestamp": "2026-10-24T17:12:40.800Z",
+    "timestamp": "2026-10-24T17:44:13.398Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -3954,7 +3954,7 @@
     "endpointId": "ep-0766",
     "hostname": "CORP-EXEC-0766",
     "source": "simulated",
-    "timestamp": "2026-10-24T17:01:19.296Z",
+    "timestamp": "2026-10-24T17:32:51.894Z",
     "technique": {
       "id": "T1059.001",
       "name": "Command and Scripting Interpreter: PowerShell",
@@ -3985,7 +3985,7 @@
     "endpointId": "ep-0076",
     "hostname": "CORP-SUP-0076",
     "source": "simulated",
-    "timestamp": "2026-10-24T17:00:59.774Z",
+    "timestamp": "2026-10-24T17:32:32.372Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -4015,7 +4015,7 @@
     "endpointId": "ep-0310",
     "hostname": "CORP-LEGAL-0310",
     "source": "simulated",
-    "timestamp": "2026-10-24T16:55:33.599Z",
+    "timestamp": "2026-10-24T17:27:06.197Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -4046,7 +4046,7 @@
     "endpointId": "ep-0275",
     "hostname": "CORP-ENG-0275",
     "source": "simulated",
-    "timestamp": "2026-10-24T16:52:34.492Z",
+    "timestamp": "2026-10-24T17:24:07.090Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -4074,7 +4074,7 @@
     "endpointId": "ep-1097",
     "hostname": "CORP-SALES-1097",
     "source": "simulated",
-    "timestamp": "2026-10-24T16:51:08.234Z",
+    "timestamp": "2026-10-24T17:22:40.832Z",
     "technique": {
       "id": "T1059.001",
       "name": "Command and Scripting Interpreter: PowerShell",
@@ -4105,7 +4105,7 @@
     "endpointId": "ep-0711",
     "hostname": "CORP-LEGAL-0711",
     "source": "simulated",
-    "timestamp": "2026-10-24T16:38:02.670Z",
+    "timestamp": "2026-10-24T17:09:35.268Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -4134,7 +4134,7 @@
     "endpointId": "ep-1160",
     "hostname": "CORP-OPS-1160",
     "source": "simulated",
-    "timestamp": "2026-10-24T16:34:55.073Z",
+    "timestamp": "2026-10-24T17:06:27.671Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -4165,7 +4165,7 @@
     "endpointId": "ep-0101",
     "hostname": "CORP-MKT-0101",
     "source": "simulated",
-    "timestamp": "2026-10-24T16:31:28.385Z",
+    "timestamp": "2026-10-24T17:03:00.983Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -4193,7 +4193,7 @@
     "endpointId": "ep-0199",
     "hostname": "CORP-OPS-0199",
     "source": "simulated",
-    "timestamp": "2026-10-24T16:31:26.022Z",
+    "timestamp": "2026-10-24T17:02:58.620Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -4224,7 +4224,7 @@
     "endpointId": "ep-0454",
     "hostname": "CORP-IT-0454",
     "source": "simulated",
-    "timestamp": "2026-10-24T16:25:45.395Z",
+    "timestamp": "2026-10-24T16:57:17.993Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -4253,7 +4253,7 @@
     "endpointId": "ep-0896",
     "hostname": "CORP-OPS-0896",
     "source": "simulated",
-    "timestamp": "2026-10-24T16:25:21.850Z",
+    "timestamp": "2026-10-24T16:56:54.448Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -4281,7 +4281,7 @@
     "endpointId": "ep-0002",
     "hostname": "CORP-LEGAL-0002",
     "source": "simulated",
-    "timestamp": "2026-10-24T16:21:19.696Z",
+    "timestamp": "2026-10-24T16:52:52.294Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
@@ -4309,7 +4309,7 @@
     "endpointId": "ep-0558",
     "hostname": "CORP-IT-0558",
     "source": "simulated",
-    "timestamp": "2026-10-24T16:19:43.542Z",
+    "timestamp": "2026-10-24T16:51:16.140Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -4339,7 +4339,7 @@
     "endpointId": "ep-1185",
     "hostname": "CORP-ENG-1185",
     "source": "simulated",
-    "timestamp": "2026-10-24T16:10:27.936Z",
+    "timestamp": "2026-10-24T16:42:00.534Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -4370,7 +4370,7 @@
     "endpointId": "ep-0017",
     "hostname": "CORP-MKT-0017",
     "source": "simulated",
-    "timestamp": "2026-10-24T16:07:33.746Z",
+    "timestamp": "2026-10-24T16:39:06.344Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -4397,7 +4397,7 @@
     "endpointId": "ep-0722",
     "hostname": "CORP-FIN-0722",
     "source": "simulated",
-    "timestamp": "2026-10-24T16:05:43.348Z",
+    "timestamp": "2026-10-24T16:37:15.946Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -4426,7 +4426,7 @@
     "endpointId": "ep-0838",
     "hostname": "CORP-FIN-0838",
     "source": "simulated",
-    "timestamp": "2026-10-24T16:04:19.139Z",
+    "timestamp": "2026-10-24T16:35:51.737Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -4456,7 +4456,7 @@
     "endpointId": "ep-0968",
     "hostname": "CORP-HR-0968",
     "source": "simulated",
-    "timestamp": "2026-10-24T16:01:14.140Z",
+    "timestamp": "2026-10-24T16:32:46.738Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -4485,7 +4485,7 @@
     "endpointId": "ep-0069",
     "hostname": "CORP-MKT-0069",
     "source": "simulated",
-    "timestamp": "2026-10-24T15:38:12.156Z",
+    "timestamp": "2026-10-24T16:09:44.754Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -4513,7 +4513,7 @@
     "endpointId": "ep-0187",
     "hostname": "CORP-SALES-0187",
     "source": "simulated",
-    "timestamp": "2026-10-24T15:35:49.306Z",
+    "timestamp": "2026-10-24T16:07:21.904Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -4544,7 +4544,7 @@
     "endpointId": "ep-1048",
     "hostname": "CORP-IT-1048",
     "source": "simulated",
-    "timestamp": "2026-10-24T15:31:39.204Z",
+    "timestamp": "2026-10-24T16:03:11.802Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -4575,7 +4575,7 @@
     "endpointId": "ep-0209",
     "hostname": "CORP-IT-0209",
     "source": "simulated",
-    "timestamp": "2026-10-24T15:28:42.880Z",
+    "timestamp": "2026-10-24T16:00:15.478Z",
     "technique": {
       "id": "T1059.001",
       "name": "Command and Scripting Interpreter: PowerShell",
@@ -4605,7 +4605,7 @@
     "endpointId": "ep-0350",
     "hostname": "CORP-FIN-0350",
     "source": "simulated",
-    "timestamp": "2026-10-24T15:28:12.046Z",
+    "timestamp": "2026-10-24T15:59:44.644Z",
     "technique": {
       "id": "T1059.001",
       "name": "Command and Scripting Interpreter: PowerShell",
@@ -4634,7 +4634,7 @@
     "endpointId": "ep-0259",
     "hostname": "CORP-LEGAL-0259",
     "source": "simulated",
-    "timestamp": "2026-10-24T15:27:43.663Z",
+    "timestamp": "2026-10-24T15:59:16.261Z",
     "technique": {
       "id": "T1059.001",
       "name": "Command and Scripting Interpreter: PowerShell",
@@ -4663,7 +4663,7 @@
     "endpointId": "ep-0061",
     "hostname": "CORP-EXEC-0061",
     "source": "simulated",
-    "timestamp": "2026-10-24T15:24:28.525Z",
+    "timestamp": "2026-10-24T15:56:01.123Z",
     "technique": {
       "id": "T1059.001",
       "name": "Command and Scripting Interpreter: PowerShell",
@@ -4694,7 +4694,7 @@
     "endpointId": "ep-0501",
     "hostname": "CORP-SALES-0501",
     "source": "simulated",
-    "timestamp": "2026-10-24T15:19:38.139Z",
+    "timestamp": "2026-10-24T15:51:10.737Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -4722,7 +4722,7 @@
     "endpointId": "ep-0318",
     "hostname": "CORP-FIN-0318",
     "source": "simulated",
-    "timestamp": "2026-10-24T15:16:38.712Z",
+    "timestamp": "2026-10-24T15:48:11.310Z",
     "technique": {
       "id": "T1059.001",
       "name": "Command and Scripting Interpreter: PowerShell",
@@ -4752,7 +4752,7 @@
     "endpointId": "ep-0330",
     "hostname": "CORP-FIN-0330",
     "source": "simulated",
-    "timestamp": "2026-10-24T15:14:25.118Z",
+    "timestamp": "2026-10-24T15:45:57.716Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -4782,7 +4782,7 @@
     "endpointId": "ep-1147",
     "hostname": "CORP-LEGAL-1147",
     "source": "simulated",
-    "timestamp": "2026-10-24T15:09:22.233Z",
+    "timestamp": "2026-10-24T15:40:54.831Z",
     "technique": {
       "id": "T1059.001",
       "name": "Command and Scripting Interpreter: PowerShell",
@@ -4810,7 +4810,7 @@
     "endpointId": "ep-0206",
     "hostname": "CORP-HR-0206",
     "source": "simulated",
-    "timestamp": "2026-10-24T15:06:08.005Z",
+    "timestamp": "2026-10-24T15:37:40.603Z",
     "technique": {
       "id": "T1059.001",
       "name": "Command and Scripting Interpreter: PowerShell",
@@ -4839,7 +4839,7 @@
     "endpointId": "ep-1197",
     "hostname": "CORP-SUP-1197",
     "source": "simulated",
-    "timestamp": "2026-10-24T14:59:25.889Z",
+    "timestamp": "2026-10-24T15:30:58.487Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -4866,7 +4866,7 @@
     "endpointId": "ep-0732",
     "hostname": "CORP-SUP-0732",
     "source": "simulated",
-    "timestamp": "2026-10-24T14:54:49.746Z",
+    "timestamp": "2026-10-24T15:26:22.344Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -4897,7 +4897,7 @@
     "endpointId": "ep-0083",
     "hostname": "CORP-LEGAL-0083",
     "source": "simulated",
-    "timestamp": "2026-10-24T14:47:05.644Z",
+    "timestamp": "2026-10-24T15:18:38.242Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -4927,7 +4927,7 @@
     "endpointId": "ep-0794",
     "hostname": "CORP-SUP-0794",
     "source": "simulated",
-    "timestamp": "2026-10-24T14:36:25.180Z",
+    "timestamp": "2026-10-24T15:07:57.778Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
@@ -4957,7 +4957,7 @@
     "endpointId": "ep-1134",
     "hostname": "CORP-ENG-1134",
     "source": "simulated",
-    "timestamp": "2026-10-24T14:35:42.570Z",
+    "timestamp": "2026-10-24T15:07:15.168Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -4985,7 +4985,7 @@
     "endpointId": "ep-0575",
     "hostname": "CORP-IT-0575",
     "source": "simulated",
-    "timestamp": "2026-10-24T14:35:13.667Z",
+    "timestamp": "2026-10-24T15:06:46.265Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -5016,7 +5016,7 @@
     "endpointId": "ep-0313",
     "hostname": "CORP-LEGAL-0313",
     "source": "simulated",
-    "timestamp": "2026-10-24T14:33:42.700Z",
+    "timestamp": "2026-10-24T15:05:15.298Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -5046,7 +5046,7 @@
     "endpointId": "ep-0723",
     "hostname": "CORP-SALES-0723",
     "source": "simulated",
-    "timestamp": "2026-10-24T14:32:01.164Z",
+    "timestamp": "2026-10-24T15:03:33.762Z",
     "technique": {
       "id": "T1059.001",
       "name": "Command and Scripting Interpreter: PowerShell",
@@ -5075,7 +5075,7 @@
     "endpointId": "ep-0321",
     "hostname": "CORP-HR-0321",
     "source": "simulated",
-    "timestamp": "2026-10-24T14:27:35.290Z",
+    "timestamp": "2026-10-24T14:59:07.888Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -5103,7 +5103,7 @@
     "endpointId": "ep-0728",
     "hostname": "CORP-HR-0728",
     "source": "simulated",
-    "timestamp": "2026-10-24T14:27:10.701Z",
+    "timestamp": "2026-10-24T14:58:43.299Z",
     "technique": {
       "id": "T1059.001",
       "name": "Command and Scripting Interpreter: PowerShell",
@@ -5133,7 +5133,7 @@
     "endpointId": "ep-1092",
     "hostname": "CORP-IT-1092",
     "source": "simulated",
-    "timestamp": "2026-10-24T14:25:16.962Z",
+    "timestamp": "2026-10-24T14:56:49.560Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -5161,7 +5161,7 @@
     "endpointId": "ep-1043",
     "hostname": "CORP-IT-1043",
     "source": "simulated",
-    "timestamp": "2026-10-24T14:10:00.589Z",
+    "timestamp": "2026-10-24T14:41:33.187Z",
     "technique": {
       "id": "T1059.001",
       "name": "Command and Scripting Interpreter: PowerShell",
@@ -5192,7 +5192,7 @@
     "endpointId": "ep-0139",
     "hostname": "CORP-SUP-0139",
     "source": "simulated",
-    "timestamp": "2026-10-24T14:04:12.012Z",
+    "timestamp": "2026-10-24T14:35:44.610Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -5223,7 +5223,7 @@
     "endpointId": "ep-0187",
     "hostname": "CORP-SALES-0187",
     "source": "simulated",
-    "timestamp": "2026-10-24T13:51:05.583Z",
+    "timestamp": "2026-10-24T14:22:38.181Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -5253,7 +5253,7 @@
     "endpointId": "ep-1101",
     "hostname": "CORP-FIN-1101",
     "source": "simulated",
-    "timestamp": "2026-10-24T13:42:02.371Z",
+    "timestamp": "2026-10-24T14:13:34.969Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -5283,7 +5283,7 @@
     "endpointId": "ep-0636",
     "hostname": "CORP-IT-0636",
     "source": "simulated",
-    "timestamp": "2026-10-24T13:41:39.122Z",
+    "timestamp": "2026-10-24T14:13:11.720Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -5313,7 +5313,7 @@
     "endpointId": "ep-0726",
     "hostname": "CORP-OPS-0726",
     "source": "simulated",
-    "timestamp": "2026-10-24T13:17:58.338Z",
+    "timestamp": "2026-10-24T13:49:30.936Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -5341,7 +5341,7 @@
     "endpointId": "ep-1024",
     "hostname": "CORP-FIN-1024",
     "source": "simulated",
-    "timestamp": "2026-10-24T13:08:23.521Z",
+    "timestamp": "2026-10-24T13:39:56.119Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -5369,7 +5369,7 @@
     "endpointId": "ep-0238",
     "hostname": "CORP-LEGAL-0238",
     "source": "simulated",
-    "timestamp": "2026-10-24T13:08:09.908Z",
+    "timestamp": "2026-10-24T13:39:42.506Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -5397,7 +5397,7 @@
     "endpointId": "ep-0287",
     "hostname": "CORP-HR-0287",
     "source": "simulated",
-    "timestamp": "2026-10-24T13:07:12.348Z",
+    "timestamp": "2026-10-24T13:38:44.946Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
@@ -5425,7 +5425,7 @@
     "endpointId": "ep-0361",
     "hostname": "CORP-EXEC-0361",
     "source": "simulated",
-    "timestamp": "2026-10-24T13:03:45.511Z",
+    "timestamp": "2026-10-24T13:35:18.109Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -5455,7 +5455,7 @@
     "endpointId": "ep-1138",
     "hostname": "CORP-SALES-1138",
     "source": "simulated",
-    "timestamp": "2026-10-24T12:58:14.530Z",
+    "timestamp": "2026-10-24T13:29:47.128Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -5485,7 +5485,7 @@
     "endpointId": "ep-0536",
     "hostname": "CORP-EXEC-0536",
     "source": "simulated",
-    "timestamp": "2026-10-24T12:57:03.103Z",
+    "timestamp": "2026-10-24T13:28:35.701Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -5514,7 +5514,7 @@
     "endpointId": "ep-0597",
     "hostname": "CORP-FIN-0597",
     "source": "simulated",
-    "timestamp": "2026-10-24T12:44:18.530Z",
+    "timestamp": "2026-10-24T13:15:51.128Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -5545,7 +5545,7 @@
     "endpointId": "ep-1094",
     "hostname": "CORP-LEGAL-1094",
     "source": "simulated",
-    "timestamp": "2026-10-24T12:34:49.911Z",
+    "timestamp": "2026-10-24T13:06:22.509Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -5574,7 +5574,7 @@
     "endpointId": "ep-0823",
     "hostname": "CORP-FIN-0823",
     "source": "simulated",
-    "timestamp": "2026-10-24T12:32:41.631Z",
+    "timestamp": "2026-10-24T13:04:14.229Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -5604,7 +5604,7 @@
     "endpointId": "ep-0856",
     "hostname": "CORP-HR-0856",
     "source": "simulated",
-    "timestamp": "2026-10-24T12:31:33.396Z",
+    "timestamp": "2026-10-24T13:03:05.994Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
@@ -5633,7 +5633,7 @@
     "endpointId": "ep-1074",
     "hostname": "CORP-OPS-1074",
     "source": "simulated",
-    "timestamp": "2026-10-24T12:30:03.947Z",
+    "timestamp": "2026-10-24T13:01:36.545Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -5662,7 +5662,7 @@
     "endpointId": "ep-0131",
     "hostname": "CORP-SALES-0131",
     "source": "simulated",
-    "timestamp": "2026-10-24T12:25:24.042Z",
+    "timestamp": "2026-10-24T12:56:56.640Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -5691,7 +5691,7 @@
     "endpointId": "ep-0450",
     "hostname": "CORP-OPS-0450",
     "source": "simulated",
-    "timestamp": "2026-10-24T12:25:06.110Z",
+    "timestamp": "2026-10-24T12:56:38.708Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -5722,7 +5722,7 @@
     "endpointId": "ep-0904",
     "hostname": "CORP-OPS-0904",
     "source": "simulated",
-    "timestamp": "2026-10-24T12:11:25.047Z",
+    "timestamp": "2026-10-24T12:42:57.645Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -5750,7 +5750,7 @@
     "endpointId": "ep-0656",
     "hostname": "CORP-ENG-0656",
     "source": "simulated",
-    "timestamp": "2026-10-24T12:00:15.176Z",
+    "timestamp": "2026-10-24T12:31:47.774Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -5781,7 +5781,7 @@
     "endpointId": "ep-0495",
     "hostname": "CORP-FIN-0495",
     "source": "simulated",
-    "timestamp": "2026-10-24T11:55:29.134Z",
+    "timestamp": "2026-10-24T12:27:01.732Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -5809,7 +5809,7 @@
     "endpointId": "ep-1171",
     "hostname": "CORP-SUP-1171",
     "source": "simulated",
-    "timestamp": "2026-10-24T11:50:55.637Z",
+    "timestamp": "2026-10-24T12:22:28.235Z",
     "technique": {
       "id": "T1059.001",
       "name": "Command and Scripting Interpreter: PowerShell",
@@ -5839,7 +5839,7 @@
     "endpointId": "ep-0306",
     "hostname": "CORP-SALES-0306",
     "source": "simulated",
-    "timestamp": "2026-10-24T11:49:59.325Z",
+    "timestamp": "2026-10-24T12:21:31.923Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -5867,7 +5867,7 @@
     "endpointId": "ep-0692",
     "hostname": "CORP-ENG-0692",
     "source": "simulated",
-    "timestamp": "2026-10-24T11:48:13.599Z",
+    "timestamp": "2026-10-24T12:19:46.197Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
@@ -5896,7 +5896,7 @@
     "endpointId": "ep-0282",
     "hostname": "CORP-MKT-0282",
     "source": "simulated",
-    "timestamp": "2026-10-24T11:47:27.854Z",
+    "timestamp": "2026-10-24T12:19:00.452Z",
     "technique": {
       "id": "T1059.001",
       "name": "Command and Scripting Interpreter: PowerShell",
@@ -5926,7 +5926,7 @@
     "endpointId": "ep-0146",
     "hostname": "CORP-SALES-0146",
     "source": "simulated",
-    "timestamp": "2026-10-24T11:39:52.970Z",
+    "timestamp": "2026-10-24T12:11:25.568Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -5953,7 +5953,7 @@
     "endpointId": "ep-0949",
     "hostname": "CORP-SALES-0949",
     "source": "simulated",
-    "timestamp": "2026-10-24T11:36:34.018Z",
+    "timestamp": "2026-10-24T12:08:06.616Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -5983,7 +5983,7 @@
     "endpointId": "ep-0873",
     "hostname": "CORP-LEGAL-0873",
     "source": "simulated",
-    "timestamp": "2026-10-24T11:30:11.301Z",
+    "timestamp": "2026-10-24T12:01:43.899Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -6012,7 +6012,7 @@
     "endpointId": "ep-0557",
     "hostname": "CORP-MKT-0557",
     "source": "simulated",
-    "timestamp": "2026-10-24T11:23:26.104Z",
+    "timestamp": "2026-10-24T11:54:58.702Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -6040,7 +6040,7 @@
     "endpointId": "ep-0531",
     "hostname": "CORP-OPS-0531",
     "source": "simulated",
-    "timestamp": "2026-10-24T11:19:38.494Z",
+    "timestamp": "2026-10-24T11:51:11.092Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
@@ -6069,7 +6069,7 @@
     "endpointId": "ep-0670",
     "hostname": "CORP-EXEC-0670",
     "source": "simulated",
-    "timestamp": "2026-10-24T11:18:11.623Z",
+    "timestamp": "2026-10-24T11:49:44.221Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
@@ -6099,7 +6099,7 @@
     "endpointId": "ep-1125",
     "hostname": "CORP-MKT-1125",
     "source": "simulated",
-    "timestamp": "2026-10-24T11:14:59.182Z",
+    "timestamp": "2026-10-24T11:46:31.780Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -6128,7 +6128,7 @@
     "endpointId": "ep-1088",
     "hostname": "CORP-IT-1088",
     "source": "simulated",
-    "timestamp": "2026-10-24T11:14:21.726Z",
+    "timestamp": "2026-10-24T11:45:54.324Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -6156,7 +6156,7 @@
     "endpointId": "ep-0844",
     "hostname": "CORP-SUP-0844",
     "source": "simulated",
-    "timestamp": "2026-10-24T11:12:50.883Z",
+    "timestamp": "2026-10-24T11:44:23.481Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -6185,7 +6185,7 @@
     "endpointId": "ep-1064",
     "hostname": "CORP-LEGAL-1064",
     "source": "simulated",
-    "timestamp": "2026-10-24T11:11:23.217Z",
+    "timestamp": "2026-10-24T11:42:55.815Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
@@ -6215,7 +6215,7 @@
     "endpointId": "ep-0369",
     "hostname": "CORP-MKT-0369",
     "source": "simulated",
-    "timestamp": "2026-10-24T11:10:13.493Z",
+    "timestamp": "2026-10-24T11:41:46.091Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -6245,7 +6245,7 @@
     "endpointId": "ep-0945",
     "hostname": "CORP-EXEC-0945",
     "source": "simulated",
-    "timestamp": "2026-10-24T11:09:45.154Z",
+    "timestamp": "2026-10-24T11:41:17.752Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -6274,7 +6274,7 @@
     "endpointId": "ep-0996",
     "hostname": "CORP-EXEC-0996",
     "source": "simulated",
-    "timestamp": "2026-10-24T11:08:04.300Z",
+    "timestamp": "2026-10-24T11:39:36.898Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -6305,7 +6305,7 @@
     "endpointId": "ep-0109",
     "hostname": "CORP-ENG-0109",
     "source": "simulated",
-    "timestamp": "2026-10-24T11:03:03.103Z",
+    "timestamp": "2026-10-24T11:34:35.701Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -6333,7 +6333,7 @@
     "endpointId": "ep-0217",
     "hostname": "CORP-HR-0217",
     "source": "simulated",
-    "timestamp": "2026-10-24T10:58:53.744Z",
+    "timestamp": "2026-10-24T11:30:26.342Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -6363,7 +6363,7 @@
     "endpointId": "ep-0420",
     "hostname": "CORP-EXEC-0420",
     "source": "simulated",
-    "timestamp": "2026-10-24T10:52:20.641Z",
+    "timestamp": "2026-10-24T11:23:53.239Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -6393,7 +6393,7 @@
     "endpointId": "ep-0126",
     "hostname": "CORP-OPS-0126",
     "source": "simulated",
-    "timestamp": "2026-10-24T10:49:40.623Z",
+    "timestamp": "2026-10-24T11:21:13.221Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
@@ -6421,7 +6421,7 @@
     "endpointId": "ep-0494",
     "hostname": "CORP-MKT-0494",
     "source": "simulated",
-    "timestamp": "2026-10-24T10:44:55.437Z",
+    "timestamp": "2026-10-24T11:16:28.035Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -6452,7 +6452,7 @@
     "endpointId": "ep-1027",
     "hostname": "CORP-ENG-1027",
     "source": "simulated",
-    "timestamp": "2026-10-24T10:44:26.657Z",
+    "timestamp": "2026-10-24T11:15:59.255Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
@@ -6480,7 +6480,7 @@
     "endpointId": "ep-0831",
     "hostname": "CORP-EXEC-0831",
     "source": "simulated",
-    "timestamp": "2026-10-24T10:42:21.537Z",
+    "timestamp": "2026-10-24T11:13:54.135Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
@@ -6509,7 +6509,7 @@
     "endpointId": "ep-0660",
     "hostname": "CORP-SUP-0660",
     "source": "simulated",
-    "timestamp": "2026-10-24T10:36:53.267Z",
+    "timestamp": "2026-10-24T11:08:25.865Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -6537,7 +6537,7 @@
     "endpointId": "ep-0301",
     "hostname": "CORP-OPS-0301",
     "source": "simulated",
-    "timestamp": "2026-10-24T10:34:10.536Z",
+    "timestamp": "2026-10-24T11:05:43.134Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
@@ -6567,7 +6567,7 @@
     "endpointId": "ep-1091",
     "hostname": "CORP-MKT-1091",
     "source": "simulated",
-    "timestamp": "2026-10-24T10:33:03.158Z",
+    "timestamp": "2026-10-24T11:04:35.756Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
@@ -6595,7 +6595,7 @@
     "endpointId": "ep-0084",
     "hostname": "CORP-SUP-0084",
     "source": "simulated",
-    "timestamp": "2026-10-24T10:30:04.065Z",
+    "timestamp": "2026-10-24T11:01:36.663Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -6624,7 +6624,7 @@
     "endpointId": "ep-0170",
     "hostname": "CORP-FIN-0170",
     "source": "simulated",
-    "timestamp": "2026-10-24T10:29:12.087Z",
+    "timestamp": "2026-10-24T11:00:44.685Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -6652,7 +6652,7 @@
     "endpointId": "ep-0840",
     "hostname": "CORP-SUP-0840",
     "source": "simulated",
-    "timestamp": "2026-10-24T10:27:01.724Z",
+    "timestamp": "2026-10-24T10:58:34.322Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -6683,7 +6683,7 @@
     "endpointId": "ep-0834",
     "hostname": "CORP-LEGAL-0834",
     "source": "simulated",
-    "timestamp": "2026-10-24T10:25:32.221Z",
+    "timestamp": "2026-10-24T10:57:04.819Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
@@ -6714,7 +6714,7 @@
     "endpointId": "ep-0638",
     "hostname": "CORP-FIN-0638",
     "source": "simulated",
-    "timestamp": "2026-10-24T10:25:09.003Z",
+    "timestamp": "2026-10-24T10:56:41.601Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -6741,7 +6741,7 @@
     "endpointId": "ep-0125",
     "hostname": "CORP-FIN-0125",
     "source": "simulated",
-    "timestamp": "2026-10-24T10:18:37.649Z",
+    "timestamp": "2026-10-24T10:50:10.247Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -6769,7 +6769,7 @@
     "endpointId": "ep-0944",
     "hostname": "CORP-SALES-0944",
     "source": "simulated",
-    "timestamp": "2026-10-24T10:12:49.337Z",
+    "timestamp": "2026-10-24T10:44:21.935Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -6799,7 +6799,7 @@
     "endpointId": "ep-0766",
     "hostname": "CORP-EXEC-0766",
     "source": "simulated",
-    "timestamp": "2026-10-24T10:10:30.050Z",
+    "timestamp": "2026-10-24T10:42:02.648Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -6828,7 +6828,7 @@
     "endpointId": "ep-0520",
     "hostname": "CORP-EXEC-0520",
     "source": "simulated",
-    "timestamp": "2026-10-24T10:06:56.222Z",
+    "timestamp": "2026-10-24T10:38:28.820Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -6856,7 +6856,7 @@
     "endpointId": "ep-1113",
     "hostname": "CORP-MKT-1113",
     "source": "simulated",
-    "timestamp": "2026-10-24T10:03:46.106Z",
+    "timestamp": "2026-10-24T10:35:18.704Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -6884,7 +6884,7 @@
     "endpointId": "ep-1089",
     "hostname": "CORP-FIN-1089",
     "source": "simulated",
-    "timestamp": "2026-10-24T10:02:53.255Z",
+    "timestamp": "2026-10-24T10:34:25.853Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -6915,7 +6915,7 @@
     "endpointId": "ep-0210",
     "hostname": "CORP-LEGAL-0210",
     "source": "simulated",
-    "timestamp": "2026-10-24T09:55:50.073Z",
+    "timestamp": "2026-10-24T10:27:22.671Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -6942,7 +6942,7 @@
     "endpointId": "ep-0027",
     "hostname": "CORP-MKT-0027",
     "source": "simulated",
-    "timestamp": "2026-10-24T09:52:51.448Z",
+    "timestamp": "2026-10-24T10:24:24.046Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -6970,7 +6970,7 @@
     "endpointId": "ep-0038",
     "hostname": "CORP-ENG-0038",
     "source": "simulated",
-    "timestamp": "2026-10-24T09:48:52.203Z",
+    "timestamp": "2026-10-24T10:20:24.801Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -6999,7 +6999,7 @@
     "endpointId": "ep-0052",
     "hostname": "CORP-SUP-0052",
     "source": "simulated",
-    "timestamp": "2026-10-24T09:35:40.789Z",
+    "timestamp": "2026-10-24T10:07:13.387Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
@@ -7030,7 +7030,7 @@
     "endpointId": "ep-1031",
     "hostname": "CORP-EXEC-1031",
     "source": "simulated",
-    "timestamp": "2026-10-24T09:33:25.423Z",
+    "timestamp": "2026-10-24T10:04:58.021Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -7059,7 +7059,7 @@
     "endpointId": "ep-0835",
     "hostname": "CORP-OPS-0835",
     "source": "simulated",
-    "timestamp": "2026-10-24T09:33:06.220Z",
+    "timestamp": "2026-10-24T10:04:38.818Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -7089,7 +7089,7 @@
     "endpointId": "ep-0754",
     "hostname": "CORP-OPS-0754",
     "source": "simulated",
-    "timestamp": "2026-10-24T09:29:16.376Z",
+    "timestamp": "2026-10-24T10:00:48.974Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
@@ -7120,7 +7120,7 @@
     "endpointId": "ep-1121",
     "hostname": "CORP-FIN-1121",
     "source": "simulated",
-    "timestamp": "2026-10-24T09:28:59.321Z",
+    "timestamp": "2026-10-24T10:00:31.919Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -7150,7 +7150,7 @@
     "endpointId": "ep-0020",
     "hostname": "CORP-MKT-0020",
     "source": "simulated",
-    "timestamp": "2026-10-24T09:24:24.180Z",
+    "timestamp": "2026-10-24T09:55:56.778Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -7181,7 +7181,7 @@
     "endpointId": "ep-0158",
     "hostname": "CORP-OPS-0158",
     "source": "simulated",
-    "timestamp": "2026-10-24T09:20:05.306Z",
+    "timestamp": "2026-10-24T09:51:37.904Z",
     "technique": {
       "id": "T1059.001",
       "name": "Command and Scripting Interpreter: PowerShell",
@@ -7209,7 +7209,7 @@
     "endpointId": "ep-0930",
     "hostname": "CORP-IT-0930",
     "source": "simulated",
-    "timestamp": "2026-10-24T09:19:54.066Z",
+    "timestamp": "2026-10-24T09:51:26.664Z",
     "technique": {
       "id": "T1059.001",
       "name": "Command and Scripting Interpreter: PowerShell",
@@ -7240,7 +7240,7 @@
     "endpointId": "ep-0202",
     "hostname": "CORP-FIN-0202",
     "source": "simulated",
-    "timestamp": "2026-10-24T09:16:48.051Z",
+    "timestamp": "2026-10-24T09:48:20.649Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -7267,7 +7267,7 @@
     "endpointId": "ep-0089",
     "hostname": "CORP-LEGAL-0089",
     "source": "simulated",
-    "timestamp": "2026-10-24T09:15:26.937Z",
+    "timestamp": "2026-10-24T09:46:59.535Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -7297,7 +7297,7 @@
     "endpointId": "ep-0970",
     "hostname": "CORP-FIN-0970",
     "source": "simulated",
-    "timestamp": "2026-10-24T09:14:52.544Z",
+    "timestamp": "2026-10-24T09:46:25.142Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -7327,7 +7327,7 @@
     "endpointId": "ep-0306",
     "hostname": "CORP-SALES-0306",
     "source": "simulated",
-    "timestamp": "2026-10-24T09:12:25.956Z",
+    "timestamp": "2026-10-24T09:43:58.554Z",
     "technique": {
       "id": "T1059.001",
       "name": "Command and Scripting Interpreter: PowerShell",
@@ -7357,7 +7357,7 @@
     "endpointId": "ep-0699",
     "hostname": "CORP-IT-0699",
     "source": "simulated",
-    "timestamp": "2026-10-24T09:09:04.784Z",
+    "timestamp": "2026-10-24T09:40:37.382Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -7385,7 +7385,7 @@
     "endpointId": "ep-0236",
     "hostname": "CORP-FIN-0236",
     "source": "simulated",
-    "timestamp": "2026-10-24T08:48:57.077Z",
+    "timestamp": "2026-10-24T09:20:29.675Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
@@ -7413,7 +7413,7 @@
     "endpointId": "ep-0046",
     "hostname": "CORP-SALES-0046",
     "source": "simulated",
-    "timestamp": "2026-10-24T08:48:12.948Z",
+    "timestamp": "2026-10-24T09:19:45.546Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -7444,7 +7444,7 @@
     "endpointId": "ep-0511",
     "hostname": "CORP-IT-0511",
     "source": "simulated",
-    "timestamp": "2026-10-24T08:46:54.923Z",
+    "timestamp": "2026-10-24T09:18:27.521Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -7471,7 +7471,7 @@
     "endpointId": "ep-0535",
     "hostname": "CORP-EXEC-0535",
     "source": "simulated",
-    "timestamp": "2026-10-24T08:42:28.942Z",
+    "timestamp": "2026-10-24T09:14:01.540Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -7501,7 +7501,7 @@
     "endpointId": "ep-0117",
     "hostname": "CORP-ENG-0117",
     "source": "simulated",
-    "timestamp": "2026-10-24T08:41:37.719Z",
+    "timestamp": "2026-10-24T09:13:10.317Z",
     "technique": {
       "id": "T1059.001",
       "name": "Command and Scripting Interpreter: PowerShell",
@@ -7529,7 +7529,7 @@
     "endpointId": "ep-0684",
     "hostname": "CORP-MKT-0684",
     "source": "simulated",
-    "timestamp": "2026-10-24T08:41:04.428Z",
+    "timestamp": "2026-10-24T09:12:37.026Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -7560,7 +7560,7 @@
     "endpointId": "ep-0473",
     "hostname": "CORP-EXEC-0473",
     "source": "simulated",
-    "timestamp": "2026-10-24T08:38:45.868Z",
+    "timestamp": "2026-10-24T09:10:18.466Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -7588,7 +7588,7 @@
     "endpointId": "ep-0509",
     "hostname": "CORP-OPS-0509",
     "source": "simulated",
-    "timestamp": "2026-10-24T08:36:06.401Z",
+    "timestamp": "2026-10-24T09:07:38.999Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -7618,7 +7618,7 @@
     "endpointId": "ep-0372",
     "hostname": "CORP-ENG-0372",
     "source": "simulated",
-    "timestamp": "2026-10-24T08:25:53.169Z",
+    "timestamp": "2026-10-24T08:57:25.767Z",
     "technique": {
       "id": "T1059.001",
       "name": "Command and Scripting Interpreter: PowerShell",
@@ -7647,7 +7647,7 @@
     "endpointId": "ep-0614",
     "hostname": "CORP-IT-0614",
     "source": "simulated",
-    "timestamp": "2026-10-24T08:25:33.124Z",
+    "timestamp": "2026-10-24T08:57:05.722Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -7676,7 +7676,7 @@
     "endpointId": "ep-0564",
     "hostname": "CORP-FIN-0564",
     "source": "simulated",
-    "timestamp": "2026-10-24T08:24:30.692Z",
+    "timestamp": "2026-10-24T08:56:03.290Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -7704,7 +7704,7 @@
     "endpointId": "ep-0131",
     "hostname": "CORP-SALES-0131",
     "source": "simulated",
-    "timestamp": "2026-10-24T08:17:46.805Z",
+    "timestamp": "2026-10-24T08:49:19.403Z",
     "technique": {
       "id": "T1059.001",
       "name": "Command and Scripting Interpreter: PowerShell",
@@ -7735,7 +7735,7 @@
     "endpointId": "ep-1195",
     "hostname": "CORP-SUP-1195",
     "source": "simulated",
-    "timestamp": "2026-10-24T08:14:25.074Z",
+    "timestamp": "2026-10-24T08:45:57.672Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -7764,7 +7764,7 @@
     "endpointId": "ep-1068",
     "hostname": "CORP-IT-1068",
     "source": "simulated",
-    "timestamp": "2026-10-24T08:08:59.509Z",
+    "timestamp": "2026-10-24T08:40:32.107Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -7793,7 +7793,7 @@
     "endpointId": "ep-0365",
     "hostname": "CORP-ENG-0365",
     "source": "simulated",
-    "timestamp": "2026-10-24T08:05:27.653Z",
+    "timestamp": "2026-10-24T08:37:00.251Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -7824,7 +7824,7 @@
     "endpointId": "ep-0147",
     "hostname": "CORP-IT-0147",
     "source": "simulated",
-    "timestamp": "2026-10-24T08:02:50.201Z",
+    "timestamp": "2026-10-24T08:34:22.799Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -7852,7 +7852,7 @@
     "endpointId": "ep-0438",
     "hostname": "CORP-SUP-0438",
     "source": "simulated",
-    "timestamp": "2026-10-24T08:00:27.418Z",
+    "timestamp": "2026-10-24T08:32:00.016Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -7880,7 +7880,7 @@
     "endpointId": "ep-0273",
     "hostname": "CORP-ENG-0273",
     "source": "simulated",
-    "timestamp": "2026-10-24T07:58:36.454Z",
+    "timestamp": "2026-10-24T08:30:09.052Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
@@ -7910,7 +7910,7 @@
     "endpointId": "ep-0176",
     "hostname": "CORP-IT-0176",
     "source": "simulated",
-    "timestamp": "2026-10-24T07:49:17.590Z",
+    "timestamp": "2026-10-24T08:20:50.188Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -7937,7 +7937,7 @@
     "endpointId": "ep-0351",
     "hostname": "CORP-ENG-0351",
     "source": "simulated",
-    "timestamp": "2026-10-24T07:47:00.344Z",
+    "timestamp": "2026-10-24T08:18:32.942Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -7967,7 +7967,7 @@
     "endpointId": "ep-0569",
     "hostname": "CORP-SUP-0569",
     "source": "simulated",
-    "timestamp": "2026-10-24T07:45:41.115Z",
+    "timestamp": "2026-10-24T08:17:13.713Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -7995,7 +7995,7 @@
     "endpointId": "ep-0558",
     "hostname": "CORP-IT-0558",
     "source": "simulated",
-    "timestamp": "2026-10-24T07:35:58.538Z",
+    "timestamp": "2026-10-24T08:07:31.136Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
@@ -8026,7 +8026,7 @@
     "endpointId": "ep-0478",
     "hostname": "CORP-FIN-0478",
     "source": "simulated",
-    "timestamp": "2026-10-24T07:35:07.330Z",
+    "timestamp": "2026-10-24T08:06:39.928Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -8055,7 +8055,7 @@
     "endpointId": "ep-1092",
     "hostname": "CORP-IT-1092",
     "source": "simulated",
-    "timestamp": "2026-10-24T07:28:53.409Z",
+    "timestamp": "2026-10-24T08:00:26.007Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -8083,7 +8083,7 @@
     "endpointId": "ep-0280",
     "hostname": "CORP-HR-0280",
     "source": "simulated",
-    "timestamp": "2026-10-24T07:15:08.062Z",
+    "timestamp": "2026-10-24T07:46:40.660Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -8113,7 +8113,7 @@
     "endpointId": "ep-0450",
     "hostname": "CORP-OPS-0450",
     "source": "simulated",
-    "timestamp": "2026-10-24T07:10:49.516Z",
+    "timestamp": "2026-10-24T07:42:22.114Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -8142,7 +8142,7 @@
     "endpointId": "ep-1039",
     "hostname": "CORP-SALES-1039",
     "source": "simulated",
-    "timestamp": "2026-10-24T07:10:32.988Z",
+    "timestamp": "2026-10-24T07:42:05.586Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -8172,7 +8172,7 @@
     "endpointId": "ep-1155",
     "hostname": "CORP-SUP-1155",
     "source": "simulated",
-    "timestamp": "2026-10-24T07:09:28.739Z",
+    "timestamp": "2026-10-24T07:41:01.337Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -8200,7 +8200,7 @@
     "endpointId": "ep-0957",
     "hostname": "CORP-OPS-0957",
     "source": "simulated",
-    "timestamp": "2026-10-24T07:04:14.453Z",
+    "timestamp": "2026-10-24T07:35:47.051Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -8230,7 +8230,7 @@
     "endpointId": "ep-0752",
     "hostname": "CORP-SUP-0752",
     "source": "simulated",
-    "timestamp": "2026-10-24T07:02:40.519Z",
+    "timestamp": "2026-10-24T07:34:13.117Z",
     "technique": {
       "id": "T1059.001",
       "name": "Command and Scripting Interpreter: PowerShell",
@@ -8258,7 +8258,7 @@
     "endpointId": "ep-0495",
     "hostname": "CORP-FIN-0495",
     "source": "simulated",
-    "timestamp": "2026-10-24T07:02:22.254Z",
+    "timestamp": "2026-10-24T07:33:54.852Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -8287,7 +8287,7 @@
     "endpointId": "ep-0695",
     "hostname": "CORP-IT-0695",
     "source": "simulated",
-    "timestamp": "2026-10-24T06:58:19.155Z",
+    "timestamp": "2026-10-24T07:29:51.753Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -8318,7 +8318,7 @@
     "endpointId": "ep-0858",
     "hostname": "CORP-MKT-0858",
     "source": "simulated",
-    "timestamp": "2026-10-24T06:57:30.080Z",
+    "timestamp": "2026-10-24T07:29:02.678Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -8346,7 +8346,7 @@
     "endpointId": "ep-0732",
     "hostname": "CORP-SUP-0732",
     "source": "simulated",
-    "timestamp": "2026-10-24T06:57:11.097Z",
+    "timestamp": "2026-10-24T07:28:43.695Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -8377,7 +8377,7 @@
     "endpointId": "ep-1106",
     "hostname": "CORP-MKT-1106",
     "source": "simulated",
-    "timestamp": "2026-10-24T06:54:53.067Z",
+    "timestamp": "2026-10-24T07:26:25.665Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -8407,7 +8407,7 @@
     "endpointId": "ep-0268",
     "hostname": "CORP-ENG-0268",
     "source": "simulated",
-    "timestamp": "2026-10-24T06:48:40.912Z",
+    "timestamp": "2026-10-24T07:20:13.510Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -8437,7 +8437,7 @@
     "endpointId": "ep-0126",
     "hostname": "CORP-OPS-0126",
     "source": "simulated",
-    "timestamp": "2026-10-24T06:42:12.394Z",
+    "timestamp": "2026-10-24T07:13:44.992Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -8467,7 +8467,7 @@
     "endpointId": "ep-0906",
     "hostname": "CORP-HR-0906",
     "source": "simulated",
-    "timestamp": "2026-10-24T06:40:31.469Z",
+    "timestamp": "2026-10-24T07:12:04.067Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -8498,7 +8498,7 @@
     "endpointId": "ep-0800",
     "hostname": "CORP-LEGAL-0800",
     "source": "simulated",
-    "timestamp": "2026-10-24T06:31:22.563Z",
+    "timestamp": "2026-10-24T07:02:55.161Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -8526,7 +8526,7 @@
     "endpointId": "ep-0868",
     "hostname": "CORP-SALES-0868",
     "source": "simulated",
-    "timestamp": "2026-10-24T06:31:06.377Z",
+    "timestamp": "2026-10-24T07:02:38.975Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -8554,7 +8554,7 @@
     "endpointId": "ep-0623",
     "hostname": "CORP-FIN-0623",
     "source": "simulated",
-    "timestamp": "2026-10-24T06:28:54.808Z",
+    "timestamp": "2026-10-24T07:00:27.406Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -8583,7 +8583,7 @@
     "endpointId": "ep-0259",
     "hostname": "CORP-LEGAL-0259",
     "source": "simulated",
-    "timestamp": "2026-10-24T06:27:17.834Z",
+    "timestamp": "2026-10-24T06:58:50.432Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -8614,7 +8614,7 @@
     "endpointId": "ep-0554",
     "hostname": "CORP-EXEC-0554",
     "source": "simulated",
-    "timestamp": "2026-10-24T06:23:20.311Z",
+    "timestamp": "2026-10-24T06:54:52.909Z",
     "technique": {
       "id": "T1218.011",
       "name": "System Binary Proxy Execution: Rundll32",
@@ -8643,7 +8643,7 @@
     "endpointId": "ep-1123",
     "hostname": "CORP-MKT-1123",
     "source": "simulated",
-    "timestamp": "2026-10-24T06:20:09.619Z",
+    "timestamp": "2026-10-24T06:51:42.217Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -8671,7 +8671,7 @@
     "endpointId": "ep-1010",
     "hostname": "CORP-LEGAL-1010",
     "source": "simulated",
-    "timestamp": "2026-10-24T06:19:25.902Z",
+    "timestamp": "2026-10-24T06:50:58.500Z",
     "technique": {
       "id": "T1041",
       "name": "Exfiltration Over C2 Channel",
@@ -8699,7 +8699,7 @@
     "endpointId": "ep-0704",
     "hostname": "CORP-ENG-0704",
     "source": "simulated",
-    "timestamp": "2026-10-24T06:18:31.079Z",
+    "timestamp": "2026-10-24T06:50:03.677Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
@@ -8729,7 +8729,7 @@
     "endpointId": "ep-0112",
     "hostname": "CORP-FIN-0112",
     "source": "simulated",
-    "timestamp": "2026-10-24T06:17:58.728Z",
+    "timestamp": "2026-10-24T06:49:31.326Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
@@ -8757,7 +8757,7 @@
     "endpointId": "ep-0784",
     "hostname": "CORP-LEGAL-0784",
     "source": "simulated",
-    "timestamp": "2026-10-24T06:12:08.114Z",
+    "timestamp": "2026-10-24T06:43:40.712Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -8787,7 +8787,7 @@
     "endpointId": "ep-0598",
     "hostname": "CORP-EXEC-0598",
     "source": "simulated",
-    "timestamp": "2026-10-24T06:11:08.502Z",
+    "timestamp": "2026-10-24T06:42:41.100Z",
     "technique": {
       "id": "T1204.002",
       "name": "User Execution: Malicious File",
@@ -8816,7 +8816,7 @@
     "endpointId": "ep-0777",
     "hostname": "CORP-LEGAL-0777",
     "source": "simulated",
-    "timestamp": "2026-10-24T06:07:05.975Z",
+    "timestamp": "2026-10-24T06:38:38.573Z",
     "technique": {
       "id": "T1059.001",
       "name": "Command and Scripting Interpreter: PowerShell",
@@ -8844,7 +8844,7 @@
     "endpointId": "ep-0421",
     "hostname": "CORP-MKT-0421",
     "source": "simulated",
-    "timestamp": "2026-10-24T06:05:19.076Z",
+    "timestamp": "2026-10-24T06:36:51.674Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
@@ -8872,7 +8872,7 @@
     "endpointId": "ep-1131",
     "hostname": "CORP-OPS-1131",
     "source": "simulated",
-    "timestamp": "2026-10-24T06:04:21.981Z",
+    "timestamp": "2026-10-24T06:35:54.579Z",
     "technique": {
       "id": "T1071.001",
       "name": "Application Layer Protocol: Web Protocols",
@@ -8899,7 +8899,7 @@
     "endpointId": "ep-0339",
     "hostname": "CORP-FIN-0339",
     "source": "simulated",
-    "timestamp": "2026-10-24T06:00:39.541Z",
+    "timestamp": "2026-10-24T06:32:12.139Z",
     "technique": {
       "id": "T1543.003",
       "name": "Create or Modify System Process: Windows Service",
