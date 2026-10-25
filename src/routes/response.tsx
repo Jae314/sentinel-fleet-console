@@ -9,7 +9,8 @@ import { Panel, PageHeader, RowsSkeleton, ago, Mono, EmptyState } from "@/compon
 import { ActionStatusBadge, Pill, RiskBadge, SourceBadge } from "@/components/console/badges";
 import { useActions, useApprove, useGuardrails, useReject, useRollback, useSetMode } from "@/data/queries";
 import type { Action, ActionType } from "@/data/types";
-import { THRESHOLD_LABELS } from "@/data/guardrails";
+import { canApproveAction, THRESHOLD_LABELS } from "@/data/guardrails";
+import { DATA_SOURCE } from "@/data/config";
 
 export const Route = createFileRoute("/response")({
   head: () => ({
@@ -83,6 +84,13 @@ function ResponseCenter() {
         <SheetContent className="w-full border-border bg-card sm:max-w-md">
           <SheetHeader><SheetTitle className="flex items-center gap-2"><History className="h-4 w-4" />Audit trail · <Mono>{auditLive?.id}</Mono></SheetTitle></SheetHeader>
           {auditLive && (
+            <div className="mt-4 space-y-2 text-sm">
+              <div className="flex flex-wrap items-center gap-2"><span>{auditLive.type}</span><ActionStatusBadge s={auditLive.status} /></div>
+              <Mono className="block break-all">{auditLive.target}</Mono>
+              {auditLive.blockedReason && <div className="text-critical"><span className="font-semibold">Blocked reason: </span>{auditLive.blockedReason}</div>}
+            </div>
+           )}
+           {auditLive && (
             <ol className="mt-6 space-y-4 border-l border-border pl-4">
               {auditLive.auditLog.map((e, i) => (
                 <li key={i} className="relative">
@@ -134,11 +142,11 @@ function ActionRow({ a, globalDryRun, onAudit }: { a: Action; globalDryRun: bool
         {pending && (
           <>
             <label className="mr-2 flex items-center gap-2 text-xs text-muted-foreground">
-              <Switch checked={dry} disabled={globalDryRun || setMode.isPending} onCheckedChange={(v) => setMode.mutate({ id: a.id, mode: v ? "DryRun" : "Live" })} />
+              <Switch checked={dry} disabled={DATA_SOURCE === "file" || globalDryRun || setMode.isPending} onCheckedChange={(v) => setMode.mutate({ id: a.id, mode: v ? "DryRun" : "Live" })} />
               Dry run
             </label>
             <Button size="sm" variant="outline" disabled={busy} onClick={() => reject.mutate(a.id)}>Reject</Button>
-            <Button size="sm" disabled={busy || !a.evidenceVerified} onClick={() => approve.mutate(a.id)}>Approve</Button>
+            <Button size="sm" disabled={busy || !canApproveAction(a)} onClick={() => approve.mutate(a.id)}>Approve</Button>
           </>
         )}
         {(a.status === "AutoExecuted" || a.status === "Approved") && (

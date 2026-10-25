@@ -21,20 +21,20 @@ function useMut<V>(fn: (v: V) => Promise<unknown>, success?: (v: V) => string) {
   const qc = useQueryClient();
   return useMutation({
     mutationFn: fn,
-    onSuccess: (_d, v) => {
-      qc.invalidateQueries({ queryKey: [ROOT] });
+    onSuccess: async (_d, v) => {
+      await qc.invalidateQueries({ queryKey: [ROOT] });
       if (success) toast.success(success(v));
     },
     onError: (e) => toast.error(e instanceof Error ? e.message : String(e)),
   });
 }
 
-export const useApprove = () => useMut((id: string) => ds().approveAction(id), (id) => `${id} approved`);
+export const useApprove = () => useMut((id: string) => ds().approveAction(id), (id) => DATA_SOURCE === "file" ? `${id}: approve decision sent` : `${id} approved`);
 export const useValidateTuning = () => useMut((id: string) => ds().validateTuningChange(id));
 export const useApplyTuning = () => useMut((id: string) => ds().applyTuningChange(id));
 export const useRollbackTuning = () => useMut((id: string) => ds().rollbackTuningChange(id));
-export const useReject = () => useMut((id: string) => ds().rejectAction(id), (id) => `${id} rejected`);
-export const useRollback = () => useMut((id: string) => ds().rollbackAction(id), (id) => `${id} rolled back`);
+export const useReject = () => useMut((id: string) => ds().rejectAction(id), (id) => DATA_SOURCE === "file" ? `${id}: reject decision sent` : `${id} rejected`);
+export const useRollback = () => useMut((id: string) => ds().rollbackAction(id), (id) => DATA_SOURCE === "file" ? `${id}: rollback decision sent` : `${id} rolled back`);
 export const useSetMode = () => useMut((v: { id: string; mode: ActionMode }) => ds().setActionMode(v.id, v.mode));
 export const useRequestAction = () =>
   useMut((detectionId: string) => ds().requestAction(detectionId), () => "Action sent to Response Center");

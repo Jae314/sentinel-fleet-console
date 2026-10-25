@@ -1,0 +1,14 @@
+{
+  "eventsProcessed": 48210016,
+  "eventsPerSecond": 1840,
+  "detections": 305,
+  "actions": 183,
+  "actionsByStatus": {
+    "PendingApproval": 10,
+    "AutoExecuted": 47,
+    "Approved": 136,
+    "Rejected": 26,
+    "BlockedByGuardrail": 1,
+    "RolledBack": 0
+  }
+}

@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from "vitest";
 import { FileDataSource } from "./FileDataSource";
 import { MockDataSource } from "./MockDataSource";
 import { isLiveEndpoint } from "./liveStatus";
-import { safeTuningStatus, tuningProtectionViolation, visibleTestedTechniques } from "./guardrails";
+import { canApproveAction, safeTuningStatus, tuningProtectionViolation, visibleTestedTechniques } from "./guardrails";
 import { seedTuning } from "./tuningSeed";
 
 describe("file data and live honesty", () => {
@@ -18,12 +18,12 @@ describe("file data and live honesty", () => {
     expect(isLiveEndpoint("file", { ...fresh, source: "simulated" }, now)).toBe(false);
   });
 
-  it("reloads all five exact file feeds after five seconds and rejects invalid records", async () => {
+  it("reloads all six exact file feeds after five seconds and rejects invalid records", async () => {
     vi.useFakeTimers();
     try {
       const mock = new MockDataSource(0);
       const endpoints = await mock.getEndpoints();
-      const payloads: Record<string, unknown> = { "endpoints.json": endpoints, "detections.json": await mock.getDetections(), "actions.json": await mock.getActions(), "tuning_changes.json": await mock.getTuningChanges(), "runs.json": await mock.getRuns() };
+      const payloads: Record<string, unknown> = { "endpoints.json": endpoints, "detections.json": await mock.getDetections(), "actions.json": await mock.getActions(), "tuning_changes.json": await mock.getTuningChanges(), "runs.json": await mock.getRuns(), "stats.json": statsFixture };
       const requests: string[] = [];
       const file = new FileDataSource("/data", async (input, init) => {
         const filename = String(input).split("/").at(-1) ?? "";
@@ -32,16 +32,91 @@ describe("file data and live honesty", () => {
         return new Response(JSON.stringify(payloads[filename]));
       });
       expect(await file.getEndpoints()).toHaveLength(1200);
-      expect(requests).toEqual(["endpoints.json", "detections.json", "actions.json", "tuning_changes.json", "runs.json"]);
+      expect(requests).toEqual(["endpoints.json", "detections.json", "actions.json", "tuning_changes.json", "runs.json", "stats.json"]);
       payloads["endpoints.json"] = endpoints.slice(0, 1);
       await vi.advanceTimersByTimeAsync(5000);
       expect(await file.getEndpoints()).toHaveLength(1);
-      expect(requests).toHaveLength(10);
+      expect(requests).toHaveLength(12);
       payloads["endpoints.json"] = [{ ...endpoints[0], inventedField: 1 }];
       await vi.advanceTimersByTimeAsync(5000);
       await expect(file.getEndpoints()).rejects.toThrow("endpoints.json");
-      await expect(file.approveAction("ACT-1000")).rejects.toThrow("read-only");
+      await expect(file.setActionMode("ACT-1000", "Live")).rejects.toThrow("read-only");
     } finally { vi.useRealTimers(); }
+  });
+});
+
+const statsFixture = { eventsProcessed: 87654321, eventsPerSecond: 4321, detections: 987, actions: 654, actionsByStatus: { PendingApproval: 123, AutoExecuted: 400, Approved: 254, Rejected: 12, BlockedByGuardrail: 8, RolledBack: 7 } };
+
+async function fileFixture() {
+  const mock = new MockDataSource(0);
+  const actions = await mock.getActions();
+  const payloads: Record<string, unknown> = { "endpoints.json": await mock.getEndpoints(), "detections.json": await mock.getDetections(), "actions.json": actions, "tuning_changes.json": await mock.getTuningChanges(), "runs.json": await mock.getRuns(), "stats.json": statsFixture };
+  const fetcher = vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+    if (input === "/api/decision") return new Response(null, { status: 204 });
+    expect(init?.cache).toBe("no-store");
+    return new Response(JSON.stringify(payloads[String(input).split("/").at(-1) ?? ""]));
+  });
+  return { file: new FileDataSource("https://feeds.example.test/snapshots/", fetcher), fetcher, actions, payloads };
+}
+
+describe("file stats and response decisions", () => {
+  it("reads the configurable base URL without duplicate slashes and uses stats instead of row counts", async () => {
+    const { file, fetcher } = await fileFixture();
+    const stats = await file.getFleetStats();
+    expect(fetcher.mock.calls.map(([url]) => url)).toContain("https://feeds.example.test/snapshots/stats.json");
+    expect(stats).toMatchObject({ eventsProcessed: 87654321, eventsPerSecond: 4321, detections24h: 987, actions: 654, actionsAuto: 400, actionsHuman: 254, pendingApprovals: 123 });
+  });
+  it("rejects invalid stats instead of using inferred metrics", async () => {
+    const { file, payloads } = await fileFixture();
+    payloads["stats.json"] = { ...statsFixture, detections: -1 };
+    await expect(file.getFleetStats()).rejects.toThrow("stats.json");
+  });
+  for (const decision of ["approve", "reject", "rollback"] as const) {
+    it(`POSTs the exact ${decision} command to same origin and refreshes without waiting for cached data`, async () => {
+      const { file, fetcher, actions, payloads } = await fileFixture();
+      const action = actions.find((a) => decision === "rollback" ? a.rollbackAvailable && (a.status === "Approved" || a.status === "AutoExecuted") : canApproveAction(a));
+      if (!action) throw new Error("Missing eligible action");
+      await file.getActions();
+      await (decision === "approve" ? file.approveAction(action.id) : decision === "reject" ? file.rejectAction(action.id) : file.rollbackAction(action.id));
+      const post = fetcher.mock.calls.find(([url]) => url === "/api/decision");
+      expect(post?.[1]).toMatchObject({ method: "POST", credentials: "same-origin", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ actionId: action.id, decision }) });
+      payloads["stats.json"] = { ...statsFixture, eventsProcessed: 999 };
+      expect((await file.getFleetStats()).eventsProcessed).toBe(999);
+    });
+  }
+  it("never approves unverified evidence", async () => {
+    const { file, fetcher, actions, payloads } = await fileFixture();
+    const action = actions[0];
+    if (!action) throw new Error("Missing action");
+    payloads["actions.json"] = [{ ...action, status: "PendingApproval", evidenceVerified: false }];
+    await expect(file.approveAction(action.id)).rejects.toThrow("Approval blocked");
+    expect(fetcher.mock.calls.some(([url]) => url === "/api/decision")).toBe(false);
+  });
+  it("never approves a guardrail-blocked action even with verified evidence", async () => {
+    const { file, fetcher, actions, payloads } = await fileFixture();
+    const action = actions[0];
+    if (!action) throw new Error("Missing action");
+    for (const status of ["PendingApproval", "BlockedByGuardrail"] as const) {
+      payloads["actions.json"] = [{ ...action, status, evidenceVerified: true, blockedReason: "Management channel is protected" }];
+      await expect(file.approveAction(action.id)).rejects.toThrow("Approval blocked");
+    }
+    expect(fetcher.mock.calls.some(([url]) => url === "/api/decision")).toBe(false);
+  });
+  it("preserves blockedReason and auditLog for action details", async () => {
+    const { file, actions, payloads } = await fileFixture();
+    const action = actions[0];
+    if (!action) throw new Error("Missing action");
+    payloads["actions.json"] = [{ ...action, blockedReason: "Protected management channel" }];
+    expect((await file.getActions())[0]).toMatchObject({ blockedReason: "Protected management channel", auditLog: action.auditLog });
+  });
+  it("provides a clear error when the decision service fails", async () => {
+    const { file, fetcher, actions } = await fileFixture();
+    const action = actions.find(canApproveAction);
+    if (!action) throw new Error("Missing eligible action");
+    const original = fetcher.getMockImplementation();
+    if (!original) throw new Error("Missing fetcher");
+    fetcher.mockImplementation((input, init) => input === "/api/decision" ? Promise.resolve(new Response(null, { status: 503 })) : original(input, init));
+    await expect(file.approveAction(action.id)).rejects.toThrow(`Could not approve ${action.id}: Decision service returned HTTP 503`);
   });
 });
 

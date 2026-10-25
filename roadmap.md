@@ -2,3 +2,6 @@
 - [x] Gate live badges on fresh file-fed endpoint timestamps without redesigning pages.
 - [x] Add Logging Tuning, mock sequence, tested-technique counts, and safety tests.
 - [x] Verify file polling, tuning flow, and existing routes.
+- [x] Configure file base URL and consume validated stats snapshots.
+- [x] Send file response decisions, preserve safety rules, and expose block reasons.
+- [x] Verify decision refresh and failures with an intercepted service, and run regression tests; real decision service is host-supplied.

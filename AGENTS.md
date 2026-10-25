@@ -10,11 +10,12 @@
 <!-- LOVABLE:END -->
 
 ## Architecture rules
-- All app data flows through the `DataSource` interface (`src/data/DataSource.ts`), chosen by `config.dataSource` in `src/data/config.ts` — so mock and read-only file feeds share UI without branching page logic.
+- All app data flows through the `DataSource` interface (`src/data/DataSource.ts`), chosen by `config.dataSource` in `src/data/config.ts` — so mock and file feeds share UI without branching page logic.
 - Guardrail decisions live in pure functions in `src/data/guardrails.ts` and are covered by tests — so safety rules stay auditable and independent of the data source.
 - Simulated records must always carry `source: "simulated"` and render a Simulated badge — never present simulated data as live.
 
-- File snapshots are runtime-validated against strict schemas matching exported domain types; query polling refreshes all five feeds every five seconds without browser-side file writes.
+- File snapshots are runtime-validated against strict schemas matching exported domain types; query polling refreshes six feeds every five seconds without browser-side file writes, and stats.json supplies aggregate KPI counts independently of detail rows.
+- File reads use VITE_DATA_BASE_URL with a /data fallback; response decisions always POST to same-origin /api/decision and invalidate cached queries after acknowledgement, so an external feed cannot redirect decision commands.
 - Logging tuning status and visibility counting use pure guardrail functions; only validated, applied changes count against host-specific tested techniques.
 - Endpoint freshness is evaluated centrally in SourceStatusProvider so every badge and fleet note uses the same file-only live signal.
 - JSON samples and public type definitions are produced by scripts/export-data.ts from MockDataSource, keeping Python contracts aligned with app records.

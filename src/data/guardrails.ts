@@ -1,4 +1,4 @@
-import type { ActionStatus, GuardrailConfig, ProposedAction, ProtectedEntry, RiskLevel, TuningChange, TuningStatus } from "./types";
+import type { Action, ActionStatus, GuardrailConfig, ProposedAction, ProtectedEntry, RiskLevel, TuningChange, TuningStatus } from "./types";
 
 export const RISK_RANK: Record<RiskLevel, number> = { Low: 1, Medium: 2, High: 3, Critical: 4 };
 export const MAX_AUTO_THRESHOLD = 3; // Critical can never auto-execute
@@ -47,6 +47,10 @@ export function decideInitialStatus(
 
 export function canExecute(evidenceVerified: boolean): boolean {
   return evidenceVerified;
+}
+
+export function canApproveAction(action: Action): boolean {
+  return action.status === "PendingApproval" && action.evidenceVerified && !action.blockedReason?.trim() && !isProtectedTarget(action.target, DEFAULT_PROTECTED);
 }
 
 export const THRESHOLD_LABELS = ["Nothing (all require approval)", "Low", "Medium", "High"];

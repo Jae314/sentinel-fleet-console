@@ -87,6 +87,7 @@ export interface Action {
   createdAt: string;
   executedAt?: string;
   decidedBy?: "auto" | "human";
+  blockedReason?: string;
   auditLog: AuditEntry[];
 }
 
@@ -130,9 +131,19 @@ export interface FleetStats {
   detections24h: number;
   actionsAuto: number;
   actionsHuman: number;
+  actions?: number;
   mttrSeconds: number;
   pendingApprovals: number;
   trend: TrendPoint[];
+}
+
+/** stats.json is one object; counts are supplied by the producer, not inferred from row limits. */
+export interface FileStats {
+  eventsProcessed: number;
+  eventsPerSecond: number;
+  detections: number;
+  actions: number;
+  actionsByStatus: Record<ActionStatus, number>;
 }
 
 export type TuningStatus = "Proposed" | "Validated" | "Applied" | "RolledBack";
