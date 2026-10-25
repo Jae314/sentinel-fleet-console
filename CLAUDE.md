@@ -23,14 +23,17 @@ Data flow: Windows logs → collector JSONL → `pipeline.py` → `data/*.json` 
 
 ## Commands
 
-Backend (Python 3.11, run from the repo root):
+Backend (Python 3.11, run from the repo root; the pipeline itself is stdlib-only):
 ```
+python -m venv .venv && .venv/Scripts/python -m pip install -r backend/requirements-dev.txt   # pytest, python-evtx
 python backend/pipeline.py --selftest                       # must always pass
 python backend/pipeline.py --evtx path/to/logs --out data   # replay EVTX/XML (simulated hosts)
+python backend/pipeline.py --normalized backend/data/normalized --out data   # contract JSONL (collector output)
 python backend/pipeline.py --live --out data                # Windows VM only, run as Administrator
 python backend/main.py                                      # collector → backend/data/normalized/*.jsonl (Windows only)
 python backend/serve.py --data data --console dist          # console + data + /api/decision on :8765
 pytest backend                                              # backend tests
+EVTX_SAMPLES=path/to/evtx pytest backend -k public_evtx     # optional: parse public EVTX datasets (kept outside the repo)
 ```
 
 Console (npm works; the repo also has `bun.lock`):
@@ -67,6 +70,6 @@ The console uses mock data until `config.dataSource` in `src/data/config.ts` is 
 ## Task list
 
 1. Setup: this file and `backend/`. ✅
-2. Normalised input: implement `docs/event_schema.md`, add `pipeline.py --normalized PATH` (keep the XML/EVTX readers, one shared ID function), make the normalizer emit the contract, with pytest tests on sample lines.
+2. Normalised input: implement `docs/event_schema.md`, add `pipeline.py --normalized PATH` (keep the XML/EVTX readers, one shared ID function), make the normalizer emit the contract, with pytest tests on sample lines. ✅
 3. Contract tests: a script that validates every JSON file the pipeline writes against `src/data/fileSchemas.ts` and fails loudly. Fix mismatches in Python.
 4. End to end: build, serve, check every page shows real file data, and check that Approve/Reject/Rollback round-trips through `/api/decision` → `approvals.json` → next pipeline cycle.
