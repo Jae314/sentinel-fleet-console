@@ -71,7 +71,7 @@ function BaselineDetail({ baseline: b, hostname }: { baseline: Baseline; hostnam
             <Mono className="text-sm">{hostname ?? b.endpointId}</Mono>
             <SourceBadge source={hostname === "WIN11-LAB-01" ? "live" : "simulated"} hostname={hostname} />
             <Mono className="text-muted-foreground">{b.user}</Mono>
-            <ButtonLink endpointId={b.endpointId} />
+            <ButtonLink hostname={hostname ?? b.endpointId} />
           </div>
           {b.status === "Learning" ? (
             <Pill tone="warning" className="gap-2">
@@ -192,9 +192,9 @@ function SearchBox({ value, onChange, placeholder }: { value: string; onChange: 
   );
 }
 
-function ButtonLink({ endpointId }: { endpointId: string }) {
+function ButtonLink({ hostname }: { hostname: string }) {
   return (
-    <Link to="/endpoints" search={{ q: endpointId }} className="flex items-center gap-1 text-xs text-primary hover:underline">
+    <Link to="/endpoints" search={{ q: hostname }} className="flex items-center gap-1 text-xs text-primary hover:underline">
       <Laptop className="h-3 w-3" />View endpoint
     </Link>
   );
