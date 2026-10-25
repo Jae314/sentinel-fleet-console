@@ -18,7 +18,18 @@ describe("file data and live honesty", () => {
     expect(isLiveEndpoint("file", { ...fresh, source: "simulated" }, now)).toBe(false);
   });
 
-  it("reloads all six exact file feeds after five seconds and rejects invalid records", async () => {
+  it("seeds one Active baseline with odd-hours logon, new process and new destination deviations", async () => {
+    const baselines = await new MockDataSource(0).getBaselines();
+    const active = baselines.find((b) => b.status === "Active");
+    if (!active) throw new Error("Missing Active baseline");
+    expect(active.logonHours).toHaveLength(24);
+    expect(active.deviations.map((d) => d.kind).sort()).toEqual(["LogonTime", "NewDestination", "NewProcess"]);
+    expect(active.deviations.every((d) => d.score >= 0 && d.score <= 1)).toBe(true);
+    const learning = baselines.find((b) => b.status === "Learning");
+    expect(learning?.deviations).toEqual([]);
+  });
+
+  it("reloads all seven exact file feeds after five seconds and rejects invalid records", async () => {
     vi.useFakeTimers();
     try {
       const mock = new MockDataSource(0);
