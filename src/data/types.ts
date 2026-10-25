@@ -59,7 +59,7 @@ export interface Detection {
   evidenceEventIds: string[];
   evidenceVerified: boolean;
   reasoningSummary: string;
-  proposedAction: ProposedAction;
+  proposedAction: ProposedAction | null;
   status: DetectionStatus;
   actionId?: string;
 }

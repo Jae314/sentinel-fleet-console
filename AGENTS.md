@@ -21,3 +21,4 @@
 - JSON samples and public type definitions are produced by scripts/export-data.ts from MockDataSource, keeping Python contracts aligned with app records.
 - Experiments consume an exact ExperimentSnapshot object from runs.json; provenance stays in the DataSource envelope, and reserved EXAMPLE- run IDs are suppressed when observed runs exist, so sample exports cannot masquerade as real sessions.
 - Experiment metrics and comparisons live in tested pure functions; legacy tuning Run records are adapted from attack scenarios and linked tuning hosts in file mode, preserving the existing tuning page without extending the JSON contract.
+- Pitch defaults, field constraints and pure cost/funnel calculations live together in src/data/pitchAssumptions.ts; the Scale & Cost page consumes existing DataSource metrics separately so assumptions never become reported telemetry.

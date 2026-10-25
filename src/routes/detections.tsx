@@ -181,7 +181,7 @@ function DetailPanel({ d }: { d: Detection }) {
           <p className="text-sm leading-relaxed text-foreground/90">{d.reasoningSummary}</p>
         </div>
 
-        <div className="rounded-md border border-border bg-surface p-3">
+        {d.proposedAction === null ? <p className="text-sm text-muted-foreground">No action proposed — report only</p> : <div className="rounded-md border border-border bg-surface p-3">
           <div className="text-[11px] uppercase tracking-wider text-muted-foreground">Proposed action</div>
           <div className="mt-1.5 flex flex-wrap items-center gap-2">
             <span className="text-sm font-medium">{d.proposedAction.type}</span>
@@ -199,7 +199,7 @@ function DetailPanel({ d }: { d: Detection }) {
             ) : null}
             {action && <Button size="sm" variant="outline" asChild><Link to="/response">Open in Response Center</Link></Button>}
           </div>
-        </div>
+        </div>}
       </div>
     </Panel>
   );

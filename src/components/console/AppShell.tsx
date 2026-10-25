@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Activity, FlaskConical, Gauge, Laptop, ShieldAlert, ShieldCheck, UserCheck, Zap, ListChecks } from "lucide-react";
+import { Activity, FlaskConical, Gauge, Laptop, ShieldAlert, ShieldCheck, UserCheck, Zap, ListChecks, Calculator } from "lucide-react";
 import type { ReactNode } from "react";
 import { DATA_SOURCE } from "@/data/config";
 import { useFleetStats } from "@/data/queries";
@@ -13,6 +13,7 @@ const NAV = [
   { to: "/tuning", label: "Logging Tuning", icon: ListChecks },
   { to: "/baselines", label: "User Baselining", icon: UserCheck },
   { to: "/experiments", label: "Experiments", icon: FlaskConical },
+  { to: "/scale-cost", label: "Scale & Cost", icon: Calculator },
   { to: "/endpoints", label: "Endpoints", icon: Laptop },
 ] as const;
 

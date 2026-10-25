@@ -231,6 +231,8 @@ export class MockDataSource implements DataSource {
         r,
       );
     }
+    // Two report-only examples; these records have never produced response actions.
+    this.detections.filter((d) => d.verdict !== "Malicious").slice(0, 2).forEach((d) => { d.proposedAction = null; });
     this.detections.sort((a, b) => b.timestamp.localeCompare(a.timestamp));
     this.actions.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
     this.blocked.sort((a, b) => b.at.localeCompare(a.at));
@@ -292,7 +294,7 @@ export class MockDataSource implements DataSource {
   private addDetection(d: Omit<Detection, "id">, now: number, r?: () => number) {
     const det: Detection = { ...d, id: `DET-${String(this.detections.length + 1).padStart(4, "0")}` };
     this.detections.push(det);
-    if (det.verdict !== "Malicious") return;
+    if (det.verdict !== "Malicious" || !det.proposedAction) return;
     const a = this.createAction(det, new Date(new Date(det.timestamp).getTime() + 8000).toISOString());
     if (r && a.status === "PendingApproval" && now - new Date(det.timestamp).getTime() > 2 * HOUR && det.evidenceVerified) {
       // historical decisions by analysts
@@ -308,6 +310,7 @@ export class MockDataSource implements DataSource {
   }
 
   private createAction(det: Detection, at: string): Action {
+    if (!det.proposedAction) throw new Error("No action proposed — report only");
     const decision = decideInitialStatus(det.proposedAction, det.evidenceVerified, this.cfg);
     const mode: ActionMode = this.cfg.globalDryRun ? "DryRun" : "Live";
     const a: Action = {
@@ -472,6 +475,7 @@ export class MockDataSource implements DataSource {
   async requestAction(detectionId: string) {
     const det = this.detections.find((d) => d.id === detectionId);
     if (!det) throw new Error("Detection not found");
+    if (!det.proposedAction) throw new Error("No action proposed — report only");
     if (det.actionId) return this.wait(this.findAction(det.actionId));
     if (!det.evidenceVerified) throw new Error("Evidence not verified — cannot request action");
     const a = this.createAction(det, new Date().toISOString());
