@@ -1,5 +1,19 @@
 import type { ExperimentOutcome, ExperimentRun, ExperimentSnapshot } from "./types";
 
+/** Never mix reserved example runs into an observed session. */
+export function selectExperimentSession(snapshot: ExperimentSnapshot, source: "live" | "simulated") {
+  const observed = snapshot.runs.filter((r) => !r.id.startsWith("EXAMPLE-"));
+  const runs = observed.length ? observed : snapshot.runs;
+  const ids = new Set(runs.map((r) => r.id));
+  const scenarioIds = new Set(runs.flatMap((r) => r.results.map((result) => result.scenarioId)));
+  return { example: runs.length > 0 && (observed.length === 0 || source === "simulated"), snapshot: {
+    ...snapshot, runs,
+    scenarios: observed.length && observed.length !== snapshot.runs.length ? snapshot.scenarios.filter((s) => scenarioIds.has(s.id)) : snapshot.scenarios,
+    comparisons: snapshot.comparisons.filter((c) => ids.has(c.runAId) && ids.has(c.runBId)),
+    tuningLink: ids.has(snapshot.tuningLink.beforeRunId) && ids.has(snapshot.tuningLink.afterRunId) ? snapshot.tuningLink : EMPTY_EXPERIMENTS.tuningLink,
+  } };
+}
+
 export const EMPTY_EXPERIMENTS: ExperimentSnapshot = { scenarios: [], runs: [], comparisons: [], tuningLink: { beforeRunId: "", afterRunId: "", changeIds: [] } };
 export const OUTCOMES: ExperimentOutcome[] = ["TruePositive", "FalsePositive", "FalseNegative", "TrueNegative", "VisibilityGap"];
 export const OUTCOME_LEGEND: Record<ExperimentOutcome, string> = {
