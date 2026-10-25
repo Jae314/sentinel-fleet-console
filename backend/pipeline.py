@@ -8,6 +8,10 @@ Windows events -> normalise -> ATT&CK-mapped rules -> triage verdict
 Inputs (combine freely):
   --evtx PATH...   .evtx files (needs `pip install python-evtx`) or .xml files
                    containing <Event>...</Event> records. Treated as SIMULATED hosts.
+  --normalized PATH...
+                   JSONL files (or folders of *.jsonl) in the normalised event contract
+                   (docs/event_schema.md), e.g. the collector's output. Each record keeps its
+                   own "source". Invalid records are reported and skipped.
   --live           poll this machine's Windows logs with PowerShell (run as Administrator
                    so the Security log is readable). Treated as the LIVE host.
 
@@ -31,12 +35,12 @@ import re
 import subprocess
 import sys
 import time
-import xml.etree.ElementTree as ET
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-NS = "{http://schemas.microsoft.com/win/2004/08/events/event}"
+import events
+
 EVENT_RE = re.compile(r"<Event[ >].*?</Event>", re.S)
 LIVE_LOGS = [
     "Microsoft-Windows-Sysmon/Operational",
@@ -78,53 +82,21 @@ def verdict_for(conf: float) -> str:
 
 
 # ----------------------------------------------------------------- parsing
-def parse_time(s: str) -> datetime:
-    m = re.match(r"(\d{4}-\d{2}-\d{2})[T ](\d{2}:\d{2}:\d{2})", s or "")
-    if not m:
-        return datetime.now(timezone.utc)
-    return datetime.strptime(f"{m.group(1)} {m.group(2)}", "%Y-%m-%d %H:%M:%S").replace(tzinfo=timezone.utc)
+def from_contract(rec: dict) -> dict:
+    """Contract record (docs/event_schema.md) -> the rules' internal event view.
+    A repeated raw field (a list in the contract) is joined with newlines for matching."""
+    return {
+        "id": rec["id"], "eventId": rec["eventId"], "channel": rec["channel"], "provider": rec["provider"],
+        "host": rec["host"], "time": events.parse_utc(rec["timestamp"]), "sysmon": events.is_sysmon(rec["provider"]),
+        "data": {k: "\n".join(v) if isinstance(v, list) else v for k, v in rec["data"].items()},
+        "source": rec["source"],
+    }
 
 
 def parse_event_xml(text: str, source: str, salt: str = ""):
-    """One <Event> XML string -> normalised dict (or None)."""
-    try:
-        root = ET.fromstring(text)
-    except ET.ParseError:
-        return None
-    sysel = root.find(NS + "System")
-    if sysel is None:
-        return None
-
-    def t(tag):
-        el = sysel.find(NS + tag)
-        return (el.text or "") if el is not None else ""
-
-    prov = sysel.find(NS + "Provider")
-    provider = prov.get("Name", "") if prov is not None else ""
-    tc = sysel.find(NS + "TimeCreated")
-    try:
-        eid = int(t("EventID"))
-        rec = int(t("EventRecordID") or 0)
-    except ValueError:
-        return None
-    data = {}
-    ed = root.find(NS + "EventData")
-    if ed is not None:
-        for i, d in enumerate(ed):
-            data[d.get("Name") or f"_{i}"] = d.text or ""
-    ud = root.find(NS + "UserData")
-    if ud is not None and len(ud):
-        for d in list(ud)[0]:
-            data[d.tag.split("}")[-1]] = d.text or ""
-    channel, host = t("Channel"), t("Computer") or "unknown-host"
-    sysmon = "sysmon" in provider.lower()
-    h = hashlib.sha1(f"{salt}|{host}|{channel}|{rec}".encode()).hexdigest()[:6].upper()
-    return {
-        "id": f"EVT-{'SYS' if sysmon else ''}{eid}-{h}",
-        "eventId": eid, "channel": channel, "provider": provider, "host": host,
-        "time": parse_time(tc.get("SystemTime", "") if tc is not None else ""),
-        "sysmon": sysmon, "data": data, "source": source,
-    }
+    """One <Event> XML string -> internal event dict (or None)."""
+    rec = events.from_xml(text, source, salt)
+    return from_contract(rec) if rec else None
 
 
 def read_evtx_file(path: Path):
@@ -571,15 +543,53 @@ def load_files(paths, store, rebase):
         for xml in read_evtx_file(f):
             ev = parse_event_xml(xml, "simulated", salt=f.name)
             if ev: batch.append(ev)
+    rebase_times(batch, rebase)
+    return sum(store.add(e) for e in batch), len(files)
+
+
+def rebase_times(batch, rebase):
     if rebase and batch:  # replayed logs are old; shift so the newest event is "now"
         delta = datetime.now(timezone.utc) - max(e["time"] for e in batch)
         for e in batch: e["time"] += delta
-    return sum(store.add(e) for e in batch), len(files)
+
+
+def load_normalized(paths, store, rebase):
+    """Contract JSONL -> store. Every record is validated; a live record's id must also match
+    the ID rule recomputed with salt "", so evidence IDs stay verifiable. Invalid lines are
+    reported and skipped, never guessed at."""
+    files = []
+    for p in paths:
+        p = Path(p)
+        files += sorted(p.rglob("*.jsonl")) if p.is_dir() else [p]
+    batch, rejected = [], 0
+    for f in files:
+        with f.open(encoding="utf-8-sig") as fh:
+            for n, line in enumerate(fh, 1):
+                if not line.strip():
+                    continue
+                try:
+                    rec = json.loads(line)
+                except json.JSONDecodeError as e:
+                    errs = [f"invalid JSON: {e}"]
+                else:
+                    salt = "" if isinstance(rec, dict) and rec.get("source") == "live" else None
+                    errs = events.validate(rec, salt)
+                if errs:
+                    rejected += 1
+                    if rejected <= 10:
+                        print(f"[normalized] {f.name}:{n} rejected: {'; '.join(errs)}", file=sys.stderr)
+                    continue
+                batch.append(from_contract(rec))
+    if rejected > 10:
+        print(f"[normalized] ... {rejected - 10} more rejected lines not shown", file=sys.stderr)
+    rebase_times(batch, rebase)
+    return sum(store.add(e) for e in batch), len(files), rejected
 
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--evtx", nargs="*", default=[], help=".evtx/.xml files or folders (simulated hosts)")
+    ap.add_argument("--normalized", nargs="*", default=[], help="contract JSONL files or folders of *.jsonl")
     ap.add_argument("--live", action="store_true", help="poll this machine's Windows logs (run as Administrator)")
     ap.add_argument("--lookback", type=int, default=3600, help="seconds of history to read on first live poll")
     ap.add_argument("--interval", type=int, default=5, help="seconds between cycles")
@@ -596,12 +606,15 @@ def main():
     cfg = Cfg(auto_up_to=a.auto_execute_up_to, llm=a.llm, mgmt={m.lower() for m in a.mgmt})
     if a.iocs:
         cfg.iocs = [l.strip().lower() for l in Path(a.iocs).read_text().splitlines() if l.strip() and not l.startswith("#")]
-    if not (a.evtx or a.live):
-        ap.error("give --evtx and/or --live")
+    if not (a.evtx or a.normalized or a.live):
+        ap.error("give --evtx, --normalized and/or --live")
     store, out = Store(), Path(a.out)
     if a.evtx:
         n, nf = load_files(a.evtx, store, a.rebase_time)
         print(f"[replay] {n} events from {nf} file(s)")
+    if a.normalized:
+        n, nf, bad = load_normalized(a.normalized, store, a.rebase_time)
+        print(f"[normalized] {n} events from {nf} file(s), {bad} rejected")
     first = True
     while True:
         if a.live:
