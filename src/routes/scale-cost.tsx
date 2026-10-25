@@ -32,6 +32,7 @@ const stages = [
 ] as const;
 const number = (value: number) => value.toLocaleString("en-US", { maximumFractionDigits: 2 });
 const money = (value: number) => value.toLocaleString("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2, maximumFractionDigits: 4 });
+const funnelColors = { muted: "bg-muted-foreground", info: "bg-info", primary: "bg-primary", critical: "bg-critical" } as const;
 
 function ScaleCost() {
   const [inputs, setInputs] = useState({ ...pitchAssumptions });
@@ -65,7 +66,7 @@ function ScaleCost() {
     </section>
 
     <section aria-labelledby="funnel-title"><div className="mb-3 flex flex-wrap items-center justify-between gap-2"><h2 id="funnel-title" className="text-base font-semibold">Daily fleet funnel</h2><Pill tone="warning">Calculated assumptions</Pill></div>
-      <div className="grid gap-0 border-y border-border md:grid-cols-5">{funnel.map((step) => <div key={step.label} className="min-w-0 border-b border-border px-3 py-4 md:border-r md:border-b-0"><div className={`mb-2 h-1 w-8 rounded bg-${step.tone === "muted" ? "muted-foreground" : step.tone}`} /><div className="font-mono text-xl text-foreground">{number(step.value)}</div><div className="mt-2 text-xs text-muted-foreground">{step.label}</div></div>)}
+      <div className="grid gap-0 border-y border-border md:grid-cols-5">{funnel.map((step) => <div key={step.label} className="min-w-0 border-b border-border px-3 py-4 md:border-r md:border-b-0"><div className={`mb-2 h-1 w-8 rounded ${funnelColors[step.tone]}`} /><div className="font-mono text-xl text-foreground">{number(step.value)}</div><div className="mt-2 text-xs text-muted-foreground">{step.label}</div></div>)}
         <div className="px-3 py-4"><div className="flex flex-wrap items-center gap-x-3 gap-y-1"><span className="font-mono text-lg text-success">{number(result.auto)} <span className="font-sans text-xs">auto</span></span><span className="font-mono text-lg text-warning">{number(result.human)} <span className="font-sans text-xs">human</span></span></div><div className="mt-2 text-xs text-muted-foreground">Actions auto-executed vs human-approved</div></div>
       </div><p className="mt-2 text-xs text-muted-foreground">Expected daily volumes may be fractional. Verdict and response conversion rates are editable assumptions, not observed results.</p>
     </section>

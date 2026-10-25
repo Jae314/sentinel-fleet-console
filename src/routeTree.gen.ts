@@ -16,6 +16,7 @@ import { Route as EndpointsRouteImport } from './routes/endpoints'
 import { Route as ExperimentsRouteImport } from './routes/experiments'
 import { Route as GuardrailsRouteImport } from './routes/guardrails'
 import { Route as ResponseRouteImport } from './routes/response'
+import { Route as ScaleCostRouteImport } from './routes/scale-cost'
 import { Route as TuningRouteImport } from './routes/tuning'
 
 const IndexRoute = IndexRouteImport.update({
@@ -53,6 +54,11 @@ const ResponseRoute = ResponseRouteImport.update({
   path: '/response',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ScaleCostRoute = ScaleCostRouteImport.update({
+  id: '/scale-cost',
+  path: '/scale-cost',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TuningRoute = TuningRouteImport.update({
   id: '/tuning',
   path: '/tuning',
@@ -67,6 +73,7 @@ export interface FileRoutesByFullPath {
   '/experiments': typeof ExperimentsRoute
   '/guardrails': typeof GuardrailsRoute
   '/response': typeof ResponseRoute
+  '/scale-cost': typeof ScaleCostRoute
   '/tuning': typeof TuningRoute
 }
 export interface FileRoutesByTo {
@@ -77,6 +84,7 @@ export interface FileRoutesByTo {
   '/experiments': typeof ExperimentsRoute
   '/guardrails': typeof GuardrailsRoute
   '/response': typeof ResponseRoute
+  '/scale-cost': typeof ScaleCostRoute
   '/tuning': typeof TuningRoute
 }
 export interface FileRoutesById {
@@ -88,6 +96,7 @@ export interface FileRoutesById {
   '/experiments': typeof ExperimentsRoute
   '/guardrails': typeof GuardrailsRoute
   '/response': typeof ResponseRoute
+  '/scale-cost': typeof ScaleCostRoute
   '/tuning': typeof TuningRoute
 }
 export interface FileRouteTypes {
@@ -100,6 +109,7 @@ export interface FileRouteTypes {
     | '/experiments'
     | '/guardrails'
     | '/response'
+    | '/scale-cost'
     | '/tuning'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -110,6 +120,7 @@ export interface FileRouteTypes {
     | '/experiments'
     | '/guardrails'
     | '/response'
+    | '/scale-cost'
     | '/tuning'
   id:
     | '__root__'
@@ -120,6 +131,7 @@ export interface FileRouteTypes {
     | '/experiments'
     | '/guardrails'
     | '/response'
+    | '/scale-cost'
     | '/tuning'
   fileRoutesById: FileRoutesById
 }
@@ -131,6 +143,7 @@ export interface RootRouteChildren {
   ExperimentsRoute: typeof ExperimentsRoute
   GuardrailsRoute: typeof GuardrailsRoute
   ResponseRoute: typeof ResponseRoute
+  ScaleCostRoute: typeof ScaleCostRoute
   TuningRoute: typeof TuningRoute
 }
 
@@ -185,6 +198,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ResponseRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/scale-cost': {
+      id: '/scale-cost'
+      path: '/scale-cost'
+      fullPath: '/scale-cost'
+      preLoaderRoute: typeof ScaleCostRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/tuning': {
       id: '/tuning'
       path: '/tuning'
@@ -203,6 +223,7 @@ const rootRouteChildren: RootRouteChildren = {
   ExperimentsRoute: ExperimentsRoute,
   GuardrailsRoute: GuardrailsRoute,
   ResponseRoute: ResponseRoute,
+  ScaleCostRoute: ScaleCostRoute,
   TuningRoute: TuningRoute,
 }
 export const routeTree = rootRouteImport
