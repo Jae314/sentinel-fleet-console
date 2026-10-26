@@ -12,6 +12,8 @@ export class FileDataSource implements DataSource {
   private pending: Promise<FileSnapshot> | undefined;
   private cached: FileSnapshot | undefined;
   private loadedAt = 0;
+  private lastSuccessfulLoad = 0;
+  getLastSuccessfulLoad = () => this.lastSuccessfulLoad;
   constructor(private base = "/data", private fetcher: typeof fetch = (input, init) => fetch(input, init), private liveOnly = false) {}
 
   private async read<T>(file: string, schema: z.ZodType<T>): Promise<T[]> {
@@ -45,6 +47,7 @@ export class FileDataSource implements DataSource {
       };
       this.cached = result;
       this.loadedAt = Date.now();
+      this.lastSuccessfulLoad = this.loadedAt;
       return result;
     }).finally(() => { this.pending = undefined; });
     return this.pending;
@@ -55,6 +58,7 @@ export class FileDataSource implements DataSource {
     const [endpoints, detections, actions] = await Promise.all([
       this.read("endpoints.json", endpointSchema), this.read("detections.json", detectionSchema), this.read("actions.json", actionSchema),
     ]);
+    this.lastSuccessfulLoad = Date.now();
     return {
       endpoints,
       detections: detections.map(({ actionId, ...d }) => ({ ...d, ...(actionId === undefined ? {} : { actionId }) })),

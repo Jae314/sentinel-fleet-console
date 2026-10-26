@@ -69,16 +69,16 @@ function ConsoleShell({ children }: { children: ReactNode }) {
 
       <div className="flex min-w-0 flex-1 flex-col">
         <header className="sticky top-0 z-20 border-b border-border bg-background/85 backdrop-blur">
-          <div className="flex h-14 items-center justify-between gap-4 px-4 md:px-8">
+          <div className="flex min-h-14 flex-wrap items-center justify-between gap-2 px-4 py-2 md:px-8">
             <div className="md:hidden"><Logo /></div>
             <div className="hidden text-xs text-muted-foreground md:block">
               Tenant <span className="text-foreground">Acme Corp</span> · Region ap-southeast-1
             </div>
-            <div className="flex items-center gap-2 text-[11px]">
+            <div className="flex flex-wrap items-center gap-2 text-[11px]">
               <span className="rounded border border-primary/30 bg-primary/10 px-2 py-1 text-muted-foreground">
                 Data source: <span className="font-mono font-semibold text-primary">{DATA_SOURCE}</span>{DATA_SOURCE === "hybrid" && " — live host from files, fleet simulated"}
               </span>
-              {DATA_SOURCE !== "mock" && <span className="text-muted-foreground">5s · file feeds</span>}
+              {DATA_SOURCE !== "mock" ? <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-muted-foreground"><span className="inline-flex items-center gap-1.5"><span className={`h-1.5 w-1.5 rounded-full ${source.connected ? "bg-success" : "bg-critical"}`} />{source.connected ? "Pipeline connected" : "Pipeline disconnected"}</span><span>{source.updatedSeconds === null ? "No successful data load yet" : `Last updated ${source.updatedSeconds}s ago`}</span></div> : <span className="text-muted-foreground">Pipeline not connected · simulated data</span>}
             </div>
           </div>
           <nav className="flex gap-1 overflow-x-auto px-3 pb-2 md:hidden">

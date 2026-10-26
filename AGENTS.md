@@ -18,6 +18,8 @@
 - File reads use VITE_DATA_BASE_URL with a /data fallback; response decisions always POST to same-origin /api/decision and invalidate cached queries after acknowledgement, so an external feed cannot redirect decision commands.
 - Logging tuning status and visibility counting use pure guardrail functions; only validated, applied changes count against host-specific tested techniques.
 - Endpoint freshness is evaluated centrally in SourceStatusProvider for file and hybrid records so every badge and fleet note uses the same observed live signal.
+- Successful validated observed snapshots expose their load timestamp through DataSource; SourceStatusProvider owns pipeline freshness and deduplicated live detection notifications, so simulated fallbacks cannot renew connectivity.
+- Response effects, response-time grouping and example provenance checks live in tested pure honesty helpers; missing execution modes or timestamps stay unconfirmed rather than implying an executed response.
 - HybridDataSource composes mock fleet estimates with an atomic validated three-feed live snapshot, replacing observed hosts and namespacing simulated action/detection IDs with SIM- to prevent cross-source decision collisions; failures replace stale observed data with simulated fallback.
 - Lab aggregates use a separate DataSource getLabStats query that reads stats.json only from the lab panel in hybrid; hybrid getFleetStats stays mock-based so measurements cannot masquerade as fleet capacity.
 - Baseline provenance is optional in the legacy JSON schema but explicit on mock records; hybrid remaps lab baseline endpoint references without changing their simulated provenance so observed endpoints cannot relabel synthetic behavior as live.

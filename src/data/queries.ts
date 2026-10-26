@@ -7,7 +7,7 @@ const ds = () => getDataSource();
 const ROOT = "gr";
 const polling = { refetchInterval: DATA_SOURCE !== "mock" ? FILE_POLL_INTERVAL : false, refetchIntervalInBackground: true } as const;
 export const useLiveAvailability = () => useQuery({ ...polling, queryKey: [ROOT, "live-availability"], queryFn: () => ds().getLiveAvailability?.() ?? Promise.resolve(true), enabled: DATA_SOURCE === "hybrid" });
-export const useLabStats = () => useQuery({ ...polling, queryKey: [ROOT, "lab-stats"], queryFn: async () => {
+export const useLabStats = (enabled = true) => useQuery({ ...polling, enabled, queryKey: [ROOT, "lab-stats"], queryFn: async () => {
   const source = ds();
   if (source.getLabStats) { const s = await source.getLabStats(); return { eventsProcessed: s.eventsProcessed, eventsPerSecond: s.eventsPerSecond, detections24h: s.detections, actions: s.actions }; }
   const s = await source.getFleetStats();
@@ -38,7 +38,18 @@ function useMut<V>(fn: (v: V) => Promise<unknown>, success?: (v: V) => string) {
   });
 }
 
-export const useApprove = () => useMut((id: string) => ds().approveAction(id), (id) => DATA_SOURCE === "file" ? `${id}: approve decision sent` : `${id} approved`);
+export const useApprove = () => {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (id: string) => ds().approveAction(id),
+    onSuccess: async (action) => {
+      if (action.status === "BlockedByGuardrail") toast.error(action.blockedReason ?? "Approval blocked by guardrail");
+      else toast.success(action.mode === "DryRun" ? "Decision recorded (dry run)" : DATA_SOURCE === "file" || (DATA_SOURCE === "hybrid" && action.source === "live") ? "Approval decision recorded — awaiting execution confirmation" : "Action executed");
+      await qc.invalidateQueries({ queryKey: [ROOT] });
+    },
+    onError: (e) => toast.error(e instanceof Error ? e.message : String(e)),
+  });
+};
 export const useValidateTuning = () => useMut((id: string) => ds().validateTuningChange(id));
 export const useApplyTuning = () => useMut((id: string) => ds().applyTuningChange(id));
 export const useRollbackTuning = () => useMut((id: string) => ds().rollbackTuningChange(id));

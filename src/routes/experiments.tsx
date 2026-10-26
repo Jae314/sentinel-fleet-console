@@ -2,8 +2,9 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { FlaskConical, ShieldAlert, ArrowUpRight } from "lucide-react";
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { EmptyState, Mono, PageHeader, Panel, RowsSkeleton } from "@/components/console/common";
-import { Pill } from "@/components/console/badges";
-import { useExperiments, useTuningChanges } from "@/data/queries";
+import { ExampleDataBanner, Pill, ResponseEffectBadge } from "@/components/console/badges";
+import { useActions, useExperiments, useTuningChanges } from "@/data/queries";
+import { DATA_SOURCE } from "@/data/config";
 import { compareRuns, OUTCOMES, OUTCOME_LEGEND, rateChange, runMetrics, selectExperimentSession } from "@/data/experiments";
 import type { ExperimentComparison, ExperimentOutcome, ExperimentResult, ExperimentRun, ExperimentSnapshot } from "@/data/types";
 import { cn } from "@/lib/utils";
@@ -36,6 +37,7 @@ function Experiments() {
   const repeat = data?.comparisons.filter((c) => c.purpose === "Repeatability") ?? [];
   const tuningComparison = data?.comparisons.find((c) => c.purpose === "BeforeAfterTuning" && c.runAId === before?.id && c.runBId === after?.id);
   return <div className="space-y-6">
+    <ExampleDataBanner show={DATA_SOURCE !== "mock" && !!session?.example} />
     <PageHeader title="Experiments" right={session?.example ? <Pill tone="warning">Example data</Pill> : data?.runs.length ? <Pill tone="muted">Recorded runs</Pill> : undefined} />
     {query.isLoading ? <RowsSkeleton /> : query.isError ? <EmptyState icon={<ShieldAlert />} title="Experiments unavailable" hint={query.error.message} /> : !data?.runs.length ? <EmptyState icon={<FlaskConical />} title="No runs recorded yet" /> : <>
       <section aria-labelledby="session-title">
@@ -59,8 +61,11 @@ function Experiments() {
 }
 
 function Result({ result }: { result: ExperimentResult | undefined }) {
+  const actions = useActions();
+  const action = actions.data?.find((a) => a.detectionId === result?.detectionId);
   if (!result) return <span className="text-xs text-muted-foreground">Not recorded</span>;
-  return <div className="space-y-1.5"><Outcome value={result.outcome} /><div className="text-xs text-muted-foreground">Action: <span className="text-foreground">{result.actionStatus ?? "None"}</span></div>{result.detectionId && <div className="break-all"><Mono>{result.detectionId}</Mono>{result.verdict && <span className="text-xs text-muted-foreground"> · {result.verdict}</span>}</div>}{result.notes && <p className="max-w-sm text-xs text-muted-foreground">{result.notes}</p>}</div>;
+  const status = result.actionStatus;
+  return <div className="space-y-1.5"><Outcome value={result.outcome} /><div className="flex flex-wrap items-center gap-1 text-xs text-muted-foreground">Action: <span className="text-foreground">{status ?? "None"}</span>{(status === "AutoExecuted" || status === "Approved" || status === "Responded") && <ResponseEffectBadge status={status} mode={action?.mode} />}</div>{result.detectionId && <div className="break-all"><Mono>{result.detectionId}</Mono>{result.verdict && <span className="text-xs text-muted-foreground"> · {result.verdict}</span>}</div>}{result.notes && <p className="max-w-sm text-xs text-muted-foreground">{result.notes}</p>}</div>;
 }
 function Repeatability({ data, a, b, comparison }: { data: ExperimentSnapshot; a: ExperimentRun; b: ExperimentRun; comparison: ExperimentComparison }) {
   const metrics = compareRuns(data, a, b);

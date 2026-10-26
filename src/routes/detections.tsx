@@ -5,7 +5,9 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Panel, PageHeader, RowsSkeleton, ago, Mono, EmptyState } from "@/components/console/common";
-import { ActionStatusBadge, RiskBadge, SeverityBadge, SourceBadge, VerdictBadge } from "@/components/console/badges";
+import { ActionStatusBadge, ResponseEffectBadge, RiskBadge, SeverityBadge, SourceBadge, VerdictBadge } from "@/components/console/badges";
+import { canApproveAction } from "@/data/guardrails";
+import { useSourceStatus } from "@/components/console/SourceStatus";
 import { useActions, useApprove, useDetections, useRequestAction } from "@/data/queries";
 import type { Detection } from "@/data/types";
 import { cn } from "@/lib/utils";
@@ -49,18 +51,19 @@ function Detections() {
   const search = Route.useSearch();
   const navigate = Route.useNavigate();
   const { data, isLoading } = useDetections();
+  const source = useSourceStatus();
   const [limit, setLimit] = useState(60);
   const set = (patch: Partial<Search>) => navigate({ to: ".", search: (p) => ({ ...p, ...patch }), replace: true });
 
   const filtered = useMemo(() => {
     const q = search.q?.toLowerCase();
-    return (data ?? []).filter((d) =>
+    return [...(data ?? [])].sort((a, b) => Number(source.highlightedIds.includes(b.id)) - Number(source.highlightedIds.includes(a.id)) || b.timestamp.localeCompare(a.timestamp)).filter((d) =>
       (!search.severity || d.severity === search.severity) &&
       (!search.verdict || d.verdict === search.verdict) &&
       (!search.source || d.source === search.source) &&
       (!q || [d.hostname, d.technique.id, d.technique.name, d.rule, d.id].some((x) => x.toLowerCase().includes(q))),
     );
-  }, [data, search]);
+  }, [data, search, source.highlightedIds]);
 
   const selected = data?.find((d) => d.id === search.id) ?? filtered[0];
 
@@ -86,7 +89,7 @@ function Detections() {
               {filtered.slice(0, limit).map((d) => (
                 <li key={d.id}>
                   <button onClick={() => set({ id: d.id })}
-                    className={cn("flex w-full items-start gap-3 border-b border-border/60 px-4 py-3 text-left transition-colors hover:bg-accent/40", selected?.id === d.id && "bg-accent/60 shadow-[inset_2px_0_0_var(--primary)]")}>
+                    className={cn("flex w-full items-start gap-3 border-b border-border/60 px-4 py-3 text-left transition-colors motion-reduce:transition-none hover:bg-accent/40", selected?.id === d.id && "bg-accent/60 shadow-[inset_2px_0_0_var(--primary)]", source.highlightedIds.includes(d.id) && "bg-success/15")}>
                     <div className="min-w-0 flex-1">
                       <div className="flex flex-wrap items-center gap-2">
                         <Mono className="text-primary">{d.technique.id}</Mono>
@@ -123,7 +126,7 @@ function DetailPanel({ d }: { d: Detection }) {
   const { data: actions } = useActions();
   const approve = useApprove();
   const request = useRequestAction();
-  const action = actions?.find((a) => a.id === d.actionId);
+  const action = actions?.find((a) => a.id === d.actionId || a.detectionId === d.id);
   const pct = Math.round(d.confidence * 100);
   const busy = approve.isPending || request.isPending;
 
@@ -180,18 +183,19 @@ function DetailPanel({ d }: { d: Detection }) {
           <div className="mb-1.5 flex items-center gap-1.5 text-[11px] uppercase tracking-wider text-muted-foreground"><Sparkles className="h-3 w-3 text-primary" />Agent reasoning</div>
           <p className="text-sm leading-relaxed text-foreground/90">{d.reasoningSummary}</p>
         </div>
+        {d.status === "Responded" && <div className="flex flex-wrap items-center gap-2 text-xs"><span>Responded</span><ResponseEffectBadge status="Responded" mode={action?.mode} /></div>}
 
         {d.proposedAction === null ? <p className="text-sm text-muted-foreground">No action proposed — report only</p> : <div className="rounded-md border border-border bg-surface p-3">
           <div className="text-[11px] uppercase tracking-wider text-muted-foreground">Proposed action</div>
           <div className="mt-1.5 flex flex-wrap items-center gap-2">
             <span className="text-sm font-medium">{d.proposedAction.type}</span>
             <RiskBadge r={d.proposedAction.riskLevel} />
-            {action && <ActionStatusBadge s={action.status} />}
+            {action && <ActionStatusBadge s={action.status} mode={action.mode} />}
           </div>
           <Mono className="mt-1 block break-all text-muted-foreground">{d.proposedAction.target}</Mono>
           <div className="mt-3 flex flex-wrap gap-2">
             {action?.status === "PendingApproval" ? (
-              <Button size="sm" disabled={!d.evidenceVerified || busy} onClick={() => approve.mutate(action.id)}>
+              <Button size="sm" disabled={!d.evidenceVerified || !canApproveAction(action) || busy} onClick={() => approve.mutate(action.id)}>
                 Approve {action.mode === "DryRun" ? "(dry run)" : "& execute"}
               </Button>
             ) : !action && d.verdict !== "Benign" ? (

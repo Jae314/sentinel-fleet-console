@@ -66,7 +66,7 @@ function ResponseCenter() {
       <Tabs value={tab} onValueChange={(v) => setTab(v as Tab)} className="mb-4">
         <TabsList className="bg-card">
           <TabsTrigger value="pending">Pending ({counts["pending"] ?? 0})</TabsTrigger>
-          <TabsTrigger value="executed">Executed ({counts["executed"] ?? 0})</TabsTrigger>
+      <TabsTrigger value="executed">Decisions recorded ({counts["executed"] ?? 0})</TabsTrigger>
           <TabsTrigger value="blocked">Blocked ({counts["blocked"] ?? 0})</TabsTrigger>
           <TabsTrigger value="closed">Closed ({counts["closed"] ?? 0})</TabsTrigger>
         </TabsList>
@@ -85,7 +85,7 @@ function ResponseCenter() {
           <SheetHeader><SheetTitle className="flex items-center gap-2"><History className="h-4 w-4" />Audit trail · <Mono>{auditLive?.id}</Mono></SheetTitle></SheetHeader>
           {auditLive && (
             <div className="mt-4 space-y-2 text-sm">
-              <div className="flex flex-wrap items-center gap-2"><span>{auditLive.type}</span><ActionStatusBadge s={auditLive.status} /></div>
+              <div className="flex flex-wrap items-center gap-2"><span>{auditLive.type}</span><ActionStatusBadge s={auditLive.status} mode={auditLive.mode} /></div>
               <Mono className="block break-all">{auditLive.target}</Mono>
               {auditLive.blockedReason && <div className="text-critical"><span className="font-semibold">Blocked reason: </span>{auditLive.blockedReason}</div>}
             </div>
@@ -126,8 +126,7 @@ function ActionRow({ a, globalDryRun, onAudit }: { a: Action; globalDryRun: bool
           <div className="flex flex-wrap items-center gap-2">
             <span className="text-sm font-medium">{a.type}</span>
             <RiskBadge r={a.riskLevel} />
-            <ActionStatusBadge s={a.status} />
-            {a.mode === "DryRun" && !pending && <Pill tone="muted">Dry run</Pill>}
+            <ActionStatusBadge s={a.status} mode={a.mode} />
           </div>
           <Mono className="mt-1 block break-all text-foreground/85">{a.target}</Mono>
           <div className="mt-1 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
