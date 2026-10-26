@@ -90,6 +90,20 @@ describe("hybrid provenance and estimates", () => {
       expect(await hybrid.getLiveAvailability()).toBe(true);
     } finally { vi.useRealTimers(); }
   });
+  it("only successful observed loads renew the pipeline timestamp", async () => {
+    vi.useFakeTimers();
+    try {
+      const { hybrid, fetcher } = await fixture();
+      expect(hybrid.getLastSuccessfulLoad()).toBe(0);
+      await hybrid.getLiveAvailability();
+      const first = hybrid.getLastSuccessfulLoad();
+      expect(first).toBe(Date.now());
+      fetcher.mockImplementation(async () => new Response(null, { status: 404 }));
+      await vi.advanceTimersByTimeAsync(20_000);
+      expect(await hybrid.getLiveAvailability()).toBe(false);
+      expect(hybrid.getLastSuccessfulLoad()).toBe(first);
+    } finally { vi.useRealTimers(); }
+  });
   it("routes live decisions to same origin and simulated decisions only to mock", async () => {
     const { hybrid, fetcher } = await fixture();
     const actions = await hybrid.getActions();

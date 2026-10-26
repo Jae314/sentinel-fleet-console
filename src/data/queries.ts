@@ -43,7 +43,8 @@ export const useApprove = () => {
   return useMutation({
     mutationFn: (id: string) => ds().approveAction(id),
     onSuccess: async (action) => {
-      toast.success(action.mode === "DryRun" ? "Decision recorded (dry run)" : DATA_SOURCE === "file" || (DATA_SOURCE === "hybrid" && action.source === "live") ? "Approval decision recorded — awaiting execution confirmation" : "Action executed");
+      if (action.status === "BlockedByGuardrail") toast.error(action.blockedReason ?? "Approval blocked by guardrail");
+      else toast.success(action.mode === "DryRun" ? "Decision recorded (dry run)" : DATA_SOURCE === "file" || (DATA_SOURCE === "hybrid" && action.source === "live") ? "Approval decision recorded — awaiting execution confirmation" : "Action executed");
       await qc.invalidateQueries({ queryKey: [ROOT] });
     },
     onError: (e) => toast.error(e instanceof Error ? e.message : String(e)),
