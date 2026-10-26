@@ -5,7 +5,7 @@ import { HybridDataSource } from "./HybridDataSource";
 import { resolveDataMode } from "./dataMode";
 
 /** Vite replaces this setting at build time; missing/invalid values use mock. */
-export const config = { dataSource: resolveDataMode(import.meta.env["VITE_DATA_SOURCE"] ?? "hybrid") };
+export const config = { dataSource: resolveDataMode(import.meta.env["VITE_DATA_SOURCE"]) };
 export const DATA_SOURCE = config.dataSource;
 export const FILE_POLL_INTERVAL = 5_000;
 export const DATA_BASE_URL = import.meta.env["VITE_DATA_BASE_URL"]?.trim() || "/data";
