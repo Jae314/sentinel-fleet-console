@@ -4,7 +4,8 @@ import { AlertTriangle, CheckCircle2, ChevronDown, Clock, Globe, Laptop, Search,
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Panel, PageHeader, RowsSkeleton, ago, Mono, EmptyState } from "@/components/console/common";
-import { Pill, SourceBadge } from "@/components/console/badges";
+import { ExampleDataBanner, Pill, SourceBadge } from "@/components/console/badges";
+import { usesExamples } from "@/data/honesty";
 import { useBaselines, useEndpoints } from "@/data/queries";
 import type { Baseline, Deviation } from "@/data/types";
 import { cn } from "@/lib/utils";
@@ -35,6 +36,7 @@ function UserBaselining() {
 
   return (
     <div>
+      <ExampleDataBanner show={usesExamples(DATA_SOURCE, (baselines.data ?? []).map((b) => b.source))} />
       <PageHeader title="User Baselining" subtitle="Learned behavior per user and host. Deviations are flagged for review only — they never trigger response actions." />
       <div className="mb-4 max-w-md">
         <Select value={selected?.endpointId ?? ""} onValueChange={setSelectedId}>

@@ -3,8 +3,10 @@ import { useEffect, useState } from "react";
 import { Area, AreaChart, CartesianGrid, Cell, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Panel, PageHeader, RowsSkeleton, ago, Mono, EmptyState } from "@/components/console/common";
-import { SeverityBadge, SourceBadge, VerdictBadge } from "@/components/console/badges";
-import { useDetections, useFleetStats } from "@/data/queries";
+import { Pill, SeverityBadge, SourceBadge, VerdictBadge } from "@/components/console/badges";
+import { useActions, useDetections, useEndpoints, useFleetStats, useLabStats } from "@/data/queries";
+import { responseTimes } from "@/data/honesty";
+import { cn } from "@/lib/utils";
 import { DATA_SOURCE } from "@/data/config";
 import { useSourceStatus } from "@/components/console/SourceStatus";
 import type { ReactNode } from "react";
@@ -47,7 +49,7 @@ function useTicker(base: number | undefined, rate: number) {
 function Kpi({ label, value, sub, loading }: { label: string; value: string; sub?: ReactNode; loading: boolean }) {
   return (
     <div className="panel p-4">
-      <div className="text-[11px] uppercase tracking-wider text-muted-foreground">{label}</div>
+      <div className="flex flex-wrap items-center gap-2 text-[11px] uppercase tracking-wider text-muted-foreground">{label}{DATA_SOURCE !== "file" && <Pill tone="muted" className="normal-case">Simulated fleet</Pill>}</div>
       {loading ? <Skeleton className="mt-2 h-8 w-24 bg-muted" /> : <div className="mt-1.5 font-display text-2xl font-semibold tabular-nums">{value}</div>}
       <div className="mt-1 min-h-4 text-xs text-muted-foreground">{!loading && sub}</div>
     </div>
@@ -58,6 +60,14 @@ function Overview() {
   const source = useSourceStatus();
   const stats = useFleetStats();
   const dets = useDetections();
+  const actions = useActions();
+  const endpoints = useEndpoints();
+  const lab = useLabStats(DATA_SOURCE !== "mock");
+  const liveEndpoint = endpoints.data?.find((e) => e.source === "live" && e.hostname === "WIN11-LAB-01");
+  const measured = DATA_SOURCE !== "mock" && liveEndpoint && !source.unavailable && !endpoints.isError && !lab.isError ? lab.data : undefined;
+  const times = responseTimes((actions.data ?? []).filter((a) => DATA_SOURCE === "file" || a.source === "simulated"), dets.data ?? []);
+  const duration = (seconds: number | null) => seconds === null ? "Not measured" : `${Math.floor(seconds / 60)}m ${seconds % 60}s`;
+  const recent = [...(dets.data ?? [])].sort((a, b) => Number(source.highlightedIds.includes(b.id)) - Number(source.highlightedIds.includes(a.id)) || b.timestamp.localeCompare(a.timestamp));
   const s = stats.data;
   const events = useTicker(s?.eventsProcessed, DATA_SOURCE === "file" ? 0 : s?.eventsPerSecond ?? 0);
   const loading = stats.isLoading;
@@ -70,6 +80,13 @@ function Overview() {
         subtitle="Scaling from one protected lab laptop to the full corporate fleet."
         right={<span className="text-[11px] text-muted-foreground">{DATA_SOURCE !== "file" && "Hypothetical estimates · not measured · "}Fleet totals include {source.simulated.toLocaleString()} simulated endpoints · {source.live ? "1 live" : `${source.demo} demo host`}</span>}
       />
+      <section aria-label="Live host measurements" className="mb-4 flex flex-wrap items-center gap-x-6 gap-y-2 border-y border-border py-3 text-xs">
+        <div className="flex items-center gap-2"><span className="font-semibold">Live host</span><Mono>{liveEndpoint?.hostname ?? "WIN11-LAB-01"}</Mono>{measured ? <Pill tone="success">measured</Pill> : <Pill tone="muted">{DATA_SOURCE === "mock" ? "Not connected" : "Measurements unavailable"}</Pill>}</div>
+        <span>Events processed <Mono>{measured?.eventsProcessed.toLocaleString() ?? "—"}</Mono></span>
+        <span>Detections <Mono>{measured?.detections24h.toLocaleString() ?? "—"}</Mono></span>
+        <span>Actions <Mono>{measured?.actions.toLocaleString() ?? "—"}</Mono></span>
+        <span>Last seen <Mono>{liveEndpoint && !source.unavailable && !endpoints.isError ? ago(liveEndpoint.lastSeen) : "—"}</Mono></span>
+      </section>
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
         <Kpi loading={loading} label="Endpoints protected" value={s ? `${s.byState.Protected.toLocaleString()} / ${s.total.toLocaleString()}` : ""}
           sub={s && `${((s.byState.Protected / s.total) * 100).toFixed(1)}% coverage`} />
@@ -78,7 +95,7 @@ function Overview() {
         <Kpi loading={loading} label="Detections (24h)" value={s ? String(s.detections24h) : ""} sub={s && `${s.pendingApprovals} awaiting approval`} />
         <Kpi loading={loading} label="Actions taken" value={s ? String(s.actions ?? s.actionsAuto + s.actionsHuman) : ""}
           sub={s && <><span className="text-primary">{s.actionsAuto} auto</span> · <span className="text-success">{s.actionsHuman} human-approved</span></>} />
-        <Kpi loading={loading} label="Mean time to respond" value={s ? `${Math.floor(s.mttrSeconds / 60)}m ${s.mttrSeconds % 60}s` : ""} sub="detection → execution" />
+        <Kpi loading={loading || actions.isLoading || dets.isLoading} label="Mean time to respond" value={duration(times.auto)} sub={<><span className="block">auto-executed</span><span className="block">human-approved · {duration(times.human)}</span><span className="block">Live-mode responses in available records</span></>} />
       </div>
 
       <div className="mt-4 grid gap-4 lg:grid-cols-3">
@@ -136,8 +153,8 @@ function Overview() {
                 </tr>
               </thead>
               <tbody>
-                {dets.data.slice(0, 8).map((d) => (
-                  <tr key={d.id} className="border-b border-border/60 last:border-0 hover:bg-accent/40">
+                {recent.slice(0, 8).map((d) => (
+                  <tr key={d.id} className={cn("border-b border-border/60 last:border-0 hover:bg-accent/40 transition-colors motion-reduce:transition-none", source.highlightedIds.includes(d.id) && "bg-success/15")}>
                     <td className="px-4 py-2.5 text-xs text-muted-foreground whitespace-nowrap">{ago(d.timestamp)}</td>
                     <td className="px-4 py-2.5"><div className="flex items-center gap-2"><Mono>{d.hostname}</Mono><SourceBadge source={d.source} hostname={d.hostname} /></div></td>
                     <td className="px-4 py-2.5"><Link to="/detections" search={{ id: d.id }} className="hover:text-primary"><Mono className="text-primary">{d.technique.id}</Mono> <span className="text-xs">{d.technique.name}</span></Link></td>

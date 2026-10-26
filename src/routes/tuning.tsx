@@ -3,7 +3,8 @@ import { useState } from "react";
 import { CheckCircle2, ListChecks, RotateCcw, ShieldAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Panel, PageHeader, RowsSkeleton, Mono, EmptyState, ago } from "@/components/console/common";
-import { Pill, RiskBadge, SourceBadge } from "@/components/console/badges";
+import { ExampleDataBanner, Pill, RiskBadge, SourceBadge } from "@/components/console/badges";
+import { usesExamples } from "@/data/honesty";
 import { useApplyTuning, useEndpoints, useRollbackTuning, useRuns, useTuningChanges, useValidateTuning } from "@/data/queries";
 import { DATA_SOURCE } from "@/data/config";
 import { safeTuningStatus, tuningProtectionViolation, visibleTestedTechniques } from "@/data/guardrails";
@@ -43,6 +44,7 @@ function LoggingTuning() {
   const count = visibleTestedTechniques(changes.data ?? [], tested, selected?.hostId ?? "");
   const host = endpoints.data?.find((e) => e.id === selected?.hostId);
   return <div>
+    <ExampleDataBanner show={usesExamples(DATA_SOURCE, (changes.data ?? []).map((c) => c.source))} />
     <PageHeader title="Logging Tuning" right={<span className="text-xs text-muted-foreground">{host?.hostname ?? selected?.hostId} · techniques visible: <span className="text-primary">{count.visible} of {count.tested} tested</span></span>} />
     <div className="grid gap-4 lg:grid-cols-5">
       <Panel title="Logging changes" className="lg:col-span-2">
