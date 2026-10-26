@@ -18,7 +18,7 @@ export class FileDataSource implements DataSource {
     return this.readValue(file, z.array(schema));
   }
   private async readValue<T>(file: string, schema: z.ZodType<T>): Promise<T> {
-    const response = await this.fetcher(`${this.base.replace(/\/+$/, "")}/${file}`, { cache: "no-store" });
+    const response = await this.fetcher(`${this.base.replace(/\/+$/, "")}/${file}`, { cache: "no-store", signal: AbortSignal.timeout(10_000) });
     if (!response.ok) throw new Error(`${file}: HTTP ${response.status}`);
     const parsed = schema.safeParse(await response.json());
     if (!parsed.success) throw new Error(`${file}: ${parsed.error.issues.map((i) => `${i.path.join(".")} ${i.message}`).join("; ")}`);
