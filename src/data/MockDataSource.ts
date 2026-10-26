@@ -108,7 +108,7 @@ const TEMPLATES: Template[] = [
 const HOUR = 3600_000;
 
 export class MockDataSource implements DataSource {
-  readonly kind = "mock" as const;
+  readonly kind: "mock" | "hybrid" = "mock";
   private endpoints: Endpoint[] = [];
   private detections: Detection[] = [];
   private actions: Action[] = [];
@@ -143,7 +143,7 @@ export class MockDataSource implements DataSource {
       ip: "10.20.0.11",
       protectionState: "Protected",
       lastSeen: new Date(now - 4000).toISOString(),
-      source: "live",
+      source: "simulated",
     });
     for (let i = 1; i < 1200; i++) {
       const dept = pick(DEPTS);
@@ -168,7 +168,7 @@ export class MockDataSource implements DataSource {
     // Hand-authored scenarios
     const scenarios: Array<Omit<Detection, "id" | "status"> & { decided?: "auto" }> = [
       {
-        endpointId: live.id, hostname: live.hostname, source: "live",
+        endpointId: live.id, hostname: live.hostname, source: "simulated",
         timestamp: new Date(now - 6 * 60_000).toISOString(),
         technique: TEMPLATES[0]!.technique, rule: TEMPLATES[0]!.rule, severity: "High", confidence: 0.94, verdict: "Malicious",
         evidenceEventIds: ["EVT-4688-7F21A0", "EVT-4104-7F21A3", "EVT-SYS1-7F21B9"], evidenceVerified: true,
@@ -176,7 +176,7 @@ export class MockDataSource implements DataSource {
         proposedAction: { type: "KillProcess", target: "powershell.exe (PID 7724)", riskLevel: "High" },
       },
       {
-        endpointId: live.id, hostname: live.hostname, source: "live",
+        endpointId: live.id, hostname: live.hostname, source: "simulated",
         timestamp: new Date(now - 42 * 60_000).toISOString(),
         technique: TEMPLATES[1]!.technique, rule: "GR-AV-SIG-001 EICAR test signature", severity: "Medium", confidence: 0.99, verdict: "Malicious",
         evidenceEventIds: ["EVT-FILE-3A1C02", "EVT-HASH-3A1C05"], evidenceVerified: true,
@@ -240,7 +240,7 @@ export class MockDataSource implements DataSource {
     // User baselines: one Active (lab host) with three seeded deviations, one still Learning.
     const hourCounts = (peak: number[]) => Array.from({ length: 24 }, (_, h) => peak.includes(h) ? 1 + Math.floor(r() * 3) : 0);
     this.baselines.push({
-      endpointId: live.id, user: live.user, status: "Active",
+      endpointId: live.id, user: live.user, source: "simulated", status: "Active",
       learningWindow: { start: new Date(now - 14 * 24 * HOUR).toISOString(), end: new Date(now - 1 * 24 * HOUR).toISOString(), eventCount: 182_440 },
       logonHours: hourCounts([8, 9, 10, 17, 18]),
       usualProcesses: [
@@ -279,7 +279,7 @@ export class MockDataSource implements DataSource {
     });
     const learner = this.endpoints[42]!;
     this.baselines.push({
-      endpointId: learner.id, user: learner.user, status: "Learning",
+      endpointId: learner.id, user: learner.user, source: "simulated", status: "Learning",
       learningWindow: { start: new Date(now - 3 * 24 * HOUR).toISOString(), end: new Date(now + 11 * 24 * HOUR).toISOString(), eventCount: 24_910 },
       logonHours: hourCounts([9, 10, 18]),
       usualProcesses: [

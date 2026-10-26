@@ -10,7 +10,7 @@ describe("file data and live honesty", () => {
     const endpoint = (await new MockDataSource(0).getEndpoints())[0];
     if (!endpoint) throw new Error("Missing lab endpoint");
     const now = Date.now();
-    const fresh = { ...endpoint, lastSeen: new Date(now - 59_999).toISOString() };
+    const fresh = { ...endpoint, source: "live" as const, lastSeen: new Date(now - 59_999).toISOString() };
     expect(isLiveEndpoint("mock", fresh, now)).toBe(false);
     expect(isLiveEndpoint("file", fresh, now)).toBe(true);
     expect(isLiveEndpoint("file", { ...fresh, lastSeen: new Date(now - 60_000).toISOString() }, now)).toBe(false);

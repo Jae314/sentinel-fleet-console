@@ -185,6 +185,8 @@ export interface Deviation {
   evidenceVerified: boolean;
 }
 export interface Baseline {
+  /** Optional for legacy file producers; mock baselines always specify simulated. */
+  source?: DataOrigin;
   endpointId: string;
   user: string;
   status: BaselineStatus;

@@ -68,7 +68,7 @@ function Overview() {
       <PageHeader
         title="Fleet Overview"
         subtitle="Scaling from one protected lab laptop to the full corporate fleet."
-        right={<span className="text-[11px] text-muted-foreground">Fleet totals include {source.simulated.toLocaleString()} simulated endpoints · {source.live ? "1 live" : `${source.demo} demo host`}</span>}
+        right={<span className="text-[11px] text-muted-foreground">{DATA_SOURCE !== "file" && "Hypothetical estimates · not measured · "}Fleet totals include {source.simulated.toLocaleString()} simulated endpoints · {source.live ? "1 live" : `${source.demo} demo host`}</span>}
       />
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
         <Kpi loading={loading} label="Endpoints protected" value={s ? `${s.byState.Protected.toLocaleString()} / ${s.total.toLocaleString()}` : ""}

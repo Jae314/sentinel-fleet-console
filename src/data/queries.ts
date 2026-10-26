@@ -5,7 +5,14 @@ import type { ActionMode, GuardrailConfig } from "./types";
 
 const ds = () => getDataSource();
 const ROOT = "gr";
-const polling = { refetchInterval: DATA_SOURCE === "file" ? FILE_POLL_INTERVAL : false, refetchIntervalInBackground: true } as const;
+const polling = { refetchInterval: DATA_SOURCE !== "mock" ? FILE_POLL_INTERVAL : false, refetchIntervalInBackground: true } as const;
+export const useLiveAvailability = () => useQuery({ ...polling, queryKey: [ROOT, "live-availability"], queryFn: () => ds().getLiveAvailability?.() ?? Promise.resolve(true), enabled: DATA_SOURCE === "hybrid" });
+export const useLabStats = () => useQuery({ ...polling, queryKey: [ROOT, "lab-stats"], queryFn: async () => {
+  const source = ds();
+  if (source.getLabStats) { const s = await source.getLabStats(); return { eventsProcessed: s.eventsProcessed, eventsPerSecond: s.eventsPerSecond, detections24h: s.detections, actions: s.actions }; }
+  const s = await source.getFleetStats();
+  return { eventsProcessed: s.eventsProcessed, eventsPerSecond: s.eventsPerSecond, detections24h: s.detections24h, actions: s.actions ?? s.actionsAuto + s.actionsHuman };
+} });
 
 export const useEndpoints = () => useQuery({ ...polling, queryKey: [ROOT, "endpoints"], queryFn: () => ds().getEndpoints() });
 export const useDetections = () => useQuery({ ...polling, queryKey: [ROOT, "detections"], queryFn: () => ds().getDetections() });
@@ -15,7 +22,7 @@ export const useRuns = () => useQuery({ ...polling, queryKey: [ROOT, "runs"], qu
 export const useExperiments = () => useQuery({ ...polling, queryKey: [ROOT, "experiments"], queryFn: () => ds().getExperiments() });
 export const useBaselines = () => useQuery({ ...polling, queryKey: [ROOT, "baselines"], queryFn: () => ds().getBaselines() });
 export const useFleetStats = () =>
-  useQuery({ queryKey: [ROOT, "stats"], queryFn: () => ds().getFleetStats(), refetchInterval: DATA_SOURCE === "file" ? FILE_POLL_INTERVAL : 15_000, refetchIntervalInBackground: true });
+  useQuery({ queryKey: [ROOT, "stats"], queryFn: () => ds().getFleetStats(), refetchInterval: DATA_SOURCE !== "mock" ? FILE_POLL_INTERVAL : 15_000, refetchIntervalInBackground: true });
 export const useGuardrails = () => useQuery({ queryKey: [ROOT, "guardrails"], queryFn: () => ds().getGuardrails() });
 export const useBlockedAttempts = () => useQuery({ ...polling, queryKey: [ROOT, "blocked"], queryFn: () => ds().getBlockedAttempts() });
 

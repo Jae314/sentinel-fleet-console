@@ -39,19 +39,23 @@ describe("guardrails", () => {
 });
 
 describe("mock data source", () => {
-  it("has 1,200 endpoints with exactly one live", async () => {
+  it("has 1,200 simulated endpoints and never presents mock records as live", async () => {
     const ds = new MockDataSource(0);
     const eps = await ds.getEndpoints();
     expect(eps).toHaveLength(1200);
     const live = eps.filter((e) => e.source === "live");
-    expect(live).toHaveLength(1);
-    expect(live[0]?.hostname).toBe("WIN11-LAB-01");
+    expect(live).toHaveLength(0);
+    expect(eps.filter((e) => e.source === "simulated")).toHaveLength(1200);
+    expect((await ds.getDetections()).every((d) => d.source === "simulated")).toBe(true);
+    expect((await ds.getActions()).every((a) => a.source === "simulated")).toBe(true);
+    expect((await ds.getBaselines()).every((b) => b.source === "simulated")).toBe(true);
   });
 
   it("refuses to approve an action with unverified evidence", async () => {
     const ds = new MockDataSource(0);
     const action = (await ds.getActions()).find((a) => !a.evidenceVerified && a.status === "PendingApproval");
     expect(action).toBeDefined();
-    await expect(ds.approveAction(action!.id)).rejects.toThrow();
+    if (!action) throw new Error("Missing unverified action");
+    await expect(ds.approveAction(action.id)).rejects.toThrow();
   });
 });

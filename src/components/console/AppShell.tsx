@@ -76,9 +76,9 @@ function ConsoleShell({ children }: { children: ReactNode }) {
             </div>
             <div className="flex items-center gap-2 text-[11px]">
               <span className="rounded border border-primary/30 bg-primary/10 px-2 py-1 text-muted-foreground">
-                Data source: <span className="font-mono font-semibold text-primary">{DATA_SOURCE}</span>
+                Data source: <span className="font-mono font-semibold text-primary">{DATA_SOURCE}</span>{DATA_SOURCE === "hybrid" && " — live host from files, fleet simulated"}
               </span>
-              {DATA_SOURCE === "file" && <span className="text-muted-foreground">5s · file feeds</span>}
+              {DATA_SOURCE !== "mock" && <span className="text-muted-foreground">5s · file feeds</span>}
             </div>
           </div>
           <nav className="flex gap-1 overflow-x-auto px-3 pb-2 md:hidden">
@@ -90,6 +90,7 @@ function ConsoleShell({ children }: { children: ReactNode }) {
             ))}
           </nav>
         </header>
+        {source.unavailable && <div role="alert" className="border-b border-warning/30 bg-warning/10 px-4 py-3 text-sm text-warning md:px-8">Live host unavailable — files are missing or invalid. Showing a simulated mock host instead.</div>}
         <main className="flex-1 px-4 py-6 md:px-8">{children}</main>
       </div>
     </div>

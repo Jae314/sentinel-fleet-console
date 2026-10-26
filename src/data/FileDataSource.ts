@@ -12,13 +12,13 @@ export class FileDataSource implements DataSource {
   private pending: Promise<FileSnapshot> | undefined;
   private cached: FileSnapshot | undefined;
   private loadedAt = 0;
-  constructor(private base = "/data", private fetcher: typeof fetch = (input, init) => fetch(input, init)) {}
+  constructor(private base = "/data", private fetcher: typeof fetch = (input, init) => fetch(input, init), private liveOnly = false) {}
 
   private async read<T>(file: string, schema: z.ZodType<T>): Promise<T[]> {
     return this.readValue(file, z.array(schema));
   }
   private async readValue<T>(file: string, schema: z.ZodType<T>): Promise<T> {
-    const response = await this.fetcher(`${this.base.replace(/\/+$/, "")}/${file}`, { cache: "no-store" });
+    const response = await this.fetcher(`${this.base.replace(/\/+$/, "")}/${file}`, { cache: "no-store", signal: AbortSignal.timeout(10_000) });
     if (!response.ok) throw new Error(`${file}: HTTP ${response.status}`);
     const parsed = schema.safeParse(await response.json());
     if (!parsed.success) throw new Error(`${file}: ${parsed.error.issues.map((i) => `${i.path.join(".")} ${i.message}`).join("; ")}`);
@@ -40,7 +40,8 @@ export class FileDataSource implements DataSource {
           ...(blockedReason === undefined ? {} : { blockedReason }),
           auditLog: auditLog.map(({ detail, ...e }) => ({ ...e, ...(detail === undefined ? {} : { detail }) })),
         })),
-        tuning: tuning.map((c) => ({ ...c, status: safeTuningStatus(c) })), experiments, baselines, stats,
+        tuning: tuning.map((c) => ({ ...c, status: safeTuningStatus(c) })), experiments,
+        baselines: baselines.map(({ source, ...b }) => ({ ...b, ...(source === undefined ? {} : { source }) })), stats,
       };
       this.cached = result;
       this.loadedAt = Date.now();
@@ -49,6 +50,22 @@ export class FileDataSource implements DataSource {
     return this.pending;
   }
   async getEndpoints() { return structuredClone((await this.snapshot()).endpoints); }
+  /** Hybrid uses only the three live-record feeds; lab aggregates are isolated. */
+  async getLiveSnapshot() {
+    const [endpoints, detections, actions] = await Promise.all([
+      this.read("endpoints.json", endpointSchema), this.read("detections.json", detectionSchema), this.read("actions.json", actionSchema),
+    ]);
+    return {
+      endpoints,
+      detections: detections.map(({ actionId, ...d }) => ({ ...d, ...(actionId === undefined ? {} : { actionId }) })),
+      actions: actions.map(({ executedAt, decidedBy, blockedReason, auditLog, ...a }) => ({ ...a,
+        ...(executedAt === undefined ? {} : { executedAt }), ...(decidedBy === undefined ? {} : { decidedBy }),
+        ...(blockedReason === undefined ? {} : { blockedReason }),
+        auditLog: auditLog.map(({ detail, ...e }) => ({ ...e, ...(detail === undefined ? {} : { detail }) })),
+      })),
+    };
+  }
+  async getLabStats(): Promise<FileStats> { return this.readValue("stats.json", statsSchema); }
   async getDetections() { return structuredClone((await this.snapshot()).detections); }
   async getActions() { return structuredClone((await this.snapshot()).actions); }
   async getTuningChanges() { return structuredClone((await this.snapshot()).tuning); }
@@ -82,7 +99,7 @@ export class FileDataSource implements DataSource {
     try {
       // Re-read before checking eligibility; the service must independently enforce safety.
       this.cached = undefined;
-      const action = (await this.getActions()).find((a) => a.id === actionId);
+      const action = (this.liveOnly ? (await this.getLiveSnapshot()).actions.filter((a) => a.source === "live") : await this.getActions()).find((a) => a.id === actionId);
       if (!action) throw new Error("Action not found in the current snapshot");
       if (decision === "approve" && !canApproveAction(action)) throw new Error("Approval blocked: evidence is unverified, a guardrail blocks this action, or it is no longer pending");
       if (decision === "reject" && action.status !== "PendingApproval") throw new Error("Only pending actions can be rejected");

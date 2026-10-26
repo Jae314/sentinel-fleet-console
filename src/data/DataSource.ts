@@ -1,7 +1,9 @@
-import type { Action, ActionMode, Baseline, BlockedAttempt, Detection, Endpoint, ExperimentData, FleetStats, GuardrailConfig, Run, TuningChange } from "./types";
+import type { Action, ActionMode, Baseline, BlockedAttempt, Detection, Endpoint, ExperimentData, FileStats, FleetStats, GuardrailConfig, Run, TuningChange } from "./types";
 
 export interface DataSource {
-  readonly kind: "mock" | "file" | "rest";
+  readonly kind: "mock" | "file" | "hybrid" | "rest";
+  getLabStats?(): Promise<FileStats>;
+  getLiveAvailability?(): Promise<boolean>;
   getBaselines(): Promise<Baseline[]>;
   getTuningChanges(): Promise<TuningChange[]>;
   getRuns(): Promise<Run[]>;

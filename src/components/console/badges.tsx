@@ -22,8 +22,8 @@ export function Pill({ tone, children, className }: { tone: Tone; children: Reac
 }
 
 export function SourceBadge({ source, hostname }: { source: DataOrigin; hostname?: string | undefined }) {
-  const { live } = useSourceStatus();
-  if (source === "live" && live && hostname === "WIN11-LAB-01")
+  const { liveHosts } = useSourceStatus();
+  if (source === "live" && hostname && liveHosts.includes(hostname))
     return (
       <span className="inline-flex items-center gap-1.5 rounded border border-critical/40 bg-critical/15 px-1.5 py-0.5 text-[10px] font-bold tracking-wider text-critical">
         <span className="relative flex h-1.5 w-1.5">
