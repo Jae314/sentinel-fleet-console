@@ -142,7 +142,7 @@ function ActionRow({ a, globalDryRun, onAudit }: { a: Action; globalDryRun: bool
         {pending && (
           <>
             <label className="mr-2 flex items-center gap-2 text-xs text-muted-foreground">
-              <Switch checked={dry} disabled={DATA_SOURCE === "file" || globalDryRun || setMode.isPending} onCheckedChange={(v) => setMode.mutate({ id: a.id, mode: v ? "DryRun" : "Live" })} />
+              <Switch checked={dry} disabled={DATA_SOURCE === "file" || (DATA_SOURCE === "hybrid" && a.source === "live") || globalDryRun || setMode.isPending} onCheckedChange={(v) => setMode.mutate({ id: a.id, mode: v ? "DryRun" : "Live" })} />
               Dry run
             </label>
             <Button size="sm" variant="outline" disabled={busy} onClick={() => reject.mutate(a.id)}>Reject</Button>

@@ -6,7 +6,7 @@ import { Pill } from "@/components/console/badges";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
-import { useEndpoints, useFleetStats } from "@/data/queries";
+import { useEndpoints, useLabStats } from "@/data/queries";
 import { DATA_SOURCE } from "@/data/config";
 import { ASSUMPTION_LABEL, calculatePitch, pitchAssumptions, pitchFields, pitchPeriod, updatePitch, type PitchKey } from "@/data/pitchAssumptions";
 
@@ -37,7 +37,7 @@ const funnelColors = { muted: "bg-muted-foreground", info: "bg-info", primary: "
 function ScaleCost() {
   const [inputs, setInputs] = useState({ ...pitchAssumptions });
   const result = calculatePitch(inputs);
-  const stats = useFleetStats();
+  const stats = useLabStats();
   const endpoints = useEndpoints();
   const simulated = endpoints.data?.filter((e) => e.source === "simulated").length;
   const funnel = [
@@ -81,11 +81,11 @@ function ScaleCost() {
       </div>
     </section>
 
-    <section aria-labelledby="lab-title" className="border-y border-border py-5"><div className="mb-4 flex flex-wrap items-center justify-between gap-2"><h2 id="lab-title" className="text-base font-semibold">Measured on our lab VM</h2>{!stats.isError && <Pill tone={DATA_SOURCE === "file" ? "success" : "warning"}>{DATA_SOURCE === "file" ? <><CheckCircle2 className="h-3 w-3" />measured</> : "example"}</Pill>}</div>
+    <section aria-labelledby="lab-title" className="border-y border-border py-5"><div className="mb-4 flex flex-wrap items-center justify-between gap-2"><h2 id="lab-title" className="text-base font-semibold">Measured on our lab VM</h2>{!stats.isError && <Pill tone={DATA_SOURCE !== "mock" ? "success" : "warning"}>{DATA_SOURCE !== "mock" ? <><CheckCircle2 className="h-3 w-3" />measured</> : "example"}</Pill>}</div>
       {stats.isLoading ? <RowsSkeleton rows={2} /> : stats.isError ? <p className="text-sm text-critical">Lab figures unavailable: {stats.error.message}</p> : stats.data && <dl className="grid grid-cols-2 gap-5 md:grid-cols-4">{[
-        ["eventsProcessed", stats.data.eventsProcessed], ["eventsPerSecond", stats.data.eventsPerSecond], ["detections", stats.data.detections24h], ["actions", stats.data.actions ?? stats.data.actionsAuto + stats.data.actionsHuman],
+        ["eventsProcessed", stats.data.eventsProcessed], ["eventsPerSecond", stats.data.eventsPerSecond], ["detections", stats.data.detections24h], ["actions", stats.data.actions],
       ].map(([label, value]) => <div key={label}><dt className="text-xs text-muted-foreground">{label}</dt><dd className="mt-1 font-mono text-xl">{number(Number(value))}</dd></div>)}</dl>}
-      <p className="mt-3 text-xs text-muted-foreground">{DATA_SOURCE === "file" ? "Reported by stats.json; recording window and lab attribution are supplied by the producer, not independently verified here." : "Example figures from the mock feed, not lab measurements."} These totals do not measure fleet capacity or validate calculator assumptions.</p>
+      <p className="mt-3 text-xs text-muted-foreground">{DATA_SOURCE !== "mock" ? "Reported by stats.json; recording window and lab attribution are supplied by the producer, not independently verified here." : "Example figures from the mock feed, not lab measurements."} These totals do not measure fleet capacity or validate calculator assumptions.</p>
     </section>
 
     <section aria-labelledby="limits-title" className="rounded-md border border-warning/30 bg-warning/5 p-4"><h2 id="limits-title" className="mb-2 flex items-center gap-2 text-sm font-semibold text-warning"><ShieldCheck className="h-4 w-4" />Honest limits</h2>{endpoints.isError ? <p className="text-sm text-critical">Host count unavailable: {endpoints.error.message}</p> : simulated === undefined ? <p className="text-sm text-muted-foreground">Loading host count…</p> : <p className="text-sm leading-relaxed">Demonstrated: 1 live endpoint plus replayed telemetry from {number(simulated)} hosts. Not yet demonstrated: fleet-scale ingestion, agent updates, multi-tenant isolation.</p>}<p className="mt-2 text-xs text-muted-foreground">{DATA_SOURCE === "mock" ? "Pitch statement only: mock mode contains example hosts and is not evidence of a live endpoint or replay." : "Simulated host count comes from endpoints.json; replay execution and the demonstration claim are not verified by that count."}</p></section>

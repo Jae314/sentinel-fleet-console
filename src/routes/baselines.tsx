@@ -8,6 +8,7 @@ import { Pill, SourceBadge } from "@/components/console/badges";
 import { useBaselines, useEndpoints } from "@/data/queries";
 import type { Baseline, Deviation } from "@/data/types";
 import { cn } from "@/lib/utils";
+import { DATA_SOURCE } from "@/data/config";
 
 export const Route = createFileRoute("/baselines")({
   head: () => ({
@@ -69,7 +70,7 @@ function BaselineDetail({ baseline: b, hostname }: { baseline: Baseline; hostnam
         <div className="flex flex-wrap items-center justify-between gap-3 p-4">
           <div className="flex flex-wrap items-center gap-3">
             <Mono className="text-sm">{hostname ?? b.endpointId}</Mono>
-            <SourceBadge source={hostname === "WIN11-LAB-01" ? "live" : "simulated"} hostname={hostname} />
+            <SourceBadge source={b.source ?? (DATA_SOURCE === "file" && hostname === "WIN11-LAB-01" ? "live" : "simulated")} hostname={hostname} />
             <Mono className="text-muted-foreground">{b.user}</Mono>
             <ButtonLink hostname={hostname ?? b.endpointId} />
           </div>
