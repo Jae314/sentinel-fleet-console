@@ -1,6 +1,7 @@
 [
   {
     "endpointId": "ep-0000",
+    "source": "simulated",
     "user": "lab\\demo.analyst",
     "status": "Active",
     "learningWindow": {
@@ -125,6 +126,7 @@
   },
   {
     "endpointId": "ep-0042",
+    "source": "simulated",
     "user": "corp\\kenji.lim",
     "status": "Learning",
     "learningWindow": {
