@@ -40,7 +40,8 @@ export class FileDataSource implements DataSource {
           ...(blockedReason === undefined ? {} : { blockedReason }),
           auditLog: auditLog.map(({ detail, ...e }) => ({ ...e, ...(detail === undefined ? {} : { detail }) })),
         })),
-        tuning: tuning.map((c) => ({ ...c, status: safeTuningStatus(c) })), experiments, baselines, stats,
+        tuning: tuning.map((c) => ({ ...c, status: safeTuningStatus(c) })), experiments,
+        baselines: baselines.map(({ source, ...b }) => ({ ...b, ...(source === undefined ? {} : { source }) })), stats,
       };
       this.cached = result;
       this.loadedAt = Date.now();
@@ -49,6 +50,22 @@ export class FileDataSource implements DataSource {
     return this.pending;
   }
   async getEndpoints() { return structuredClone((await this.snapshot()).endpoints); }
+  /** Hybrid uses only the three live-record feeds; lab aggregates are isolated. */
+  async getLiveSnapshot() {
+    const [endpoints, detections, actions] = await Promise.all([
+      this.read("endpoints.json", endpointSchema), this.read("detections.json", detectionSchema), this.read("actions.json", actionSchema),
+    ]);
+    return {
+      endpoints,
+      detections: detections.map(({ actionId, ...d }) => ({ ...d, ...(actionId === undefined ? {} : { actionId }) })),
+      actions: actions.map(({ executedAt, decidedBy, blockedReason, auditLog, ...a }) => ({ ...a,
+        ...(executedAt === undefined ? {} : { executedAt }), ...(decidedBy === undefined ? {} : { decidedBy }),
+        ...(blockedReason === undefined ? {} : { blockedReason }),
+        auditLog: auditLog.map(({ detail, ...e }) => ({ ...e, ...(detail === undefined ? {} : { detail }) })),
+      })),
+    };
+  }
+  async getLabStats(): Promise<FileStats> { return this.readValue("stats.json", statsSchema); }
   async getDetections() { return structuredClone((await this.snapshot()).detections); }
   async getActions() { return structuredClone((await this.snapshot()).actions); }
   async getTuningChanges() { return structuredClone((await this.snapshot()).tuning); }

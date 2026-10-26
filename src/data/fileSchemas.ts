@@ -14,6 +14,7 @@ export const actionSchema = z.object({ id: z.string(), detectionId: z.string(), 
 const logging = z.object({ networkConnections: z.boolean(), dnsQueries: z.boolean(), registryChanges: z.boolean(), powerShellScriptBlock: z.boolean(), managementChannel: z.boolean(), agentService: z.boolean() }).strict();
 export const tuningSchema = z.object({ id: z.string(), timestamp, hostId: z.string(), source: origin, visibilityGap: z.string(), evidence: z.object({ observation: z.string(), eventIds: z.array(z.string()) }).strict(), proposedChange: z.object({ system: z.enum(["Sysmon", "AuditPolicy"]), before: logging, after: logging }).strict(), justification: z.string(), riskLevel: risk, status: z.enum(["Proposed", "Validated", "Applied", "RolledBack"]), validationResult: z.object({ configAccepted: z.boolean(), serviceRunning: z.boolean(), detail: z.string() }).strict().nullable(), rollbackSnapshotId: z.string(), techniquesNowVisible: z.array(z.string()) }).strict();
 export const baselineSchema = z.object({
+  source: origin.optional(),
   endpointId: z.string(), user: z.string(), status: z.enum(["Learning", "Active"]),
   learningWindow: z.object({ start: timestamp, end: timestamp, eventCount: count }).strict(),
   logonHours: z.array(count).length(24),
