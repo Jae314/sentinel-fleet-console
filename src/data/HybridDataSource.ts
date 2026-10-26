@@ -53,6 +53,11 @@ export class HybridDataSource extends MockDataSource {
     return (await this.getActions()).filter((a) => a.status === "BlockedByGuardrail").map((a) => ({ id: a.id, at: a.createdAt, actionType: a.type, target: a.target, hostname: a.hostname, source: a.source, requestedBy: a.auditLog[0]?.actor ?? "agent", reason: a.blockedReason ?? a.auditLog.find((e) => e.event === "Blocked by guardrail")?.detail ?? "Blocked by guardrail" }));
   }
   getLiveAvailability = async () => (await this.liveSnapshot()).available;
+  override async getBaselines() {
+    const [baselines, snapshot] = await Promise.all([super.getBaselines(), this.liveSnapshot()]);
+    const lab = snapshot.endpoints.find((e) => e.hostname === "WIN11-LAB-01");
+    return baselines.map((b) => ({ ...b, endpointId: b.endpointId === "ep-0000" && lab ? lab.id : b.endpointId, source: "simulated" as const }));
+  }
   getLabStats = () => this.files.getLabStats();
   private async decide(id: string, decision: "approve" | "reject" | "rollback") {
     const action = (await this.getActions()).find((a) => a.id === id);
