@@ -12,7 +12,7 @@
 - [x] Add Scale & Cost with centralized editable assumptions, derived funnel, lab figures and honest limits; 47 tests passed, calculator and report-only flows verified, mock/file lab figures checked, and small-screen layout checked.
 - [x] Add build-time mock/file/hybrid selection, simulated fallback, live freshness, and isolated lab stats without redesigning pages.
 - [x] Test hybrid merging, unavailable files, recovery, provenance, decisions and lab/fleet separation; 58 tests passed, browser checks verified header, lab aggregates, simulated baselines, fallback/recovery and stale badges; final default restored to mock. Decision service remains host-supplied.
-- [ ] Clarify completed dry-run responses and approval acknowledgements.
-- [ ] Separate simulated fleet KPIs, measured lab strip and response-time categories.
-- [ ] Add pipeline freshness and new live detection notifications/highlights.
-- [ ] Label example-backed tuning, baselines and experiments; test and verify flows.
+- [x] Clarify completed dry-run responses and approval acknowledgements.
+- [x] Separate simulated fleet KPIs, measured lab strip and response-time categories.
+- [x] Add pipeline freshness and new live detection notifications/highlights.
+- [x] Label example-backed tuning, baselines and experiments; 64 tests passed; browser verified mock approval, file decision/readback, hybrid measured strip, live arrival, pipeline disconnect/recovery and example banners using intercepted producer feeds. Real decision service remains host-supplied.
