@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
-import type { ActionStatus, DataOrigin, ProtectionState, RiskLevel, Severity, Verdict } from "@/data/types";
+import type { ActionMode, ActionStatus, DataOrigin, ProtectionState, RiskLevel, Severity, Verdict } from "@/data/types";
+import { responseEffect } from "@/data/honesty";
 import type { ReactNode } from "react";
 import { useSourceStatus } from "./SourceStatus";
 
@@ -60,4 +61,12 @@ const AS: Record<ActionStatus, [Tone, string]> = {
   BlockedByGuardrail: ["critical", "Blocked by guardrail"],
   RolledBack: ["info", "Rolled back"],
 };
-export const ActionStatusBadge = ({ s }: { s: ActionStatus }) => <Pill tone={AS[s][0]}>{AS[s][1]}</Pill>;
+export function ResponseEffectBadge({ status, mode }: { status: ActionStatus | "Responded"; mode?: ActionMode | undefined }) {
+  const effect = responseEffect(status, mode);
+  return effect ? <Pill tone={effect === "executed" ? "success" : effect === "dry-run" ? "warning" : "muted"}>{effect === "dry-run" ? "DRY RUN — no change made" : effect === "executed" ? "EXECUTED" : "Response mode unconfirmed"}</Pill> : null;
+}
+export const ActionStatusBadge = ({ s, mode }: { s: ActionStatus; mode: ActionMode }) => <><Pill tone={AS[s][0]}>{AS[s][1]}</Pill><ResponseEffectBadge status={s} mode={mode} /></>;
+
+export function ExampleDataBanner({ show }: { show: boolean }) {
+  return show ? <div role="note" className="mb-4 border-y border-warning/30 bg-warning/10 px-4 py-3 text-sm text-warning">Example data</div> : null;
+}

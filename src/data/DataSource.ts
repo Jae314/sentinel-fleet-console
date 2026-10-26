@@ -4,6 +4,7 @@ export interface DataSource {
   readonly kind: "mock" | "file" | "hybrid" | "rest";
   getLabStats?(): Promise<FileStats>;
   getLiveAvailability?(): Promise<boolean>;
+  getLastSuccessfulLoad?(): number;
   getBaselines(): Promise<Baseline[]>;
   getTuningChanges(): Promise<TuningChange[]>;
   getRuns(): Promise<Run[]>;

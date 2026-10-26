@@ -11,6 +11,8 @@ export class HybridDataSource extends MockDataSource {
   private pending: Promise<LiveSnapshot> | undefined;
   private cached: LiveSnapshot | undefined;
   private loadedAt = 0;
+  private lastSuccessfulLoad = 0;
+  getLastSuccessfulLoad = () => this.lastSuccessfulLoad;
 
   constructor(private files = new FileDataSource("/data", undefined, true), latency = 280) { super(latency); }
 
@@ -27,6 +29,7 @@ export class HybridDataSource extends MockDataSource {
       for (const rows of [endpoints, detections, actions]) {
         if (new Set(rows.map((r) => r.id)).size !== rows.length || rows.some((r) => r.id.startsWith("SIM-"))) throw new Error("Duplicate or reserved IDs");
       }
+      this.lastSuccessfulLoad = Date.now();
       return { endpoints, detections, actions, available: true };
     }).catch(() => ({ endpoints: [], detections: [], actions: [], available: false }))
       .then((snapshot) => { this.cached = snapshot; this.loadedAt = Date.now(); return snapshot; })
