@@ -12,7 +12,7 @@ export class FileDataSource implements DataSource {
   private pending: Promise<FileSnapshot> | undefined;
   private cached: FileSnapshot | undefined;
   private loadedAt = 0;
-  constructor(private base = "/data", private fetcher: typeof fetch = (input, init) => fetch(input, init)) {}
+  constructor(private base = "/data", private fetcher: typeof fetch = (input, init) => fetch(input, init), private liveOnly = false) {}
 
   private async read<T>(file: string, schema: z.ZodType<T>): Promise<T[]> {
     return this.readValue(file, z.array(schema));
@@ -99,7 +99,7 @@ export class FileDataSource implements DataSource {
     try {
       // Re-read before checking eligibility; the service must independently enforce safety.
       this.cached = undefined;
-      const action = (await this.getActions()).find((a) => a.id === actionId);
+      const action = (this.liveOnly ? (await this.getLiveSnapshot()).actions.filter((a) => a.source === "live") : await this.getActions()).find((a) => a.id === actionId);
       if (!action) throw new Error("Action not found in the current snapshot");
       if (decision === "approve" && !canApproveAction(action)) throw new Error("Approval blocked: evidence is unverified, a guardrail blocks this action, or it is no longer pending");
       if (decision === "reject" && action.status !== "PendingApproval") throw new Error("Only pending actions can be rejected");
