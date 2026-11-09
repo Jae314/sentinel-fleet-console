@@ -6,7 +6,14 @@
 // You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
+// Local dev only (not a Lovable change): GRIM_FEED=http://127.0.0.1:8765 forwards /data and /api to
+// serve.py, so the console reads feeds and posts decisions on its own origin.
+const feed = process.env.GRIM_FEED;
+
 export default defineConfig({
+  vite: feed
+    ? { server: { proxy: { "/data": { target: feed, changeOrigin: true }, "/api": { target: feed, changeOrigin: true } } } }
+    : {},
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
